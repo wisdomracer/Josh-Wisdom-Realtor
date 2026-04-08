@@ -37,7 +37,7 @@ export default function Landing() {
               <span className="text-accent">Foreclosure Alert System</span>
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Get instant access to foreclosures, tax-delinquent properties, and code violations across Houston, Harris County, and the Greater Houston area — before they hit the open market.
+              Get instant access to foreclosures, tax-delinquent properties, and code violations across Houston, Harris County, and the Greater Houston area — all in one place, updated daily.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/sign-up">
@@ -89,7 +89,7 @@ export default function Landing() {
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-foreground">Foreclosures</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Pre-foreclosure filings and scheduled Harris County courthouse auctions — get notified before the competition finds them.
+                  Pre-foreclosure filings and scheduled Harris County courthouse auctions — all in one searchable, up-to-date database.
                 </p>
               </div>
               <div className="bg-card p-8 rounded-xl border border-amber-200 shadow-sm hover:shadow-md transition-shadow">
