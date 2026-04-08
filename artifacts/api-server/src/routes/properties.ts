@@ -210,6 +210,8 @@ function formatProperty(p: typeof propertiesTable.$inferSelect) {
     baths: p.baths != null ? Number(p.baths) : null,
     lotSize: p.lotSize != null ? Number(p.lotSize) : null,
     taxAmount: p.taxAmount != null ? Number(p.taxAmount) : null,
+    latitude: p.latitude != null ? Number(p.latitude) : null,
+    longitude: p.longitude != null ? Number(p.longitude) : null,
     createdAt: p.createdAt.toISOString(),
     updatedAt: p.updatedAt.toISOString(),
   };

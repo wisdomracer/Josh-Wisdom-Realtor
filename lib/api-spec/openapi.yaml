@@ -437,6 +437,10 @@ components:
           type: ["string", "null"]
         violationDescription:
           type: ["string", "null"]
+        latitude:
+          type: ["number", "null"]
+        longitude:
+          type: ["number", "null"]
         postedByUserId:
           type: ["string", "null"]
         createdAt:
@@ -500,6 +504,10 @@ components:
           type: ["string", "null"]
         violationDescription:
           type: ["string", "null"]
+        latitude:
+          type: ["number", "null"]
+        longitude:
+          type: ["number", "null"]
       required:
         - type
         - address
@@ -552,6 +560,10 @@ components:
           type: ["string", "null"]
         violationDescription:
           type: ["string", "null"]
+        latitude:
+          type: ["number", "null"]
+        longitude:
+          type: ["number", "null"]
 
     ListPropertiesResponse:
       type: object

@@ -1,6 +1,6 @@
 import { Show } from "@clerk/react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Building2, Bookmark, User, Settings, LogOut, ShieldAlert, MapPin } from "lucide-react";
+import { LayoutDashboard, Building2, Bookmark, User, Settings, LogOut, ShieldAlert, MapPin, Map } from "lucide-react";
 import { useClerk } from "@clerk/react";
 import { useGetMyProfile } from "@workspace/api-client-react";
 
@@ -12,6 +12,7 @@ export function Sidebar() {
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/properties", label: "Property Search", icon: Building2 },
+    { href: "/map", label: "Property Map", icon: Map },
     { href: "/saved", label: "Saved Properties", icon: Bookmark },
     { href: "/memberships", label: "Memberships", icon: ShieldAlert },
     { href: "/profile", label: "My Profile", icon: User },

@@ -59,6 +59,8 @@ export const ListPropertiesResponse = zod.object({
       taxAmount: zod.number().nullish(),
       violationCode: zod.string().nullish(),
       violationDescription: zod.string().nullish(),
+      latitude: zod.number().nullish(),
+      longitude: zod.number().nullish(),
       postedByUserId: zod.string().nullish(),
       createdAt: zod.string(),
       updatedAt: zod.string(),
@@ -98,6 +100,8 @@ export const CreatePropertyBody = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
 });
 
 /**
@@ -129,6 +133,8 @@ export const GetPropertyResponse = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
   postedByUserId: zod.string().nullish(),
   createdAt: zod.string(),
   updatedAt: zod.string(),
@@ -164,6 +170,8 @@ export const UpdatePropertyBody = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
 });
 
 export const UpdatePropertyResponse = zod.object({
@@ -188,6 +196,8 @@ export const UpdatePropertyResponse = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
   postedByUserId: zod.string().nullish(),
   createdAt: zod.string(),
   updatedAt: zod.string(),
@@ -241,6 +251,8 @@ export const GetRecentPropertiesResponseItem = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
   postedByUserId: zod.string().nullish(),
   createdAt: zod.string(),
   updatedAt: zod.string(),
@@ -373,6 +385,8 @@ export const GetSavedPropertiesResponseItem = zod.object({
   taxAmount: zod.number().nullish(),
   violationCode: zod.string().nullish(),
   violationDescription: zod.string().nullish(),
+  latitude: zod.number().nullish(),
+  longitude: zod.number().nullish(),
   postedByUserId: zod.string().nullish(),
   createdAt: zod.string(),
   updatedAt: zod.string(),

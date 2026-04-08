@@ -45,6 +45,8 @@ export const propertiesTable = pgTable("properties", {
   taxAmount: numeric("tax_amount", { precision: 12, scale: 2 }),
   violationCode: text("violation_code"),
   violationDescription: text("violation_description"),
+  latitude: numeric("latitude", { precision: 10, scale: 7 }),
+  longitude: numeric("longitude", { precision: 10, scale: 7 }),
   postedByUserId: text("posted_by_user_id"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()

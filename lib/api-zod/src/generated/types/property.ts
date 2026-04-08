@@ -45,6 +45,10 @@ export interface Property {
   /** @nullable */
   violationDescription?: string | null;
   /** @nullable */
+  latitude?: number | null;
+  /** @nullable */
+  longitude?: number | null;
+  /** @nullable */
   postedByUserId?: string | null;
   createdAt: string;
   updatedAt: string;

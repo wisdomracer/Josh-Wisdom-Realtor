@@ -72,6 +72,10 @@ export interface Property {
   /** @nullable */
   violationDescription?: string | null;
   /** @nullable */
+  latitude?: number | null;
+  /** @nullable */
+  longitude?: number | null;
+  /** @nullable */
   postedByUserId?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -131,6 +135,10 @@ export interface CreatePropertyBody {
   violationCode?: string | null;
   /** @nullable */
   violationDescription?: string | null;
+  /** @nullable */
+  latitude?: number | null;
+  /** @nullable */
+  longitude?: number | null;
 }
 
 export type UpdatePropertyBodyType =
@@ -187,6 +195,10 @@ export interface UpdatePropertyBody {
   violationCode?: string | null;
   /** @nullable */
   violationDescription?: string | null;
+  /** @nullable */
+  latitude?: number | null;
+  /** @nullable */
+  longitude?: number | null;
 }
 
 export interface ListPropertiesResponse {

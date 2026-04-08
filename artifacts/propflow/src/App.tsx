@@ -13,6 +13,7 @@ import PropertyDetail from "@/pages/properties/[id]";
 import Memberships from "@/pages/memberships";
 import Profile from "@/pages/profile";
 import SavedProperties from "@/pages/saved";
+import MapPage from "@/pages/map";
 import NewProperty from "@/pages/admin/properties/new";
 import EditProperty from "@/pages/admin/properties/[id]/edit";
 
@@ -103,6 +104,7 @@ function ClerkProviderWithRoutes() {
             <Route path="/memberships" component={Memberships} />
             <Route path="/profile" component={Profile} />
             <Route path="/saved" component={SavedProperties} />
+            <Route path="/map" component={MapPage} />
             
             <Route path="/admin/properties/new" component={NewProperty} />
             <Route path="/admin/properties/:id/edit" component={EditProperty} />

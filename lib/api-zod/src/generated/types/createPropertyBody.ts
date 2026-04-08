@@ -43,4 +43,8 @@ export interface CreatePropertyBody {
   violationCode?: string | null;
   /** @nullable */
   violationDescription?: string | null;
+  /** @nullable */
+  latitude?: number | null;
+  /** @nullable */
+  longitude?: number | null;
 }
