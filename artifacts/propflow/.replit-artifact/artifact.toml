@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "PropFlow - Property Intelligence Platform"
+version = "1.0.0"
+id = "artifacts/propflow"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19279
+
+[services.development]
+run = "pnpm --filter @workspace/propflow run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/propflow", "run", "build" ]
+publicDir = "artifacts/propflow/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19279"
+BASE_PATH = "/"

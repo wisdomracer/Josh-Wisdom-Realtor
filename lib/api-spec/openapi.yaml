@@ -3,13 +3,22 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: PropFlow - Property Intelligence Platform API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: properties
+    description: Property listing operations
+  - name: memberships
+    description: Membership plan operations
+  - name: users
+    description: User management operations
+  - name: stats
+    description: Statistics and aggregation operations
+
 paths:
   /healthz:
     get:
@@ -24,6 +33,337 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /properties:
+    get:
+      operationId: listProperties
+      tags: [properties]
+      summary: List properties
+      description: Returns all properties with optional filters
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [foreclosure, tax_delinquent, code_violation]
+        - in: query
+          name: state
+          schema:
+            type: string
+        - in: query
+          name: city
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [active, pending, sold, removed]
+        - in: query
+          name: minPrice
+          schema:
+            type: number
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: List of properties
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListPropertiesResponse"
+
+    post:
+      operationId: createProperty
+      tags: [properties]
+      summary: Create a new property listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePropertyBody"
+      responses:
+        "201":
+          description: Created property
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Property"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /properties/{id}:
+    get:
+      operationId: getProperty
+      tags: [properties]
+      summary: Get a single property
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Property details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Property"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    patch:
+      operationId: updateProperty
+      tags: [properties]
+      summary: Update a property listing
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePropertyBody"
+      responses:
+        "200":
+          description: Updated property
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Property"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    delete:
+      operationId: deleteProperty
+      tags: [properties]
+      summary: Delete a property listing
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /properties/stats/summary:
+    get:
+      operationId: getPropertyStats
+      tags: [stats]
+      summary: Get property statistics summary
+      description: Returns counts by type and status for dashboard display
+      responses:
+        "200":
+          description: Stats summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PropertyStats"
+
+  /properties/recent:
+    get:
+      operationId: getRecentProperties
+      tags: [properties]
+      summary: Get recently added properties
+      description: Returns last 10 recently added properties across all types
+      responses:
+        "200":
+          description: Recent properties
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Property"
+
+  /memberships:
+    get:
+      operationId: listMembershipPlans
+      tags: [memberships]
+      summary: List available membership plans
+      responses:
+        "200":
+          description: List of membership plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MembershipPlan"
+
+  /memberships/my:
+    get:
+      operationId: getMyMembership
+      tags: [memberships]
+      summary: Get current user's membership
+      responses:
+        "200":
+          description: Current membership
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserMembership"
+        "404":
+          description: No active membership
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /memberships/subscribe:
+    post:
+      operationId: subscribeToPlan
+      tags: [memberships]
+      summary: Subscribe to a membership plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubscribePlanBody"
+      responses:
+        "201":
+          description: Subscription created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserMembership"
+        "400":
+          description: Invalid plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /users/profile:
+    get:
+      operationId: getMyProfile
+      tags: [users]
+      summary: Get current user profile
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "404":
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    post:
+      operationId: upsertProfile
+      tags: [users]
+      summary: Create or update user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertProfileBody"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+
+  /users/saved-properties:
+    get:
+      operationId: getSavedProperties
+      tags: [users]
+      summary: Get user's saved/bookmarked properties
+      responses:
+        "200":
+          description: Saved properties
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Property"
+
+  /users/saved-properties/{propertyId}:
+    post:
+      operationId: saveProperty
+      tags: [users]
+      summary: Save/bookmark a property
+      parameters:
+        - in: path
+          name: propertyId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Property saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+    delete:
+      operationId: unsaveProperty
+      tags: [users]
+      summary: Remove a saved property
+      parameters:
+        - in: path
+          name: propertyId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Removed
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +374,368 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+        - success
+
+    Property:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [foreclosure, tax_delinquent, code_violation]
+        status:
+          type: string
+          enum: [active, pending, sold, removed]
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        county:
+          type: ["string", "null"]
+        price:
+          type: ["number", "null"]
+        estimatedValue:
+          type: ["number", "null"]
+        beds:
+          type: ["integer", "null"]
+        baths:
+          type: ["number", "null"]
+        sqft:
+          type: ["integer", "null"]
+        yearBuilt:
+          type: ["integer", "null"]
+        lotSize:
+          type: ["number", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        auctionDate:
+          type: ["string", "null"]
+        taxAmount:
+          type: ["number", "null"]
+        violationCode:
+          type: ["string", "null"]
+        violationDescription:
+          type: ["string", "null"]
+        postedByUserId:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - type
+        - status
+        - address
+        - city
+        - state
+        - zip
+        - createdAt
+        - updatedAt
+
+    CreatePropertyBody:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [foreclosure, tax_delinquent, code_violation]
+        status:
+          type: string
+          enum: [active, pending, sold, removed]
+          default: active
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        county:
+          type: ["string", "null"]
+        price:
+          type: ["number", "null"]
+        estimatedValue:
+          type: ["number", "null"]
+        beds:
+          type: ["integer", "null"]
+        baths:
+          type: ["number", "null"]
+        sqft:
+          type: ["integer", "null"]
+        yearBuilt:
+          type: ["integer", "null"]
+        lotSize:
+          type: ["number", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        auctionDate:
+          type: ["string", "null"]
+        taxAmount:
+          type: ["number", "null"]
+        violationCode:
+          type: ["string", "null"]
+        violationDescription:
+          type: ["string", "null"]
+      required:
+        - type
+        - address
+        - city
+        - state
+        - zip
+
+    UpdatePropertyBody:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [foreclosure, tax_delinquent, code_violation]
+        status:
+          type: string
+          enum: [active, pending, sold, removed]
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        county:
+          type: ["string", "null"]
+        price:
+          type: ["number", "null"]
+        estimatedValue:
+          type: ["number", "null"]
+        beds:
+          type: ["integer", "null"]
+        baths:
+          type: ["number", "null"]
+        sqft:
+          type: ["integer", "null"]
+        yearBuilt:
+          type: ["integer", "null"]
+        lotSize:
+          type: ["number", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        auctionDate:
+          type: ["string", "null"]
+        taxAmount:
+          type: ["number", "null"]
+        violationCode:
+          type: ["string", "null"]
+        violationDescription:
+          type: ["string", "null"]
+
+    ListPropertiesResponse:
+      type: object
+      properties:
+        properties:
+          type: array
+          items:
+            $ref: "#/components/schemas/Property"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - properties
+        - total
+        - page
+        - limit
+        - totalPages
+
+    PropertyStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        foreclosures:
+          type: integer
+        taxDelinquent:
+          type: integer
+        codeViolations:
+          type: integer
+        active:
+          type: integer
+        pending:
+          type: integer
+        sold:
+          type: integer
+        newThisWeek:
+          type: integer
+      required:
+        - total
+        - foreclosures
+        - taxDelinquent
+        - codeViolations
+        - active
+        - pending
+        - sold
+        - newThisWeek
+
+    MembershipPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        priceMonthly:
+          type: number
+        priceYearly:
+          type: ["number", "null"]
+        features:
+          type: array
+          items:
+            type: string
+        maxSearches:
+          type: ["integer", "null"]
+        maxSavedProperties:
+          type: ["integer", "null"]
+        hasForeclosures:
+          type: boolean
+        hasTaxDelinquent:
+          type: boolean
+        hasCodeViolations:
+          type: boolean
+        isPopular:
+          type: boolean
+      required:
+        - id
+        - name
+        - slug
+        - description
+        - priceMonthly
+        - features
+        - hasForeclosures
+        - hasTaxDelinquent
+        - hasCodeViolations
+        - isPopular
+
+    UserMembership:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        planId:
+          type: integer
+        plan:
+          $ref: "#/components/schemas/MembershipPlan"
+        status:
+          type: string
+          enum: [active, cancelled, expired]
+        billingCycle:
+          type: string
+          enum: [monthly, yearly]
+        startedAt:
+          type: string
+        expiresAt:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - planId
+        - plan
+        - status
+        - billingCycle
+        - startedAt
+        - createdAt
+
+    SubscribePlanBody:
+      type: object
+      properties:
+        planId:
+          type: integer
+        billingCycle:
+          type: string
+          enum: [monthly, yearly]
+      required:
+        - planId
+        - billingCycle
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: ["string", "null"]
+        lastName:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        company:
+          type: ["string", "null"]
+        role:
+          type: string
+          enum: [user, admin]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - userId
+        - email
+        - role
+        - createdAt
+        - updatedAt
+
+    UpsertProfileBody:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: ["string", "null"]
+        lastName:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        company:
+          type: ["string", "null"]
+      required:
+        - email
