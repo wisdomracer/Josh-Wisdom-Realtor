@@ -46,7 +46,7 @@ export default function Landing() {
                 </Button>
               </Link>
               <Link href="/memberships">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 text-lg border-primary-foreground/20 hover:bg-primary-foreground/10 text-primary">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 text-lg border-white/40 hover:bg-white/10 text-white">
                   View Pricing
                 </Button>
               </Link>
