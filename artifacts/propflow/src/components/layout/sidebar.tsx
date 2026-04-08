@@ -1,6 +1,6 @@
 import { Show } from "@clerk/react";
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Building2, Bookmark, User, Settings, LogOut, ShieldAlert } from "lucide-react";
+import { LayoutDashboard, Building2, Bookmark, User, Settings, LogOut, ShieldAlert, MapPin } from "lucide-react";
 import { useClerk } from "@clerk/react";
 import { useGetMyProfile } from "@workspace/api-client-react";
 
@@ -20,9 +20,9 @@ export function Sidebar() {
   return (
     <div className="w-64 bg-sidebar border-r border-sidebar-border min-h-screen flex flex-col text-sidebar-foreground">
       <div className="p-6">
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-white cursor-pointer">
-          <Building2 className="w-6 h-6 text-accent" />
-          PropFlow
+        <Link href="/" className="flex items-center gap-2 font-bold tracking-tight text-white cursor-pointer">
+          <MapPin className="w-5 h-5 text-accent shrink-0" />
+          <span className="text-sm leading-tight">Houston Foreclosure Alerts</span>
         </Link>
       </div>
 
