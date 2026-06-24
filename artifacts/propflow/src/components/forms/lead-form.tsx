@@ -1,0 +1,188 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useCreateLead } from "@workspace/api-client-react";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { useState } from "react";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  message: z.string().optional(),
+  propertyAddress: z.string().optional(),
+  area: z.string().optional(),
+});
+
+type LeadFormProps = {
+  leadType: "general" | "buying" | "selling" | "valuation" | "relocation" | "consultation" | "luxury" | "new_construction";
+  showAddress?: boolean;
+  showArea?: boolean;
+  buttonText?: string;
+  title?: string;
+  subtitle?: string;
+};
+
+export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit", title, subtitle }: LeadFormProps) {
+  const [submitted, setSubmitted] = useState(false);
+  const createLead = useCreateLead();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      propertyAddress: "",
+      area: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    createLead.mutate({
+      data: {
+        name: values.name,
+        email: values.email,
+        phone: values.phone || null,
+        message: values.message || null,
+        propertyAddress: values.propertyAddress || null,
+        area: values.area || null,
+        leadType,
+      }
+    }, {
+      onSuccess: () => {
+        setSubmitted(true);
+        toast.success("Request submitted successfully!");
+      },
+      onError: () => {
+        toast.error("Failed to submit. Please try again.");
+      }
+    });
+  }
+
+  if (submitted) {
+    return (
+      <div className="bg-secondary/50 p-8 text-center rounded-lg border border-border animate-in fade-in zoom-in duration-500">
+        <h3 className="text-2xl font-serif text-primary mb-3">Thank you!</h3>
+        <p className="text-muted-foreground mb-6">Your request has been received. I'll be in touch with you shortly.</p>
+        <Button variant="outline" onClick={() => {
+          form.reset();
+          setSubmitted(false);
+        }}>
+          Submit another request
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-card p-6 md:p-8 rounded-xl shadow-sm border border-border">
+      {(title || subtitle) && (
+        <div className="mb-6 space-y-2">
+          {title && <h3 className="text-2xl font-serif text-primary">{title}</h3>}
+          {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
+        </div>
+      )}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Full Name *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Your name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email Address *</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="you@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input type="tel" placeholder="(281) 555-0123" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          {showAddress && (
+            <FormField
+              control={form.control}
+              name="propertyAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Property Address</FormLabel>
+                  <FormControl>
+                    <Input placeholder="123 Woodlands Pkwy, The Woodlands, TX" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+          {showArea && (
+            <FormField
+              control={form.control}
+              name="area"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Desired Area / Neighborhood</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g. Alden Bridge, Creekside, Tomball" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Message / Details</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    placeholder="How can I help you?" 
+                    className="min-h-[100px] resize-y"
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full h-11 text-base" disabled={createLead.isPending}>
+            {createLead.isPending ? "Submitting..." : buttonText}
+          </Button>
+        </form>
+      </Form>
+    </div>
+  );
+}

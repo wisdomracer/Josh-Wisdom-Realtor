@@ -16,6 +16,29 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
+ * Public endpoint to capture buyer, seller, valuation, relocation, and consultation inquiries
+ * @summary Submit a lead / contact request
+ */
+export const CreateLeadBody = zod.object({
+  name: zod.string(),
+  email: zod.string(),
+  phone: zod.string().nullish(),
+  message: zod.string().nullish(),
+  leadType: zod.enum([
+    "general",
+    "buying",
+    "selling",
+    "valuation",
+    "relocation",
+    "consultation",
+    "luxury",
+    "new_construction",
+  ]),
+  area: zod.string().nullish(),
+  propertyAddress: zod.string().nullish(),
+});
+
+/**
  * Returns all properties with optional filters
  * @summary List properties
  */

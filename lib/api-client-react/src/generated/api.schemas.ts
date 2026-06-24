@@ -9,6 +9,50 @@ export interface HealthStatus {
   status: string;
 }
 
+export type CreateLeadBodyLeadType =
+  (typeof CreateLeadBodyLeadType)[keyof typeof CreateLeadBodyLeadType];
+
+export const CreateLeadBodyLeadType = {
+  general: "general",
+  buying: "buying",
+  selling: "selling",
+  valuation: "valuation",
+  relocation: "relocation",
+  consultation: "consultation",
+  luxury: "luxury",
+  new_construction: "new_construction",
+} as const;
+
+export interface CreateLeadBody {
+  name: string;
+  email: string;
+  /** @nullable */
+  phone?: string | null;
+  /** @nullable */
+  message?: string | null;
+  leadType: CreateLeadBodyLeadType;
+  /** @nullable */
+  area?: string | null;
+  /** @nullable */
+  propertyAddress?: string | null;
+}
+
+export interface Lead {
+  id: number;
+  name: string;
+  email: string;
+  /** @nullable */
+  phone?: string | null;
+  /** @nullable */
+  message?: string | null;
+  leadType: string;
+  /** @nullable */
+  area?: string | null;
+  /** @nullable */
+  propertyAddress?: string | null;
+  createdAt: string;
+}
+
 export interface ErrorResponse {
   error: string;
 }

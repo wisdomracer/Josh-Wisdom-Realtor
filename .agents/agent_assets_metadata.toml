@@ -1,0 +1,44 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "8xbQgy47_CfloAXOztIkH"
+uri = "file://artifacts/propflow/public/images/hero-woodlands.png"
+type = "image"
+title = "Hero Woodlands driveway"
+
+[[generated]]
+id = "X8X6uubX__pNCRBKbuSEa"
+uri = "file://artifacts/propflow/public/images/the-woodlands.png"
+type = "image"
+title = "The Woodlands waterway"
+
+[[generated]]
+id = "jBwIMQesW48fGvpJ927cS"
+uri = "file://artifacts/propflow/public/images/tomball.png"
+type = "image"
+title = "Tomball charming street"
+
+[[generated]]
+id = "OjOXEk6lpCVTqn2b217vM"
+uri = "file://artifacts/propflow/public/images/luxury-interior.png"
+type = "image"
+title = "Luxury home interior"
+
+[[generated]]
+id = "jW8ZYh-Y6gZ4QgHFl8Mh3"
+uri = "file://artifacts/propflow/public/images/josh-wisdom.png"
+type = "image"
+title = "Josh Wisdom portrait placeholder"
+
+[[generated]]
+id = "oeaguML8dIOT_O6GNE2sq"
+uri = "file://artifacts/propflow/public/images/suburban-street.png"
+type = "image"
+title = "Modern suburban neighborhood street"
+
+[[generated]]
+id = "Rtt1ABb4XS1JVNJMJ2qdx"
+uri = "file://artifacts/propflow/public/images/luxury-kitchen.png"
+type = "image"
+title = "Luxury home kitchen"

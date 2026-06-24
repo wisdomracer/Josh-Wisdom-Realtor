@@ -34,6 +34,32 @@ paths:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
 
+  /leads:
+    post:
+      operationId: createLead
+      tags: [leads]
+      summary: Submit a lead / contact request
+      description: Public endpoint to capture buyer, seller, valuation, relocation, and consultation inquiries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLeadBody"
+      responses:
+        "201":
+          description: Lead captured
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   /properties:
     get:
       operationId: listProperties
@@ -373,6 +399,57 @@ components:
           type: string
       required:
         - status
+
+    CreateLeadBody:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        message:
+          type: ["string", "null"]
+        leadType:
+          type: string
+          enum: [general, buying, selling, valuation, relocation, consultation, luxury, new_construction]
+        area:
+          type: ["string", "null"]
+        propertyAddress:
+          type: ["string", "null"]
+      required:
+        - name
+        - email
+        - leadType
+
+    Lead:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        message:
+          type: ["string", "null"]
+        leadType:
+          type: string
+        area:
+          type: ["string", "null"]
+        propertyAddress:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - email
+        - leadType
+        - createdAt
 
     ErrorResponse:
       type: object

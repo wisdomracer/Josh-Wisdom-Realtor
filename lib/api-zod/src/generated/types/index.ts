@@ -6,11 +6,14 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./createLeadBody";
+export * from "./createLeadBodyLeadType";
 export * from "./createPropertyBody";
 export * from "./createPropertyBodyStatus";
 export * from "./createPropertyBodyType";
 export * from "./errorResponse";
 export * from "./healthStatus";
+export * from "./lead";
 export * from "./listPropertiesParams";
 export * from "./listPropertiesResponse";
 export * from "./listPropertiesStatus";
