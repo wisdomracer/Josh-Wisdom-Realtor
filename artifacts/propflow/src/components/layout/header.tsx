@@ -1,28 +1,103 @@
-import { useUser } from "@clerk/react";
-import { Bell } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "wouter";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
+
+const navLinks = [
+  { href: "/buy", label: "Buy" },
+  { href: "/sell", label: "Sell" },
+  { href: "/communities", label: "Communities" },
+  { href: "/luxury-homes", label: "Luxury" },
+  { href: "/relocation", label: "Relocation" },
+  { href: "/market-updates", label: "Market Updates" },
+  { href: "/about", label: "About" },
+];
 
 export function Header() {
-  const { user } = useUser();
+  const [open, setOpen] = useState(false);
+  const [location] = useLocation();
 
   return (
-    <header className="h-16 border-b border-border bg-card flex items-center justify-between px-6 sticky top-0 z-10">
-      <div className="flex items-center gap-4">
-        {/* Breadcrumbs or page title could go here */}
-      </div>
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <Link
+          href="/"
+          className="font-serif text-xl font-bold tracking-tight text-foreground md:text-2xl"
+        >
+          Josh Wisdom
+        </Link>
 
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-          <Bell className="w-5 h-5" />
-        </Button>
-        <div className="flex items-center gap-3 border-l border-border pl-4">
-          <div className="text-sm text-right hidden sm:block">
-            <p className="font-medium text-foreground">{user?.fullName || "User"}</p>
-            <p className="text-xs text-muted-foreground">{user?.primaryEmailAddress?.emailAddress}</p>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold border border-primary/20">
-            {user?.firstName?.charAt(0) || "U"}
-          </div>
+        <nav className="hidden items-center gap-6 lg:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location === link.href
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <Button asChild className="hidden sm:inline-flex">
+            <Link href="/home-valuation">Free Home Valuation</Link>
+          </Button>
+
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden"
+                aria-label="Open menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <SheetTitle className="font-serif text-xl font-bold">
+                Josh Wisdom
+              </SheetTitle>
+              <nav className="mt-8 flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-md px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="rounded-md px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                >
+                  Contact
+                </Link>
+                <Button asChild className="mt-4">
+                  <Link
+                    href="/home-valuation"
+                    onClick={() => setOpen(false)}
+                  >
+                    Free Home Valuation
+                  </Link>
+                </Button>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
