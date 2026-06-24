@@ -7,6 +7,7 @@ import {
   clerkProxyMiddleware,
 } from "./middlewares/clerkProxyMiddleware";
 import router from "./routes";
+import mcpRouter from "./routes/mcp";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
@@ -32,6 +33,13 @@ app.use(
 );
 
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
+
+// Dev-only MCP server: lets an external AI (e.g. Codex) read/write workspace
+// files over the web. Mounted before the global JSON parser so it can accept
+// large file payloads, and never enabled in production.
+if (process.env["NODE_ENV"] !== "production") {
+  app.use(mcpRouter);
+}
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
