@@ -1,0 +1,2 @@
+- [api-zod barrel TS2308](api-zod-barrel.md) — barrel must export ONLY generated zod values, never re-export generated types, or duplicate-identifier TS2308.
+- [MCP dev file-edit server](mcp-dev-server.md) — dev-only /mcp endpoint folded into api-server lets external AI edit workspace files; path safety must be symlink-aware.
