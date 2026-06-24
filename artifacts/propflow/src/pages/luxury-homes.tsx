@@ -5,61 +5,33 @@ export default function LuxuryHomes() {
   return (
     <>
       <Helmet>
-        <title>Luxury Homes in The Woodlands & Greater Houston | Josh Wisdom</title>
-        <meta name="description" content="Explore luxury real estate and upscale properties in The Woodlands, Tomball, and Greater Houston with luxury specialist Josh Wisdom." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/luxury-homes" />
+        <title>The Woodlands Luxury Homes | Josh Wisdom Realtor</title>
+        <meta name="description" content="Luxury listing and buyer representation for The Woodlands estates, Carlton Woods, East Shore, and Greater Houston premium homes." />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/luxury-homes" />
       </Helmet>
 
-      <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/luxury-interior.png" 
-            alt="Luxury home interior" 
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
+      <section className="relative bg-black py-24 text-white md:py-32">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#050505,#171717,#2a210d)]" />
+        <div className="absolute inset-0 opacity-20" aria-hidden="true">
+          <div className="absolute left-[12%] top-[20%] h-52 w-52 border border-amber-400/50" />
+          <div className="absolute bottom-[18%] right-[14%] h-72 w-72 border border-white/20" />
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-serif mb-6 text-white">Luxury Properties</h1>
-          <p className="text-xl text-white/90 leading-relaxed">
-            Discreet, refined representation for high-end buyers and sellers in Houston's most exclusive communities.
-          </p>
+        <div className="container relative z-10 mx-auto px-4 md:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-300">Luxury Homes</p>
+          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Luxury real estate deserves premium presentation and qualified attention.</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">From Carlton Woods estates to East Shore lifestyle properties, Josh helps high-value sellers position the home with clarity, discretion, and detail.</p>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-white/55">No stock or AI luxury interior is being presented as a real listing photo. Real listing media can be added after IDX or seller-approved assets are available.</p>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16">
-            <div className="space-y-8">
-              <h2 className="text-3xl font-serif text-primary">Exceptional Service for Exceptional Properties</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                The luxury market in the northern Houston suburbs requires a nuanced approach. Whether you are seeking a sprawling estate in Tomball, a custom home in Carlton Woods, or a waterfront property on Lake Conroe, I provide the highest level of service and discretion.
-              </p>
-              
-              <div className="space-y-6 pt-4">
-                <div className="border-l-2 border-primary pl-6 py-2">
-                  <h3 className="text-xl font-serif text-primary mb-2">For Buyers</h3>
-                  <p className="text-muted-foreground">Access to exclusive neighborhoods, knowledge of unlisted properties, and expert guidance through complex high-value transactions.</p>
-                </div>
-                <div className="border-l-2 border-primary pl-6 py-2">
-                  <h3 className="text-xl font-serif text-primary mb-2">For Sellers</h3>
-                  <p className="text-muted-foreground">Bespoke marketing strategies, premium presentation, and a network of qualified buyers to ensure your luxury home receives the attention it deserves.</p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="bg-card p-2 rounded-2xl border border-border shadow-sm">
-                <LeadForm 
-                  leadType="luxury"
-                  showArea={true}
-                  title="Private Consultation"
-                  subtitle="Contact me to discuss your luxury real estate needs with complete confidentiality."
-                  buttonText="Request Private Consultation"
-                />
-              </div>
-            </div>
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[1fr_0.9fr] md:px-6">
+          <div className="space-y-8">
+            {["Architecture, privacy, lot, finishes, and lifestyle access all shape luxury value.", "A premium listing should communicate the property story before a buyer requests a showing.", "The right exposure balances visibility with discretion and buyer qualification."].map((copy) => (
+              <p key={copy} className="border-l-2 border-amber-500 pl-6 text-xl leading-9 text-neutral-800">{copy}</p>
+            ))}
           </div>
+          <LeadForm leadType="luxury" showAddress title="Private luxury consultation" subtitle="Discuss your property, goals, and timing directly with Josh." buttonText="Request Private Consultation" />
         </div>
       </section>
     </>

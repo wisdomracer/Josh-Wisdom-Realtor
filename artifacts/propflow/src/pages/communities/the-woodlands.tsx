@@ -10,17 +10,12 @@ export default function TheWoodlands() {
       <Helmet>
         <title>The Woodlands Real Estate & Homes for Sale | Josh Wisdom</title>
         <meta name="description" content="Explore The Woodlands, Texas real estate. Learn about the villages, schools, and lifestyle in this premier forested master-planned community." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/communities/the-woodlands" />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities/the-woodlands" />
       </Helmet>
 
       <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/the-woodlands.png" 
-            alt="The Woodlands waterway and tall pine trees" 
-            className="w-full h-full object-cover object-center"
-            fetchPriority="high"
-          />
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
           <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">

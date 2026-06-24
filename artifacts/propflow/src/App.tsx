@@ -1,8 +1,8 @@
-import { Switch, Route, Router as WouterRouter } from 'wouter';
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 
 import { MainLayout } from "@/components/layout/main-layout";
 import Home from "@/pages/home";
@@ -18,6 +18,9 @@ import GreaterHouston from "@/pages/communities/greater-houston";
 import LuxuryHomes from "@/pages/luxury-homes";
 import MarketUpdates from "@/pages/market-updates";
 import Contact from "@/pages/contact";
+import { BlogIndex, BlogPost, blogPosts } from "@/pages/blog";
+import { PrivacyPolicy, TermsPage } from "@/pages/legal";
+import { SeoLandingPage, seoLandingPages } from "@/pages/seo-landing";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -39,8 +42,24 @@ function AppRoutes() {
         <Route path="/communities/greater-houston" component={GreaterHouston} />
         <Route path="/luxury-homes" component={LuxuryHomes} />
         <Route path="/market-updates" component={MarketUpdates} />
+        <Route path="/blog" component={BlogIndex} />
+        {blogPosts.map((post) => (
+          <Route
+            key={post.slug}
+            path={`/blog/${post.slug}`}
+            component={() => <BlogPost slug={post.slug} />}
+          />
+        ))}
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms" component={TermsPage} />
         <Route path="/contact" component={Contact} />
-        
+        {seoLandingPages.map((page) => (
+          <Route
+            key={page.slug}
+            path={`/${page.slug}`}
+            component={() => <SeoLandingPage page={page} />}
+          />
+        ))}
         <Route component={NotFound} />
       </Switch>
     </MainLayout>

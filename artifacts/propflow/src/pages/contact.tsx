@@ -1,63 +1,37 @@
 import { Helmet } from "react-helmet-async";
 import { LeadForm } from "@/components/forms/lead-form";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact Josh Wisdom | Realtor in The Woodlands & Tomball</title>
-        <meta name="description" content="Get in touch with Josh Wisdom to discuss buying, selling, or relocating in The Woodlands, Tomball, and Greater Houston." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/contact" />
+        <title>Contact Josh Wisdom Realtor | The Woodlands Listing Agent</title>
+        <meta name="description" content="Contact Josh Wisdom Realtor for listing strategy, home valuation, luxury homes, and real estate guidance in The Woodlands, Tomball, and Greater Houston." />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/contact" />
       </Helmet>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-serif text-primary mb-6">Let's Connect</h1>
-            <p className="text-xl text-muted-foreground">
-              I'm here to answer your questions and provide the local expertise you need.
-            </p>
-          </div>
+      <section className="bg-black py-20 text-white md:py-28">
+        <div className="container mx-auto px-4 md:px-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">Contact</p>
+          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Talk with Josh about value, timing, and your next move.</h1>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 gap-16">
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-serif text-primary mb-4">Contact Information</h2>
-                <p className="text-muted-foreground mb-6">
-                  Feel free to reach out directly by phone or email. I aim to respond to all inquiries within 24 hours.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-foreground">
-                    <span className="font-semibold w-20">Phone:</span>
-                    <span>(281) 555-0123</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-foreground">
-                    <span className="font-semibold w-20">Email:</span>
-                    <span>josh@thewoodlandslistingagent.com</span>
-                  </div>
-                  <div className="flex items-start gap-4 text-foreground">
-                    <span className="font-semibold w-20">Area:</span>
-                    <span>The Woodlands, Tomball, Spring, <br/>and Greater Houston</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-6 bg-secondary rounded-xl">
-                <h3 className="font-serif text-xl text-primary mb-2">Not ready to talk yet?</h3>
-                <p className="text-muted-foreground mb-4">
-                  That's completely fine. Feel free to explore the site and reach out whenever you're ready.
-                </p>
-              </div>
-            </div>
-
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.85fr_1.15fr] md:px-6">
+          <div className="space-y-8">
             <div>
-              <LeadForm 
-                leadType="consultation"
-                title="Send a Message"
-                subtitle="Fill out the form below and let me know how I can help."
-              />
+              <h2 className="text-3xl font-semibold text-black">Direct Contact</h2>
+              <p className="mt-4 leading-7 text-neutral-700">Reach out for a seller consultation, home valuation, neighborhood question, or private luxury conversation.</p>
+            </div>
+            <div className="space-y-5 border-t border-neutral-200 pt-8">
+              <a href="tel:+18329818920" className="flex gap-4 text-black hover:text-amber-700"><Phone className="h-5 w-5" /><span>832-981-8920</span></a>
+              <a href="mailto:WisdomRacer@gmail.com" className="flex gap-4 text-black hover:text-amber-700"><Mail className="h-5 w-5" /><span>WisdomRacer@gmail.com</span></a>
+              <div className="flex gap-4 text-black"><MapPin className="h-5 w-5" /><span>VIP Realty, 5100 Westheimer Ste 200, Houston, TX 77027</span></div>
             </div>
           </div>
+          <LeadForm leadType="consultation" showAddress title="Send Josh a message" subtitle="Tell Josh what you are considering and the best way to reach you." buttonText="Send Message" />
         </div>
       </section>
     </>

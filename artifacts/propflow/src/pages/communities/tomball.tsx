@@ -10,17 +10,12 @@ export default function Tomball() {
       <Helmet>
         <title>Tomball TX Real Estate & Neighborhood Guide | Josh Wisdom</title>
         <meta name="description" content="Discover Tomball real estate. Explore acreage properties, historic charm, and new master-planned communities in the Tomball area." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/communities/tomball" />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities/tomball" />
       </Helmet>
 
       <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/tomball.png" 
-            alt="Historic Tomball neighborhood" 
-            className="w-full h-full object-cover object-center"
-            fetchPriority="high"
-          />
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
           <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">

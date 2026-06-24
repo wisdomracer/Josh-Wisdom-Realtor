@@ -6,15 +6,15 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Josh Wisdom | The Woodlands Real Estate Expert</title>
+        <title>About Josh Wisdom Realtor | The Woodlands Real Estate Expert</title>
         <meta name="description" content="Learn about Josh Wisdom, your local real estate expert serving The Woodlands, Tomball, and Greater Houston. Deeply rooted in the community." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/about" />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/about" />
       </Helmet>
 
       {/* Hero Section */}
       <section className="relative py-24 bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-           <img src="/images/the-woodlands.png" alt="" className="w-full h-full object-cover mix-blend-overlay" />
+           <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-serif mb-6">About Josh Wisdom</h1>
@@ -30,11 +30,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="aspect-[4/5] rounded-xl overflow-hidden shadow-xl">
-                <img 
-                  src="/images/josh-wisdom.png" 
-                  alt="Josh Wisdom portrait" 
-                  className="w-full h-full object-cover"
-                />
+                <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
               </div>
             </div>
             <div className="space-y-6">

@@ -8,7 +8,7 @@ export default function MarketUpdates() {
       <Helmet>
         <title>Real Estate Market Updates | The Woodlands & Houston | Josh Wisdom</title>
         <meta name="description" content="Stay informed on the local real estate market in The Woodlands, Tomball, and Greater Houston with insights from Josh Wisdom." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/market-updates" />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/market-updates" />
       </Helmet>
 
       <section className="py-24 bg-secondary text-center">

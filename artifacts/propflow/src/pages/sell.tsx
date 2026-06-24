@@ -1,71 +1,71 @@
 import { Helmet } from "react-helmet-async";
-import { LeadForm } from "@/components/forms/lead-form";
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { LeadForm } from "@/components/forms/lead-form";
+import { BarChart3, Camera, CheckCircle2, Megaphone, ShieldCheck, type LucideIcon } from "lucide-react";
+
+type Step = {
+  title: string;
+  copy: string;
+  icon: LucideIcon;
+};
+
+const steps: Step[] = [
+  { title: "Price", copy: "Review recent sales, active competition, village-level demand, and the details automated estimates miss.", icon: BarChart3 },
+  { title: "Prepare", copy: "Identify the presentation moves most likely to reduce objections and improve buyer confidence.", icon: Camera },
+  { title: "Promote", copy: "Launch with strong copy, quality visuals, buyer targeting, and community context that makes value obvious.", icon: Megaphone },
+  { title: "Negotiate", copy: "Evaluate price, terms, buyer strength, contingencies, appraisal risk, and closing timelines.", icon: ShieldCheck },
+];
 
 export default function Sell() {
   return (
     <>
       <Helmet>
-        <title>Sell Your Home in The Woodlands & Tomball | Josh Wisdom</title>
-        <meta name="description" content="Sell your home for maximum value with Josh Wisdom. Strategic pricing, exceptional marketing, and calm negotiation in The Woodlands and Greater Houston." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/sell" />
+        <title>Selling A Home In The Woodlands | Josh Wisdom Realtor</title>
+        <meta name="description" content="Sell your Woodlands, Tomball, or Greater Houston home with Josh Wisdom Realtor using strategic pricing, premium marketing, and seller-first negotiation." />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/sell" />
       </Helmet>
 
-      <section className="relative py-24 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img src="/images/suburban-street.png" alt="" className="w-full h-full object-cover mix-blend-overlay" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
-          <h1 className="text-4xl md:text-6xl font-serif mb-6">Selling Your Home</h1>
-          <p className="text-xl text-primary-foreground/80 leading-relaxed">
-            Strategic pricing, exceptional marketing, and calm negotiation to maximize your return.
-          </p>
+      <section className="bg-black py-20 text-white md:py-28">
+        <div className="container mx-auto grid gap-10 px-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-center md:px-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">Seller Strategy</p>
+            <h1 className="mt-5 text-4xl font-semibold leading-tight text-white md:text-6xl">Selling your home should start with leverage.</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">Josh Wisdom Realtor helps homeowners in The Woodlands, Tomball, and Greater Houston understand value, prepare the property, launch with polish, and negotiate the whole offer.</p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button asChild className="h-12 rounded-none bg-amber-500 px-7 text-black hover:bg-amber-400"><Link href="/home-valuation">Get Home Value</Link></Button>
+              <Button asChild variant="outline" className="h-12 rounded-none border-white bg-transparent px-7 text-white hover:bg-white hover:text-black"><Link href="/contact">Schedule Consultation</Link></Button>
+            </div>
+          </div>
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16">
-            <div className="space-y-8">
-              <h2 className="text-3xl font-serif text-primary">A Strategic Approach to Selling</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Selling a home requires more than putting a sign in the yard. It requires an understanding of how buyers are searching, what they value, and how to present your home in its best light.
-              </p>
-              
-              <div className="space-y-6 pt-4">
-                <div className="bg-secondary p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-serif text-primary mb-2">Data-Driven Pricing</h3>
-                  <p className="text-muted-foreground">Pricing is the most critical factor. I provide a deep analysis of recent sales, active competition, and market trends to position your home correctly from day one.</p>
-                </div>
-                <div className="bg-secondary p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-serif text-primary mb-2">Elevated Presentation</h3>
-                  <p className="text-muted-foreground">First impressions happen online. I utilize professional photography, targeted digital marketing, and staging advice to ensure your home stands out.</p>
-                </div>
-                <div className="bg-secondary p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-serif text-primary mb-2">Calm Negotiation</h3>
-                  <p className="text-muted-foreground">I advocate fiercely for your interests while maintaining the professionalism needed to keep transactions on track and successfully reach the closing table.</p>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Button asChild variant="outline" size="lg">
-                  <Link href="/home-valuation">Get a Free Home Valuation</Link>
-                </Button>
-              </div>
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[1fr_0.9fr] md:px-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-600">The Listing Plan</p>
+            <h2 className="mt-4 text-4xl font-semibold text-black md:text-5xl">A clean process for a stronger sale.</h2>
+            <div className="mt-10 grid gap-5 md:grid-cols-2">
+              {steps.map((step) => {
+                const Icon = step.icon;
+                return (
+                  <div key={step.title} className="border border-neutral-200 p-6">
+                    <Icon className="mb-5 h-7 w-7 text-amber-600" />
+                    <h3 className="text-2xl font-semibold text-black">{step.title}</h3>
+                    <p className="mt-3 leading-7 text-neutral-700">{step.copy}</p>
+                  </div>
+                );
+              })}
             </div>
-
-            <div>
-              <div className="sticky top-24">
-                <LeadForm 
-                  leadType="selling"
-                  showAddress={true}
-                  title="Ready to sell?"
-                  subtitle="Let's discuss your timeline and goals."
-                  buttonText="Schedule Listing Appointment"
-                />
-              </div>
+            <div className="mt-10 space-y-4 border-t border-neutral-200 pt-8">
+              {["No fake listing promises", "No generic home-value bait", "No one-size-fits-all neighborhood copy"].map((item) => (
+                <div key={item} className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 text-amber-600" /><span className="text-neutral-800">{item}</span></div>
+              ))}
             </div>
+          </div>
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <LeadForm leadType="selling" showAddress title="Ready to talk strategy?" subtitle="Share your address, timing, and goals. Josh will follow up with a seller-focused plan." buttonText="Schedule Listing Consultation" />
           </div>
         </div>
       </section>

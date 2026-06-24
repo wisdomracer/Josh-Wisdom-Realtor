@@ -7,7 +7,7 @@ export default function Relocation() {
       <Helmet>
         <title>Relocating to Greater Houston | The Woodlands Real Estate</title>
         <meta name="description" content="Moving to Houston? Discover the northern suburbs including The Woodlands and Tomball with local expert Josh Wisdom." />
-        <link rel="canonical" href="https://joshwisdomrealestate.com/relocation" />
+        <link rel="canonical" href="https://thewoodlandslistingagent.com/relocation" />
       </Helmet>
 
       <section className="py-24 bg-background">

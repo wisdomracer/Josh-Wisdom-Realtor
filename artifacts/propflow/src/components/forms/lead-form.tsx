@@ -97,7 +97,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
               <FormItem>
                 <FormLabel>Full Name *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input placeholder="Full name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,7 +111,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
                 <FormItem>
                   <FormLabel>Email Address *</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="you@example.com" {...field} />
+                    <Input type="email" placeholder="name@email.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -124,7 +124,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
                 <FormItem>
                   <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="(281) 555-0123" {...field} />
+                    <Input type="tel" placeholder="832-981-8920" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,7 +139,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
                 <FormItem>
                   <FormLabel>Property Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="123 Woodlands Pkwy, The Woodlands, TX" {...field} />
+                    <Input placeholder="Property address in The Woodlands, Tomball, or Greater Houston" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -169,7 +169,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
                 <FormLabel>Message / Details</FormLabel>
                 <FormControl>
                   <Textarea 
-                    placeholder="How can I help you?" 
+                    placeholder="Tell Josh about your timeline, goals, property, or questions." 
                     className="min-h-[100px] resize-y"
                     {...field} 
                   />
