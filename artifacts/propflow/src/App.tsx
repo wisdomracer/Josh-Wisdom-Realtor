@@ -1,4 +1,5 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { useEffect } from "react";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,14 +18,25 @@ import Tomball from "@/pages/communities/tomball";
 import GreaterHouston from "@/pages/communities/greater-houston";
 import LuxuryHomes from "@/pages/luxury-homes";
 import MarketUpdates from "@/pages/market-updates";
+import TheWoodlandsEvents from "@/pages/the-woodlands-events";
 import Contact from "@/pages/contact";
 import { BlogIndex, BlogPost, blogPosts } from "@/pages/blog";
 import { PrivacyPolicy, TermsPage } from "@/pages/legal";
 import { SeoLandingPage, seoLandingPages } from "@/pages/seo-landing";
+import { FeaturePage, featurePages } from "@/pages/feature-page";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+function ScrollToTop() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location]);
+
+  return null;
+}
 
 function AppRoutes() {
   return (
@@ -42,23 +54,19 @@ function AppRoutes() {
         <Route path="/communities/greater-houston" component={GreaterHouston} />
         <Route path="/luxury-homes" component={LuxuryHomes} />
         <Route path="/market-updates" component={MarketUpdates} />
+        <Route path="/the-woodlands-events" component={TheWoodlandsEvents} />
         <Route path="/blog" component={BlogIndex} />
         {blogPosts.map((post) => (
-          <Route
-            key={post.slug}
-            path={`/blog/${post.slug}`}
-            component={() => <BlogPost slug={post.slug} />}
-          />
+          <Route key={post.slug} path={`/blog/${post.slug}`} component={() => <BlogPost slug={post.slug} />} />
         ))}
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms" component={TermsPage} />
         <Route path="/contact" component={Contact} />
+        {featurePages.map((feature) => (
+          <Route key={feature.slug} path={`/${feature.slug}`} component={() => <FeaturePage feature={feature} />} />
+        ))}
         {seoLandingPages.map((page) => (
-          <Route
-            key={page.slug}
-            path={`/${page.slug}`}
-            component={() => <SeoLandingPage page={page} />}
-          />
+          <Route key={page.slug} path={`/${page.slug}`} component={() => <SeoLandingPage page={page} />} />
         ))}
         <Route component={NotFound} />
       </Switch>
@@ -72,6 +80,7 @@ function App() {
       <WouterRouter base={basePath}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
+            <ScrollToTop />
             <AppRoutes />
             <Toaster />
           </TooltipProvider>

@@ -15,7 +15,7 @@ export default function TheWoodlands() {
 
       <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Local Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands, Tomball & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Home Value . Selling . Buying</p></div></div>
           <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">

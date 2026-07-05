@@ -19,7 +19,7 @@ export default function GreaterHouston() {
 
       <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Local Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands, Tomball & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Home Value . Selling . Buying</p></div></div>
           <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
@@ -52,7 +52,7 @@ export default function GreaterHouston() {
           <div className="bg-primary/5 rounded-2xl p-8 md:p-12 text-center border border-primary/10">
             <h3 className="text-2xl font-serif text-primary mb-4">Need help narrowing it down?</h3>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              If you are relocating to Houston or simply looking for a change of scenery, finding the right suburb is the first step. Let's discuss your commute, lifestyle preferences, and goals to identify the communities that align with your vision.
+              If you are relocating to Houston or simply looking for a change of scenery, finding the right suburb is the first step. Let's discuss your commute, what matters day to day, and goals to identify the communities that align with your vision.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg">

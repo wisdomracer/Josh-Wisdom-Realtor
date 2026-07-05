@@ -13,7 +13,7 @@ export const blogPosts = [
     sections: [
       ["Start with the village, not the ZIP code", "The Woodlands is a collection of distinct villages and luxury pockets. Carlton Woods, East Shore, Creekside Park, Sterling Ridge, Alden Bridge, and Panther Creek can attract different buyers even when the homes share similar square footage."],
       ["Study active competition", "Recent sales matter, but your real pricing pressure comes from homes buyers can choose today. A strong list price accounts for nearby alternatives, condition, days on market, builder age, lot setting, updates, and buyer urgency."],
-      ["Protect leverage before launch", "The first two weeks shape perception. If the home launches too high without a clear value story, buyers may wait. If it launches with strong positioning, quality visuals, and a clean showing experience, negotiation starts from a stronger place."],
+      ["Protect leverage before launch", "The first two weeks shape perception. If the home launches too high without a clear value story, buyers may wait. If it launches with the right price, strong photos, and an easy showing experience, negotiation starts from a stronger place."],
     ],
   },
   {
@@ -35,7 +35,7 @@ export const blogPosts = [
     description: "How to position East Shore, Waterway, Market Street, and Hughes Landing-area homes for lifestyle-driven buyers.",
     date: "2026-06-24",
     readTime: "5 min read",
-    category: "Neighborhood Positioning",
+    category: "Neighborhood Guide",
     sections: [
       ["Lifestyle is part of the value", "Near the Waterway, buyers often compare walkability, dining access, lock-and-leave convenience, lake proximity, and the feel of the surrounding streetscape."],
       ["Lead with the setting", "The marketing should help buyers imagine the daily rhythm: restaurants, Market Street, Hughes Landing, trails, events, and easy access to The Woodlands core."],
@@ -62,7 +62,7 @@ export function BlogIndex() {
     <>
       <Helmet>
         <title>The Woodlands Real Estate Blog | Josh Wisdom Realtor</title>
-        <meta name="description" content="Seller guides, luxury home positioning, and neighborhood market insight for The Woodlands, Tomball, and Greater Houston homeowners." />
+        <meta name="description" content="Seller guides, luxury home advice, and local market insight for The Woodlands, Tomball, and Greater Houston homeowners." />
         <link rel="canonical" href="https://thewoodlandslistingagent.com/blog" />
       </Helmet>
       <section className="bg-black py-20 text-white md:py-28">

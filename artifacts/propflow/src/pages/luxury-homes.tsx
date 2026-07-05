@@ -20,7 +20,6 @@ export default function LuxuryHomes() {
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-300">Luxury Homes</p>
           <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Luxury real estate deserves premium presentation and qualified attention.</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">From Carlton Woods estates to East Shore lifestyle properties, Josh helps high-value sellers position the home with clarity, discretion, and detail.</p>
-          <p className="mt-4 max-w-2xl text-sm leading-6 text-white/55">No stock or AI luxury interior is being presented as a real listing photo. Real listing media can be added after IDX or seller-approved assets are available.</p>
         </div>
       </section>
 

@@ -4,24 +4,24 @@ import { ArrowRight } from "lucide-react";
 
 export default function Communities() {
   const communities = [
-    { name: "The Woodlands", slug: "the-woodlands", description: "Village-level listing strategy for The Woodlands homeowners, including luxury, move-up, and lifestyle-driven neighborhoods." },
-    { name: "Tomball", slug: "tomball", description: "Seller guidance for Tomball homeowners, including acreage, established neighborhoods, and new-growth corridors." },
-    { name: "Greater Houston", slug: "greater-houston", description: "Broader real estate guidance across Spring, Magnolia, Conroe, Cypress, Houston, Klein, Montgomery, Kingwood, Katy, Sugar Land, and nearby suburbs." },
+    { name: "The Woodlands", slug: "the-woodlands", description: "Real estate help for The Woodlands homeowners, from luxury listings to move-up homes and relocation moves." },
+    { name: "Tomball", slug: "tomball", description: "Real estate help for Tomball homeowners, including acreage properties, established neighborhoods, and new construction areas." },
+    { name: "Greater Houston", slug: "greater-houston", description: "Real estate help across Spring, Magnolia, Conroe, Cypress, Houston, Klein, Montgomery, Kingwood, Katy, Sugar Land, and nearby suburbs." },
   ];
 
   return (
     <>
       <Helmet>
         <title>Communities | The Woodlands, Tomball, Greater Houston Real Estate</title>
-        <meta name="description" content="Explore The Woodlands, Tomball, and Greater Houston communities with Josh Wisdom Realtor. No fake community photos are presented as real local media." />
+        <meta name="description" content="Explore The Woodlands, Tomball, and Greater Houston communities with Josh Wisdom Realtor." />
         <link rel="canonical" href="https://thewoodlandslistingagent.com/communities" />
       </Helmet>
 
       <section className="bg-black py-20 text-white md:py-28">
         <div className="container mx-auto px-4 md:px-6">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">Communities</p>
-          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Local positioning for real neighborhoods.</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">These pages are written as community guides. Real photography can be added after approved local assets are available.</p>
+          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Explore The Woodlands, Tomball, and Greater Houston.</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">Learn where to live, what makes each area different, and what to know before selling or buying a home.</p>
         </div>
       </section>
 

@@ -117,10 +117,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+    overflow-x: hidden;
   }
 
   h1,
@@ -129,11 +131,48 @@
   h4,
   h5,
   h6 {
-    @apply tracking-normal text-foreground;
+    @apply tracking-normal;
+    color: inherit;
+    text-wrap: balance;
   }
 
   ::selection {
     background: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
+  }
+}
+@layer utilities {
+  .luxury-reveal {
+    animation: luxury-reveal 700ms ease-out both;
+  }
+
+  .luxury-lift {
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background-color 220ms ease, color 220ms ease;
+  }
+
+  .luxury-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+  }
+}
+
+@keyframes luxury-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-reveal,
+  .luxury-lift,
+  .luxury-lift:hover {
+    animation: none;
+    transform: none;
+    transition: none;
   }
 }

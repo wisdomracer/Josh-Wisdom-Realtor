@@ -37,7 +37,7 @@ export default function Sell() {
               <Button asChild variant="outline" className="h-12 rounded-none border-white bg-transparent px-7 text-white hover:bg-white hover:text-black"><Link href="/contact">Schedule Consultation</Link></Button>
             </div>
           </div>
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Real media needed</p><p className="mt-3 text-lg text-white/70">Add approved real photography here. No fake property or community image is being shown.</p></div></div>
+          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Josh Wisdom Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Listing Strategy</p></div></div>
         </div>
       </section>
 
@@ -59,7 +59,7 @@ export default function Sell() {
               })}
             </div>
             <div className="mt-10 space-y-4 border-t border-neutral-200 pt-8">
-              {["No fake listing promises", "No generic home-value bait", "No one-size-fits-all neighborhood copy"].map((item) => (
+              {["Clear pricing counsel", "Seller-first valuation review", "Neighborhood-specific marketing plan"].map((item) => (
                 <div key={item} className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 text-amber-600" /><span className="text-neutral-800">{item}</span></div>
               ))}
             </div>

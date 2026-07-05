@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
+import { ArrowRight, BadgeCheck, CheckCircle2, Home, Landmark, MapPin, Search, Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 
@@ -23,13 +23,13 @@ export const seoLandingPages: SeoLanding[] = [
     eyebrow: "The Woodlands Listing Agent",
     title: "The Woodlands Listing Agent for homeowners who want a stronger sale.",
     metaTitle: "The Woodlands Listing Agent | Josh Wisdom Realtor",
-    description: "Work with Josh Wisdom Realtor for listing strategy, pricing guidance, premium marketing, and seller representation in The Woodlands, Texas.",
-    hero: "A listing launch should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the home, position the price, and create buyer demand with a clear marketing plan.",
+    description: "Work with Josh Wisdom Realtor for help selling, pricing guidance, premium marketing, and seller representation in The Woodlands, Texas.",
+    hero: "A listing launch should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the home, position the price, and create buyer interest with a clear marketing plan.",
     area: "The Woodlands, TX",
-    bullets: ["Village-level pricing review", "Launch plan for photography, copy, and buyer targeting", "Negotiation strategy before offers arrive"],
+    bullets: ["Village-level pricing review", "Launch plan for photography, copy, and marketing", "Negotiation strategy before offers arrive"],
     sections: [
-      { title: "Pricing built around local context", copy: "The Woodlands is not one flat market. Carlton Woods, East Shore, Creekside Park, Sterling Ridge, Alden Bridge, and Panther Creek each attract different buyer motivations and different pricing pressure." },
-      { title: "Premium presentation", copy: "The first showing usually happens online. Josh's listing plan focuses on photography readiness, buyer-facing copy, neighborhood context, and a launch sequence built to create confidence." },
+      { title: "Pricing built around local context", copy: "The Woodlands is not one flat market. Carlton Woods, East Shore, Creekside Park, Sterling Ridge, Alden Bridge, and Panther Creek each attract different buyer priorities and different pricing pressure." },
+      { title: "Premium presentation", copy: "The first showing usually happens online. Josh's listing plan focuses on photography readiness, listing description, neighborhood context, and a launch sequence built to create confidence." },
       { title: "Seller-first negotiation", copy: "A strong sale depends on more than price. Terms, timing, contingencies, appraisal risk, and buyer strength all shape the actual outcome." },
     ],
     faqs: [
@@ -43,7 +43,7 @@ export const seoLandingPages: SeoLanding[] = [
     title: "A Woodlands Realtor focused on local clarity and premium guidance.",
     metaTitle: "The Woodlands Realtor | Josh Wisdom Realtor",
     description: "Josh Wisdom Realtor serves The Woodlands, Tomball, and Greater Houston with seller-focused real estate guidance and local market knowledge.",
-    hero: "From village differences to buyer demand patterns, local nuance matters. Josh helps clients understand what the market is rewarding before they make a move.",
+    hero: "From village differences to buyer interest patterns, local nuance matters. Josh helps clients understand what the market is rewarding before they make a move.",
     area: "The Woodlands, Tomball, Spring, Magnolia, and Greater Houston",
     bullets: ["Seller consultations", "Buyer and relocation guidance", "Neighborhood-level market insight"],
     sections: [
@@ -62,11 +62,11 @@ export const seoLandingPages: SeoLanding[] = [
     title: "Luxury home representation in The Woodlands, Texas.",
     metaTitle: "The Woodlands Luxury Homes | Josh Wisdom Realtor",
     description: "Luxury listing and buyer guidance for The Woodlands estates, custom homes, golf-course properties, and premium neighborhoods.",
-    hero: "Luxury buyers compare presentation, privacy, finishes, setting, and lifestyle. Josh helps position high-value homes with discretion and detail.",
+    hero: "Luxury buyers compare presentation, privacy, finishes, setting, and lifestyle. Josh helps market high-value homes with care.",
     area: "The Woodlands luxury market",
-    bullets: ["Luxury listing preparation", "Private consultation", "Premium neighborhood positioning"],
+    bullets: ["Luxury listing preparation", "Private consultation", "Luxury neighborhood guidance"],
     sections: [
-      { title: "Presentation is leverage", copy: "Luxury marketing must feel considered. Photography, staging, copy, and buyer targeting should communicate value before the appointment is booked." },
+      { title: "Presentation is leverage", copy: "Luxury marketing must feel considered. Photography, staging, copy, and marketing should communicate value before the appointment is booked." },
       { title: "Neighborhood prestige matters", copy: "Carlton Woods, East Shore, and other premium areas require copy and pricing that reflect both property features and lifestyle access." },
       { title: "Discretion and qualification", copy: "High-value homes need thoughtful exposure and serious buyer handling. The goal is visibility without chaos." },
     ],
@@ -78,16 +78,16 @@ export const seoLandingPages: SeoLanding[] = [
   {
     slug: "carlton-woods-homes-for-sale",
     eyebrow: "Carlton Woods Homes For Sale",
-    title: "Carlton Woods homes deserve a premium listing strategy.",
+    title: "Carlton Woods homes deserve a premium help selling.",
     metaTitle: "Carlton Woods Homes For Sale | Josh Wisdom Realtor",
-    description: "Explore seller guidance and luxury positioning for Carlton Woods homes for sale in The Woodlands, Texas.",
-    hero: "Carlton Woods buyers expect privacy, architecture, golf-club lifestyle, and estate-level presentation. Your listing should speak that language from day one.",
+    description: "Explore seller guidance and luxury home advice for Carlton Woods homes for sale in The Woodlands, Texas.",
+    hero: "Carlton Woods buyers expect privacy, architecture, golf-club lifestyle, and estate-level presentation. Your listing should make those strengths clear from day one.",
     area: "Carlton Woods, The Woodlands",
-    bullets: ["Estate positioning", "Golf and gated-community context", "Luxury buyer targeting"],
+    bullets: ["Estate home guidance", "Golf and gated-community context", "Luxury marketing"],
     sections: [
       { title: "Premium buyer expectations", copy: "Carlton Woods buyers compare finishes, lot setting, privacy, club proximity, and long-term prestige." },
       { title: "Launch with intention", copy: "The listing should be prepared with strong photography, measured copy, and a plan for qualified attention." },
-      { title: "IDX-ready for active inventory", copy: "When your approved IDX provider is connected, this page is ready to support live Carlton Woods homes for sale without fake listings." },
+      { title: "IDX-ready for active inventory", copy: "When your IDX provider is connected, this page can support live Carlton Woods homes for sale while preserving fast-loading local SEO structure." },
     ],
     faqs: [
       { question: "Is Carlton Woods a luxury market?", answer: "Yes. Carlton Woods is one of The Woodlands' most recognized luxury and gated-community markets." },
@@ -102,7 +102,7 @@ export const seoLandingPages: SeoLanding[] = [
     description: "Seller-focused real estate guidance for East Shore homes for sale near Lake Woodlands, Market Street, and The Woodlands Waterway.",
     hero: "East Shore buyers often value convenience, architecture, walkability, water access, and low-maintenance luxury. The marketing should make that lifestyle clear.",
     area: "East Shore, The Woodlands",
-    bullets: ["Lifestyle-focused marketing", "Waterway and Market Street positioning", "Premium buyer copy"],
+    bullets: ["Lifestyle-focused marketing", "Waterway and Market Street guidance", "Premium buyer copy"],
     sections: [
       { title: "Lifestyle is the product", copy: "East Shore listings should communicate more than square footage. Walkability, dining, lake access, and the feel of the neighborhood all matter." },
       { title: "Online first impressions", copy: "Strong visuals and concise copy help buyers understand the East Shore value proposition quickly." },
@@ -116,12 +116,12 @@ export const seoLandingPages: SeoLanding[] = [
   {
     slug: "creekside-park-homes-for-sale",
     eyebrow: "Creekside Park Homes For Sale",
-    title: "Creekside Park homes for sale need village-specific positioning.",
+    title: "Creekside Park homes for sale need local knowledge.",
     metaTitle: "Creekside Park Homes For Sale | Josh Wisdom Realtor",
     description: "Seller strategy and neighborhood guidance for Creekside Park homes for sale in The Woodlands and Tomball-area market.",
     hero: "Creekside Park appeals to buyers who want newer construction, village amenities, parks, and convenient access. The listing should connect those details to value.",
     area: "Creekside Park, The Woodlands",
-    bullets: ["Move-up buyer positioning", "Amenity and school-zone context", "Preparation before launch"],
+    bullets: ["Move-up buyer guidance", "Amenity and school-zone context", "Preparation before launch"],
     sections: [
       { title: "Know the buyer pool", copy: "Creekside Park buyers often compare floor plans, age, updates, school access, commute, and neighborhood amenities." },
       { title: "Preparation pays", copy: "A cleaner launch can reduce buyer objections and make the home easier to compare favorably against active competition." },
@@ -133,6 +133,81 @@ export const seoLandingPages: SeoLanding[] = [
     ],
   },
   {
+    slug: "magnolia-realtor",
+    eyebrow: "Magnolia Realtor",
+    title: "Magnolia real estate guidance for acreage, new communities, and north Houston moves.",
+    metaTitle: "Magnolia Realtor | Josh Wisdom Realtor",
+    description: "Work with Josh Wisdom Realtor for Magnolia homes, acreage properties, new construction, and seller guidance north of Houston.",
+    hero: "Magnolia buyers often want more space, newer communities, privacy, or a quieter setting while staying connected to The Woodlands and greater Houston.",
+    area: "Magnolia, TX",
+    bullets: ["Acreage and estate guidance", "New construction conversations", "Seller value review"],
+    sections: [
+      { title: "Space changes the conversation", copy: "Magnolia buyers often compare acreage, privacy, utility, outbuildings, commute, and long-term growth." },
+      { title: "New construction matters", copy: "Sellers need to understand how nearby builder inventory may affect pricing, incentives, and buyer expectations." },
+      { title: "Current listing help", copy: "For active Magnolia homes, Josh can help pull current options and compare them against your goals." },
+    ],
+    faqs: [
+      { question: "Can Josh help with Magnolia acreage homes?", answer: "Yes. Acreage and estate-style homes need a different pricing and marketing conversation than standard subdivision homes." },
+      { question: "Is Magnolia good for buyers wanting more space?", answer: "Many buyers consider Magnolia for larger lots, privacy, and a quieter north Houston setting." },
+    ],
+  },
+  {
+    slug: "spring-realtor",
+    eyebrow: "Spring Realtor",
+    title: "Spring real estate guidance for buyers and sellers near The Woodlands.",
+    metaTitle: "Spring Realtor | Josh Wisdom Realtor",
+    description: "Josh Wisdom Realtor helps Spring TX buyers and sellers with local guidance, home valuation, and north Houston market insight.",
+    hero: "Spring offers established neighborhoods, newer communities, commute access, and proximity to The Woodlands and north Houston job centers.",
+    area: "Spring, TX",
+    bullets: ["Neighborhood comparison", "Seller valuation", "Buyer consultation"],
+    sections: [
+      { title: "Spring is broad", copy: "Spring covers many different pockets, so pricing and marketing should be specific to the exact neighborhood and buyer pool." },
+      { title: "Buyers compare convenience", copy: "Many buyers weigh commute, schools, parks, shopping, and The Woodlands access when comparing Spring homes." },
+      { title: "Get current options", copy: "Josh can help compare current Spring homes and build a focused search or sale plan." },
+    ],
+    faqs: [
+      { question: "Does Josh serve Spring?", answer: "Yes. Josh serves Spring as part of the north Houston and Greater Houston market." },
+      { question: "What matters most when selling in Spring?", answer: "Condition, pricing, location, commute access, and active competition all matter." },
+    ],
+  },
+  {
+    slug: "conroe-realtor",
+    eyebrow: "Conroe Realtor",
+    title: "Conroe real estate guidance for lake, acreage, and north Houston growth.",
+    metaTitle: "Conroe Realtor | Josh Wisdom Realtor",
+    description: "Josh Wisdom Realtor helps Conroe TX buyers and sellers with local guidance, home valuation, and luxury property conversations.",
+    hero: "Conroe attracts buyers looking for lake access, more space, newer communities, acreage options, and value north of The Woodlands.",
+    area: "Conroe, TX",
+    bullets: ["Lake and acreage guidance", "New construction comparison", "Seller value review"],
+    sections: [
+      { title: "Conroe has several buyer profiles", copy: "Lake buyers, acreage buyers, new-construction buyers, and commuters may value different features." },
+      { title: "Market context matters", copy: "Pricing should consider not only nearby resales, but also new communities, lot differences, and access." },
+      { title: "Request current matches", copy: "Josh can help pull current Conroe options and compare them with your goals." },
+    ],
+    faqs: [
+      { question: "Can Josh help with Conroe homes?", answer: "Yes. Conroe is part of Josh's north Houston service area." },
+      { question: "What types of Conroe homes do buyers search for?", answer: "Common searches include lake-area homes, acreage, new construction, and homes with access to The Woodlands or I-45." },
+    ],
+  },
+  {
+    slug: "shenandoah-realtor",
+    eyebrow: "Shenandoah Realtor",
+    title: "Shenandoah real estate guidance near The Woodlands Medical Center and Market Street.",
+    metaTitle: "Shenandoah Realtor | Josh Wisdom Realtor",
+    description: "Josh Wisdom Realtor helps Shenandoah TX buyers and sellers with local guidance, home valuation, and north Houston market insight.",
+    hero: "Shenandoah offers a convenient location near The Woodlands, medical, retail, dining, and commuter routes, making it attractive for buyers who value access.",
+    area: "Shenandoah, TX",
+    bullets: ["Convenience-focused guidance", "Seller value review", "Buyer consultation"],
+    sections: [
+      { title: "Location is the lead", copy: "Shenandoah buyers often prioritize convenience, commute, medical access, shopping, dining, and The Woodlands adjacency." },
+      { title: "Marketing should be clear", copy: "A Shenandoah listing should make the location advantage easy to understand quickly." },
+      { title: "Request current options", copy: "Josh can help compare current Shenandoah homes and build a focused plan." },
+    ],
+    faqs: [
+      { question: "Is Shenandoah close to The Woodlands?", answer: "Yes. Shenandoah is closely connected to The Woodlands area and sits near major shopping, medical, and commuter corridors." },
+      { question: "Does Josh serve Shenandoah?", answer: "Yes. Josh serves Shenandoah as part of his north Houston and Woodlands-area focus." },
+    ],
+  },  {
     slug: "selling-a-home-in-the-woodlands",
     eyebrow: "Selling A Home In The Woodlands",
     title: "Selling a home in The Woodlands starts with strategy, not guesswork.",
@@ -142,7 +217,7 @@ export const seoLandingPages: SeoLanding[] = [
     area: "The Woodlands, TX",
     bullets: ["Pre-listing consultation", "Pricing and preparation plan", "Offer strategy and negotiation"],
     sections: [
-      { title: "Start with value", copy: "A true pricing review looks at recent sales, active competition, upgrades, condition, lot, timing, and buyer demand in your specific area." },
+      { title: "Start with value", copy: "A true pricing review looks at recent sales, active competition, upgrades, condition, lot, timing, and buyer interest in your specific area." },
       { title: "Prepare what matters", copy: "Not every improvement pays. The goal is to identify the few changes most likely to improve buyer confidence or reduce objections." },
       { title: "Negotiate the whole offer", copy: "The strongest offer is not always the highest headline price. Terms, financing strength, appraisal risk, option periods, and closing timelines matter." },
     ],
@@ -173,36 +248,36 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
-      <section className="bg-black py-20 text-white md:py-28">
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="relative overflow-hidden bg-[#050505] py-20 text-white md:py-28">`n        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:76px_76px]" />
+        <div className="relative mx-auto max-w-[1500px] px-5 md:px-9">
           <div className="max-w-4xl">
             <div className="mb-6 inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-amber-300">
               <MapPin className="h-4 w-4" />
               {page.area}
             </div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white/50">{page.eyebrow}</p>
-            <h1 className="mt-5 text-4xl font-semibold leading-tight text-white md:text-6xl">{page.title}</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{page.hero}</p>
+            <h1 className="mt-6 font-serif text-5xl font-semibold leading-[0.95] tracking-[-0.025em] text-white md:text-7xl">{page.title}</h1>
+            <p className="mt-7 max-w-3xl text-xl leading-9 text-white/76">{page.hero}</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button asChild className="h-12 rounded-none bg-amber-500 px-7 text-black hover:bg-amber-400">
+              <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:bg-[#e1c06f]">
                 <Link href="/home-valuation">Get Home Value</Link>
               </Button>
-              <Button asChild variant="outline" className="h-12 rounded-none border-white bg-transparent px-7 text-white hover:bg-white hover:text-black">
-                <Link href="/contact">Schedule Consultation</Link>
+              <Button asChild variant="outline" className="h-14 rounded-none border-white bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-white hover:text-black">
+                <Link href="/contact">Request Current Listings</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.75fr_1.25fr] md:px-6">
+      <section className="bg-[#f8f5ef] py-16 text-black md:py-24">
+        <div className="mx-auto grid max-w-[1500px] gap-12 px-5 md:px-9 lg:grid-cols-[0.72fr_1.28fr]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-600">What Josh Focuses On</p>
-            <div className="mt-6 space-y-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#9b6d1d]">What Josh Focuses On</p>
+            <div className="mt-7 space-y-4">
               {page.bullets.map((bullet) => (
-                <div key={bullet} className="flex gap-3 border-t border-neutral-200 pt-4">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-amber-600" />
+                <div key={bullet} className="flex gap-3 border-t border-black/15 pt-4">
+                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#9b6d1d]" />
                   <span className="font-medium text-black">{bullet}</span>
                 </div>
               ))}
@@ -219,14 +294,14 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
         </div>
       </section>
 
-      <section className="bg-neutral-100 py-16 md:py-24">
-        <div className="container mx-auto grid gap-10 px-4 lg:grid-cols-2 md:px-6">
+      <section className="bg-white py-16 text-black md:py-24">
+        <div className="mx-auto grid max-w-[1500px] gap-10 px-5 md:px-9 lg:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-600">Questions</p>
-            <h2 className="mt-4 text-4xl font-semibold text-black">Common seller questions.</h2>
+            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#9b6d1d]">Questions</p>
+            <h2 className="mt-4 font-serif text-5xl font-semibold leading-tight text-black">Common seller questions.</h2>
             <div className="mt-8 space-y-5">
               {page.faqs.map((faq) => (
-                <div key={faq.question} className="bg-white p-6">
+                <div key={faq.question} className="border border-neutral-200 bg-[#f8f5ef] p-6">
                   <h3 className="text-xl font-semibold text-black">{faq.question}</h3>
                   <p className="mt-3 leading-7 text-neutral-700">{faq.answer}</p>
                 </div>

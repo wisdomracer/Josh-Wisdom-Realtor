@@ -7,6 +7,7 @@
   <url><loc>https://thewoodlandslistingagent.com/luxury-homes</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/communities</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/communities/the-woodlands</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/the-woodlands-events</loc><priority>0.85</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/communities/tomball</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/communities/greater-houston</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/the-woodlands-listing-agent</loc><priority>0.9</priority></url>
@@ -16,6 +17,21 @@
   <url><loc>https://thewoodlandslistingagent.com/east-shore-homes-for-sale</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/creekside-park-homes-for-sale</loc><priority>0.8</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/selling-a-home-in-the-woodlands</loc><priority>0.9</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/magnolia-realtor</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/spring-realtor</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/conroe-realtor</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/shenandoah-realtor</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/featured-listings</loc><priority>0.8</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/recently-sold</loc><priority>0.75</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/map-search</loc><priority>0.75</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/property-alerts</loc><priority>0.75</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/mortgage-estimate</loc><priority>0.65</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/affordability-calculator</loc><priority>0.65</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/seller-net-sheet</loc><priority>0.75</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/video-library</loc><priority>0.6</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/instagram-feed</loc><priority>0.6</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/google-reviews</loc><priority>0.6</priority></url>
+  <url><loc>https://thewoodlandslistingagent.com/newsletter</loc><priority>0.6</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/blog</loc><priority>0.75</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/blog/how-to-price-a-home-in-the-woodlands</loc><priority>0.75</priority></url>
   <url><loc>https://thewoodlandslistingagent.com/blog/what-carlton-woods-buyers-compare</loc><priority>0.75</priority></url>

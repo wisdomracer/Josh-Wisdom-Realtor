@@ -67,8 +67,8 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
 
   if (submitted) {
     return (
-      <div className="bg-secondary/50 p-8 text-center rounded-lg border border-border animate-in fade-in zoom-in duration-500">
-        <h3 className="text-2xl font-serif text-primary mb-3">Thank you!</h3>
+      <div className="border border-black/10 bg-white p-10 text-center animate-in fade-in zoom-in duration-500">
+        <h3 className="font-serif text-3xl text-black mb-3">Thank you!</h3>
         <p className="text-muted-foreground mb-6">Your request has been received. I'll be in touch with you shortly.</p>
         <Button variant="outline" onClick={() => {
           form.reset();
@@ -81,15 +81,15 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
   }
 
   return (
-    <div className="bg-card p-6 md:p-8 rounded-xl shadow-sm border border-border">
+    <div className="border border-black/10 bg-white p-7 shadow-2xl shadow-black/10 md:p-10">
       {(title || subtitle) && (
-        <div className="mb-6 space-y-2">
-          {title && <h3 className="text-2xl font-serif text-primary">{title}</h3>}
-          {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
+        <div className="mb-8 border-b border-black/10 pb-6">
+          {title && <h3 className="font-serif text-4xl leading-none text-black">{title}</h3>}
+          {subtitle && <p className="mt-3 leading-7 text-neutral-600">{subtitle}</p>}
         </div>
       )}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 [&_label]:text-[11px] [&_label]:font-bold [&_label]:uppercase [&_label]:tracking-[0.18em] [&_label]:text-neutral-600 [&_input]:h-12 [&_input]:rounded-none [&_input]:border-black/15 [&_textarea]:rounded-none [&_textarea]:border-black/15">
           <FormField
             control={form.control}
             name="name"
@@ -178,7 +178,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full h-11 text-base" disabled={createLead.isPending}>
+          <Button type="submit" className="h-14 w-full rounded-none bg-black text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-[#9b6d1d]" disabled={createLead.isPending}>
             {createLead.isPending ? "Submitting..." : buttonText}
           </Button>
         </form>
