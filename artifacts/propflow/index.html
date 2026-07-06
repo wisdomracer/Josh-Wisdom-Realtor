@@ -14,9 +14,14 @@
     <meta property="og:title" content="The Woodlands Listing Agent | Josh Wisdom Realtor" />
     <meta property="og:description" content="Seller-focused real estate guidance for The Woodlands, Tomball, and Greater Houston homeowners." />
     <meta property="og:url" content="https://thewoodlandslistingagent.com/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://thewoodlandslistingagent.com/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The Woodlands Listing Agent | Josh Wisdom Realtor" />
     <meta name="twitter:description" content="Premium listing strategy, local pricing intelligence, and seller-first negotiation for The Woodlands homeowners." />
+    <meta name="twitter:image" content="https://thewoodlandslistingagent.com/og-image.svg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,12 +32,14 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "RealEstateAgent",
+          "@type": ["RealEstateAgent", "LocalBusiness"],
           "@id": "https://thewoodlandslistingagent.com/#agent",
           "name": "Josh Wisdom Realtor",
           "url": "https://thewoodlandslistingagent.com/",
+          "image": "https://thewoodlandslistingagent.com/og-image.svg",
           "telephone": "+18329818920",
           "email": "WisdomRacer@gmail.com",
+          "priceRange": "Luxury and residential real estate",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "5100 Westheimer Ste 200",
@@ -47,7 +54,15 @@
             "Spring, TX",
             "Magnolia, TX",
             "Conroe, TX",
+            "Shenandoah, TX",
             "Greater Houston, TX"
+          ],
+          "knowsAbout": [
+            "The Woodlands luxury homes",
+            "home valuation",
+            "listing strategy",
+            "seller representation",
+            "North Houston real estate"
           ],
           "parentOrganization": {
             "@type": "RealEstateAgent",
@@ -63,8 +78,18 @@
           "potentialAction": {
             "@type": "ContactAction",
             "target": "https://thewoodlandslistingagent.com/home-valuation",
-            "name": "Get Home Value"
+            "name": "Request Private Home Valuation"
           }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://thewoodlandslistingagent.com/#josh-wisdom",
+          "name": "Josh Wisdom",
+          "jobTitle": "Realtor",
+          "url": "https://thewoodlandslistingagent.com/",
+          "telephone": "+18329818920",
+          "email": "WisdomRacer@gmail.com",
+          "worksFor": { "@id": "https://thewoodlandslistingagent.com/#agent" }
         }
       ]
     }
