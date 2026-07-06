@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The Woodlands Listing Agent - Josh Wisdom Realtor</title>
+  <desc id="desc">Luxury real estate social preview image for Josh Wisdom Realtor.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset="0.58" stop-color="#11100d"/>
+      <stop offset="1" stop-color="#2a1e09"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="76%" cy="23%" r="52%">
+      <stop offset="0" stop-color="#d7b56d" stop-opacity="0.42"/>
+      <stop offset="0.48" stop-color="#d7b56d" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#d7b56d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="58" y="58" width="1084" height="514" fill="none" stroke="#d7b56d" stroke-opacity="0.42" stroke-width="2"/>
+  <rect x="88" y="88" width="132" height="132" fill="none" stroke="#d7b56d" stroke-width="3"/>
+  <text x="154" y="170" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="54" fill="#d7b56d" font-weight="700">JW</text>
+  <text x="88" y="292" font-family="Inter, Arial, sans-serif" font-size="22" letter-spacing="8" fill="#d7b56d" font-weight="700">THE WOODLANDS</text>
+  <text x="88" y="382" font-family="Georgia, 'Times New Roman', serif" font-size="82" fill="#ffffff" font-weight="700">Listing Agent</text>
+  <text x="88" y="452" font-family="Inter, Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.78">Josh Wisdom Realtor</text>
+  <text x="88" y="512" font-family="Inter, Arial, sans-serif" font-size="24" fill="#ffffff" opacity="0.68">Luxury listing strategy • Private home valuations • North Houston</text>
+</svg>
