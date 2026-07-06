@@ -75,11 +75,11 @@ const woodlandsImages = [
     href: "https://commons.wikimedia.org/wiki/File:The_Woodlands_Towers_at_The_Waterway_lower_res.jpg",
   },
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Woodlands_Lake.jpg/1920px-Woodlands_Lake.jpg",
-    alt: "Lake Woodlands in The Woodlands, Texas",
-    caption: "Lake Woodlands",
-    credit: "Photo: Antonio Rivera / Wikimedia Commons, CC BY-SA 2.0",
-    href: "https://commons.wikimedia.org/wiki/File:Woodlands_Lake.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/5/57/The_Woodlands_Waterway_(5050352741).jpg",
+    alt: "The Woodlands Waterway in The Woodlands, Texas",
+    caption: "The Woodlands Waterway",
+    credit: "Photo: socialwoodlands / Wikimedia Commons, CC BY 2.0",
+    href: "https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg",
   },
   {
     src: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Great_Blue_Heron%2C_Woodlands_Waterway.jpg",
