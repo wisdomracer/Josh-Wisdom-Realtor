@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
 
+const sellerLeadTypes = ["selling", "valuation", "consultation", "luxury"] as const;
+
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email address"),
@@ -16,6 +18,15 @@ const formSchema = z.object({
   message: z.string().optional(),
   propertyAddress: z.string().optional(),
   area: z.string().optional(),
+  leadType: z.string(),
+}).superRefine((values, ctx) => {
+  if (sellerLeadTypes.includes(values.leadType as (typeof sellerLeadTypes)[number]) && !values.phone?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Phone number is required for private seller consultations",
+      path: ["phone"],
+    });
+  }
 });
 
 type LeadFormProps = {
@@ -30,6 +41,7 @@ type LeadFormProps = {
 export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit", title, subtitle }: LeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const createLead = useCreateLead();
+  const isSellerLead = sellerLeadTypes.includes(leadType as (typeof sellerLeadTypes)[number]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +52,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
       message: "",
       propertyAddress: "",
       area: "",
+      leadType,
     },
   });
 
@@ -60,7 +73,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
         toast.success("Request submitted successfully!");
       },
       onError: () => {
-        toast.error("Failed to submit. Please try again.");
+        toast.error("Failed to submit. Please try again or call Josh directly at 832-981-8920.");
       }
     });
   }
@@ -68,10 +81,19 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
   if (submitted) {
     return (
       <div className="border border-black/10 bg-white p-10 text-center animate-in fade-in zoom-in duration-500">
-        <h3 className="font-serif text-3xl text-black mb-3">Thank you!</h3>
-        <p className="text-muted-foreground mb-6">Your request has been received. I'll be in touch with you shortly.</p>
+        <h3 className="font-serif text-3xl text-black mb-3">Request received.</h3>
+        <p className="text-muted-foreground mb-3">Josh will review your details and follow up shortly.</p>
+        <p className="mb-6 text-sm text-neutral-600">Need a faster answer? Call or text <a href="tel:+18329818920" className="font-semibold text-black underline underline-offset-4">832-981-8920</a>.</p>
         <Button variant="outline" onClick={() => {
-          form.reset();
+          form.reset({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+            propertyAddress: "",
+            area: "",
+            leadType,
+          });
           setSubmitted(false);
         }}>
           Submit another request
@@ -122,7 +144,7 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
+                  <FormLabel>Phone Number{isSellerLead ? " *" : ""}</FormLabel>
                   <FormControl>
                     <Input type="tel" placeholder="832-981-8920" {...field} />
                   </FormControl>
@@ -178,9 +200,11 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
               </FormItem>
             )}
           />
+          <input type="hidden" {...form.register("leadType")} />
           <Button type="submit" className="h-14 w-full rounded-none bg-black text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-[#9b6d1d]" disabled={createLead.isPending}>
             {createLead.isPending ? "Submitting..." : buttonText}
           </Button>
+          {isSellerLead && <p className="text-center text-xs leading-5 text-neutral-500">Private seller requests are reviewed personally. No spam, no automated valuation blast.</p>}
         </form>
       </Form>
     </div>
