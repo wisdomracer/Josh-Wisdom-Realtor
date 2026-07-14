@@ -3,10 +3,11 @@ import { Link, useLocation } from "wouter";
 import { Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { phoneHref, siteConfig } from "@/config/site";
 
 const navLinks = [
   { href: "/sell", label: "Sell" },
-  { href: "/home-valuation", label: "Value" },
+  { href: "/home-valuation", label: "Home Value" },
   { href: "/communities", label: "Areas" },
   { href: "/luxury-homes", label: "Luxury" },
   { href: "/the-woodlands-events", label: "Events" },
@@ -38,11 +39,11 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3 justify-self-end">
-          <a href="tel:+18329818920" className="hidden items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70 transition hover:text-[#d7b56d] lg:inline-flex" aria-label="Call Josh Wisdom at 832-981-8920">
-            <Phone className="h-4 w-4" /> 832-981-8920
+          <a href={phoneHref} className="hidden items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70 transition hover:text-[#d7b56d] lg:inline-flex" aria-label={`Call ${siteConfig.agentName} at ${siteConfig.phone}`}>
+            <Phone className="h-4 w-4" /> {siteConfig.phone}
           </a>
           <Button asChild className="hidden h-12 rounded-none border border-[#c69a44] bg-[#c69a44] px-7 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:border-[#e1c06f] hover:bg-[#e1c06f] lg:inline-flex">
-            <Link href="/home-valuation">Private Valuation</Link>
+            <Link href="/home-valuation" data-primary-cta>Private Valuation</Link>
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild><Button variant="ghost" size="icon" className="xl:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></Button></SheetTrigger>
@@ -50,8 +51,8 @@ export function Header() {
               <SheetTitle className="font-serif text-2xl font-semibold text-white">Josh Wisdom Realtor</SheetTitle>
               <nav className="mt-9 flex flex-col gap-1" aria-label="Mobile navigation">
                 {navLinks.map((link) => (<Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="border-b border-white/10 px-1 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white">{link.label}</Link>))}
-                <a href="tel:+18329818920" className="mt-6 inline-flex items-center justify-center gap-2 border border-white/15 px-4 py-4 text-sm font-bold uppercase tracking-[0.16em] text-white" onClick={() => setOpen(false)}><Phone className="h-4 w-4" /> Call Josh</a>
-                <Button asChild className="mt-3 h-12 rounded-none bg-[#c69a44] text-black hover:bg-[#e1c06f]"><Link href="/home-valuation" onClick={() => setOpen(false)}>Private Valuation</Link></Button>
+                <a href={phoneHref} className="mt-6 inline-flex items-center justify-center gap-2 border border-white/15 px-4 py-4 text-sm font-bold uppercase tracking-[0.16em] text-white" onClick={() => setOpen(false)}><Phone className="h-4 w-4" /> Call Josh</a>
+                <Button asChild className="mt-3 h-12 rounded-none bg-[#c69a44] text-black hover:bg-[#e1c06f]"><Link href="/home-valuation" data-primary-cta onClick={() => setOpen(false)}>Private Valuation</Link></Button>
               </nav>
             </SheetContent>
           </Sheet>

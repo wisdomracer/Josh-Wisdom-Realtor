@@ -20,6 +20,7 @@ import type {
   CreateLeadBody,
   CreatePropertyBody,
   ErrorResponse,
+  EventsResponse,
   HealthStatus,
   Lead,
   ListPropertiesParams,
@@ -206,6 +207,74 @@ export const useCreateLead = <
 > => {
   return useMutation(getCreateLeadMutationOptions(options));
 };
+
+/**
+ * Returns upcoming events from the official Visit The Woodlands RSS calendar, cached for 15 minutes
+ * @summary Get current Woodlands events
+ */
+export const getGetEventsUrl = () => {
+  return `/api/events`;
+};
+
+export const getEvents = async (
+  options?: RequestInit,
+): Promise<EventsResponse> => {
+  return customFetch<EventsResponse>(getGetEventsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetEventsQueryKey = () => {
+  return [`/api/events`] as const;
+};
+
+export const getGetEventsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getEvents>>,
+  TError = ErrorType<ErrorResponse>,
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getEvents>>, TError, TData>;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetEventsQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getEvents>>> = ({
+    signal,
+  }) => getEvents({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getEvents>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetEventsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getEvents>>
+>;
+export type GetEventsQueryError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Get current Woodlands events
+ */
+
+export function useGetEvents<
+  TData = Awaited<ReturnType<typeof getEvents>>,
+  TError = ErrorType<ErrorResponse>,
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getEvents>>, TError, TData>;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetEventsQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
 
 /**
  * Returns all properties with optional filters

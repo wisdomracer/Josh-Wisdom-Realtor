@@ -114,21 +114,21 @@
   header nav { gap: 1.8rem !important; }
   header a[class*="h-12"], header button[class*="h-12"] { height: 2.75rem !important; padding-left: 1.35rem !important; padding-right: 1.35rem !important; }
 
-  main section:first-of-type {
+  main .luxury-hero {
     min-height: 650px !important;
     max-height: 760px !important;
   }
 
-  main section:first-of-type > img {
+  main .luxury-hero > img {
     opacity: 0.58 !important;
     filter: contrast(1.05) saturate(0.78) brightness(0.82);
   }
 
-  main section:first-of-type > div[class*="absolute inset-0"] {
+  main .luxury-hero > div[class*="absolute inset-0"] {
     background: linear-gradient(90deg, rgba(0,0,0,.90) 0%, rgba(0,0,0,.68) 45%, rgba(0,0,0,.34) 100%) !important;
   }
 
-  main section:first-of-type > div[class*="grid"] {
+  main .luxury-hero > div[class*="grid"] {
     min-height: 650px !important;
     max-height: 760px !important;
     align-items: center !important;
@@ -136,12 +136,12 @@
     padding-bottom: 3.25rem !important;
   }
 
-  main section:first-of-type .max-w-6xl { max-width: 780px !important; }
-  main section:first-of-type .mb-8 { margin-bottom: 1.2rem !important; }
-  main section:first-of-type .mt-8 { margin-top: 1.35rem !important; }
-  main section:first-of-type .mt-10 { margin-top: 1.75rem !important; }
+  main .luxury-hero .max-w-6xl { max-width: 780px !important; }
+  main .luxury-hero .mb-8 { margin-bottom: 1.2rem !important; }
+  main .luxury-hero .mt-8 { margin-top: 1.35rem !important; }
+  main .luxury-hero .mt-10 { margin-top: 1.75rem !important; }
 
-  main section:first-of-type h1 {
+  main .luxury-hero h1 {
     max-width: 8.7ch !important;
     font-size: clamp(3.9rem, 6.35vw, 7.15rem) !important;
     line-height: 0.9 !important;
@@ -149,16 +149,16 @@
     text-shadow: 0 20px 54px rgba(0,0,0,.32) !important;
   }
 
-  main section:first-of-type p {
+  main .luxury-hero p {
     max-width: 620px !important;
     font-size: clamp(1.05rem, 1.18vw, 1.25rem) !important;
     line-height: 1.6 !important;
   }
 
-  main section:first-of-type .h-14 { height: 3.15rem !important; }
-  main section:first-of-type .lg\:block { display: none !important; }
+  main .luxury-hero .h-14 { height: 3.15rem !important; }
+  main .luxury-hero .lg\:block { display: none !important; }
 
-  main section:first-of-type::after {
+  main .luxury-hero::after {
     content: "";
     position: absolute;
     inset: auto 6vw 1.6rem 6vw;
@@ -196,17 +196,17 @@
 }
 
 @media (max-width: 1024px) {
-  main section:first-of-type, main section:first-of-type > div[class*="grid"] { min-height: 590px !important; max-height: none !important; }
-  main section:first-of-type h1 { font-size: clamp(3.35rem, 10vw, 5.8rem) !important; max-width: 9ch !important; }
+  main .luxury-hero, main .luxury-hero > div[class*="grid"] { min-height: 590px !important; max-height: none !important; }
+  main .luxury-hero h1 { font-size: clamp(3.35rem, 10vw, 5.8rem) !important; max-width: 9ch !important; }
 }
 
 @media (max-width: 640px) {
   header > div { height: 60px !important; }
-  main section:first-of-type, main section:first-of-type > div[class*="grid"] { min-height: auto !important; }
-  main section:first-of-type > div[class*="grid"] { padding-top: 3.6rem !important; padding-bottom: 4rem !important; }
-  main section:first-of-type h1 { font-size: clamp(2.95rem, 13.5vw, 4.6rem) !important; line-height: .94 !important; max-width: 8.8ch !important; }
-  main section:first-of-type p { font-size: 1rem !important; line-height: 1.65 !important; }
-  main section:first-of-type .h-14 { height: 3rem !important; }
+  main .luxury-hero, main .luxury-hero > div[class*="grid"] { min-height: auto !important; }
+  main .luxury-hero > div[class*="grid"] { padding-top: 3.6rem !important; padding-bottom: 4rem !important; }
+  main .luxury-hero h1 { font-size: clamp(2.95rem, 13.5vw, 4.6rem) !important; line-height: .94 !important; max-width: 8.8ch !important; }
+  main .luxury-hero p { font-size: 1rem !important; line-height: 1.65 !important; }
+  main .luxury-hero .h-14 { height: 3rem !important; }
   main section[class*="py-24"], main section[class*="py-36"] { padding-top: 4rem !important; padding-bottom: 4rem !important; }
 }
 

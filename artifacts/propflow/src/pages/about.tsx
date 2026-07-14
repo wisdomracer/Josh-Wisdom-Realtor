@@ -8,7 +8,7 @@ export default function About() {
       <Helmet>
         <title>About Josh Wisdom Realtor | The Woodlands Real Estate Expert</title>
         <meta name="description" content="Learn about Josh Wisdom, your local real estate expert serving The Woodlands, Tomball, and Greater Houston. Deeply rooted in the community." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/about" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/about" />
       </Helmet>
 
       {/* Hero Section */}

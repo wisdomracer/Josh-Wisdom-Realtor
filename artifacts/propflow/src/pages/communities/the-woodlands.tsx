@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { ArrowRight, MapPin, TreePine, Navigation } from "lucide-react";
+import { TreePine, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
+import { CommunityHero } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 
 export default function TheWoodlands() {
   return (
@@ -10,22 +12,15 @@ export default function TheWoodlands() {
       <Helmet>
         <title>The Woodlands Real Estate & Homes for Sale | Josh Wisdom</title>
         <meta name="description" content="Explore The Woodlands, Texas real estate. Learn about the villages, schools, and lifestyle in this premier forested master-planned community." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities/the-woodlands" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/communities/the-woodlands" />
       </Helmet>
 
-      <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Local Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands, Tomball & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Home Value . Selling . Buying</p></div></div>
-          <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <span className="text-white/80 uppercase tracking-widest text-sm font-semibold mb-4 block">Community Guide</span>
-          <h1 className="text-4xl md:text-6xl font-serif mb-6 text-white drop-shadow-md">The Woodlands</h1>
-          <p className="text-xl text-white/90 leading-relaxed drop-shadow">
-            A premier master-planned community where nature and luxury living seamlessly intertwine.
-          </p>
-        </div>
-      </section>
+      <CommunityHero
+        eyebrow="Community Guide"
+        title="The Woodlands"
+        description="A premier master-planned community where nature and luxury living seamlessly intertwine."
+        photo={locationPhotos.woodlands}
+      />
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">

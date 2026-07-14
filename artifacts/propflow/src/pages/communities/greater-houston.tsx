@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { ArrowRight, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CommunityHero } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 
 export default function GreaterHouston() {
   const areas = [
@@ -14,22 +16,15 @@ export default function GreaterHouston() {
       <Helmet>
         <title>Greater Houston Suburbs Real Estate | Josh Wisdom</title>
         <meta name="description" content="Explore real estate in the Greater Houston suburbs including Spring, Magnolia, Conroe, and Cypress with local expert Josh Wisdom." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities/greater-houston" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/communities/greater-houston" />
       </Helmet>
 
-      <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Local Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands, Tomball & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Home Value . Selling . Buying</p></div></div>
-          <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <span className="text-white/80 uppercase tracking-widest text-sm font-semibold mb-4 block">Community Guide</span>
-          <h1 className="text-4xl md:text-6xl font-serif mb-6 text-white drop-shadow-md">Greater Houston</h1>
-          <p className="text-xl text-white/90 leading-relaxed drop-shadow">
-            Discover the diverse, thriving communities that make up the northern and western suburbs of Houston.
-          </p>
-        </div>
-      </section>
+      <CommunityHero
+        eyebrow="Community Guide"
+        title="Greater Houston"
+        description="Discover the diverse, thriving communities that make up the northern and western suburbs of Houston."
+        photo={locationPhotos.houston}
+      />
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-5xl">

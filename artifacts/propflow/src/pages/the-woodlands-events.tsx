@@ -1,682 +1,187 @@
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
+import { getGetEventsQueryKey, useGetEvents, type CalendarEvent } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
-import {
-  ArrowRight,
-  CalendarDays,
-  CheckCircle2,
-  Clock,
-  ExternalLink,
-  Home,
-  MapPin,
-  Music,
-  Sparkles,
-  Ticket,
-  TreePine,
-} from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink, Home, MapPin, Music, RefreshCw, Sparkles, TreePine } from "lucide-react";
+import { absoluteUrl } from "@/config/site";
 
-type CuratedEvent = {
-  date: string;
-  day: string;
-  time: string;
-  title: string;
-  venue: string;
-  area: string;
-  category: string;
-  source: string;
-  href: string;
-  note?: string;
-  featured?: boolean;
-};
-
-const sourceUrls = {
-  township: "https://www.thewoodlandstownship-tx.gov/Events-directory",
-  woodlandsOnline: "https://www.woodlandsonline.com/evps/",
-  pavilion: "https://www.woodlandscenter.org/events",
-  marketStreet: "https://shopatmarketstreet.com/whats-happening/events/",
-  visit: "https://www.visitthewoodlands.com/events/",
-  helloWoodlands: "https://hellowoodlands.com/calendar/",
-  automotive: "https://www.woodlandsonline.com/evps/evlist2.cfm?classid=44",
-};
-
-const todaysEvents: CuratedEvent[] = [
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "9:00 AM - 3:00 PM",
-    title: "Alley Theatre Imagination Lab Camp",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Arts / Family",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-    featured: true,
-  },
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "Today",
-    title: "Entwined Exhibition",
-    venue: "The Woodlands Arts Council",
-    area: "The Woodlands",
-    category: "Arts",
-    source: "Visit The Woodlands",
-    href: sourceUrls.visit,
-  },
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "Today",
-    title: "Splash, Sirens and Snow Cones",
-    venue: "May Valley Sprayground",
-    area: "The Woodlands",
-    category: "Family / Community",
-    source: "The Woodlands Township",
-    href: sourceUrls.township,
-  },
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "6:00 PM",
-    title: "Pop at the Pool",
-    venue: "Falconwing Pool",
-    area: "Indian Springs area",
-    category: "Family / Pool",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "Evening",
-    title: "Girls Night Out: Summer Glow Night",
-    venue: "Magnolia Ritual - Texas Apothecary",
-    area: "Magnolia",
-    category: "Lifestyle",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jun 25",
-    day: "Thursday",
-    time: "Match day",
-    title: "World Cup Experience - USA vs Turkey",
-    venue: "Sawyer Park Icehouse",
-    area: "Spring",
-    category: "Sports / Watch Party",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-];
-
-const weekendEvents: CuratedEvent[] = [
-  {
-    date: "Jun 26",
-    day: "Friday",
-    time: "6:30 PM - 8:00 PM",
-    title: "Sarah Kelly Music School Concert",
-    venue: "Market Street",
-    area: "Town Center",
-    category: "Live Music",
-    source: "Market Street",
-    href: sourceUrls.marketStreet,
-    featured: true,
-  },
-  {
-    date: "Jun 26",
-    day: "Friday",
-    time: "Evening",
-    title: "90's Night with Good Time Muffin",
-    venue: "Sawyer Park Icehouse",
-    area: "Spring",
-    category: "Live Music",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jun 27",
-    day: "Saturday",
-    time: "7:00 PM",
-    title: "Hilary Duff: the lucky me tour",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Concert",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-    featured: true,
-  },
-  {
-    date: "Jun 27",
-    day: "Saturday",
-    time: "Morning",
-    title: "The Woodlands Farmers Market",
-    venue: "Grogan's Mill Shopping Center",
-    area: "Grogan's Mill",
-    category: "Market",
-    source: "The Woodlands Township",
-    href: sourceUrls.township,
-  },
-  {
-    date: "Jun 27",
-    day: "Saturday",
-    time: "9:00 AM - Noon",
-    title: "BioBlitz BioBash",
-    venue: "Rob Fleming Recreation Center",
-    area: "Creekside Park",
-    category: "Outdoors / Family",
-    source: "The Woodlands Township",
-    href: sourceUrls.township,
-  },
-  {
-    date: "Jun 27",
-    day: "Saturday",
-    time: "10:00 AM",
-    title: "Fairy Day 2026",
-    venue: "The Woodlands Children's Museum",
-    area: "Panther Creek",
-    category: "Family",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-    note: "Check the source before going; some calendar entries show multiple Fairy Day times.",
-  },
-  {
-    date: "Jun 27",
-    day: "Saturday",
-    time: "Midday",
-    title: "Ice Cream Social & Open House at iCode",
-    venue: "iCode The Woodlands",
-    area: "Research Forest",
-    category: "Family / Kids",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jun 28",
-    day: "Sunday",
-    time: "Confirm time",
-    title: "Learn To Kayak With Confidence",
-    venue: "Riva Row Boat House",
-    area: "The Waterway",
-    category: "Outdoor Recreation",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-];
-
-const upcomingEvents: CuratedEvent[] = [
-  {
-    date: "Jun 29 - Jul 2",
-    day: "Mon-Thu",
-    time: "All week",
-    title: "Let Freedom Chalk",
-    venue: "The Woodlands Township",
-    area: "The Woodlands",
-    category: "Seasonal / Family",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jun 29 - Jul 3",
-    day: "Mon-Fri",
-    time: "Camp week",
-    title: "Shark Tank: Create & Pitch Your Own Product",
-    venue: "iCode The Woodlands",
-    area: "Research Forest",
-    category: "Kids Camp",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jul 1",
-    day: "Wednesday",
-    time: "6:00 PM",
-    title: "Sweet & Sour Summer Series - Watermelon Sweet",
-    venue: "Township Recreation Center",
-    area: "Lake Woodlands",
-    category: "Family",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-  },
-  {
-    date: "Jul 3",
-    day: "Friday",
-    time: "8:00 PM",
-    title: "Star-Spangled Salute",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Free Symphony Show",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-    featured: true,
-  },
-  {
-    date: "Jul 4",
-    day: "Saturday",
-    time: "Holiday evening",
-    title: "Red, Hot & Blue Festival and Fireworks Extravaganza",
-    venue: "Multiple Woodlands locations",
-    area: "The Woodlands",
-    category: "Fourth of July",
-    source: "Woodlands Online",
-    href: sourceUrls.woodlandsOnline,
-    featured: true,
-  },
-  {
-    date: "Jul 4 - Jul 5",
-    day: "Weekend",
-    time: "Holiday weekend",
-    title: "Market Street July 4th Celebration",
-    venue: "Market Street",
-    area: "Town Center",
-    category: "Shopping / Lifestyle",
-    source: "Market Street",
-    href: sourceUrls.marketStreet,
-  },
-  {
-    date: "Jul 5",
-    day: "Sunday",
-    time: "2:00 PM",
-    title: "Outlaw Music Festival",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Concert",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-  },  {
-    date: "Jul 5",
-    day: "Sunday",
-    time: "6:00 AM - 10:00 AM",
-    title: "The Woodlands Cars & Coffee for a Cause",
-    venue: "Market Street",
-    area: "Town Center",
-    category: "Cars / Coffee",
-    source: "Woodlands Online",
-    href: sourceUrls.automotive,
-    featured: true,
-  },
-  {
-    date: "Jul 11",
-    day: "Saturday",
-    time: "9:00 AM - 1:00 PM",
-    title: "Car Show",
-    venue: "Bespoke Auto Pros",
-    area: "Magnolia",
-    category: "Cars / Automotive",
-    source: "Woodlands Online",
-    href: "https://www.woodlandsonline.com/evps/evitem.cfm?evid=206312",
-  },
-  {
-    date: "Aug 2",
-    day: "Sunday",
-    time: "6:00 AM - 10:00 AM",
-    title: "The Woodlands Cars & Coffee for a Cause",
-    venue: "Market Street",
-    area: "Town Center",
-    category: "Cars / Coffee",
-    source: "Woodlands Online",
-    href: sourceUrls.automotive,
-  },  {
-    date: "Jul 10",
-    day: "Friday",
-    time: "Evening",
-    title: "Encanto with Live Ballet Folklorico",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Free Performing Arts",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-  },
-  {
-    date: "Jul 15",
-    day: "Wednesday",
-    time: "Evening",
-    title: "Game On! A Symphony of Sport",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Free Symphony Show",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-  },
-  {
-    date: "Jul 18",
-    day: "Saturday",
-    time: "7:30 PM",
-    title: "Flatland Cavalry: Work of Heart Tour",
-    venue: "Cynthia Woods Mitchell Pavilion",
-    area: "Town Center",
-    category: "Concert",
-    source: "The Pavilion",
-    href: sourceUrls.pavilion,
-  },
-];
-
-const allCuratedEvents = [...todaysEvents, ...weekendEvents, ...upcomingEvents];
-
-const privateBriefEvents = [
-  todaysEvents[1],
-  weekendEvents[0],
-  weekendEvents[2],
-  upcomingEvents[3],
-  upcomingEvents[4],
-  upcomingEvents[6],
-  upcomingEvents[8],
-];
-
-const briefFilters = [
-  { label: "Private Brief", href: "#current-calendars" },
-  { label: "Today", href: "#today" },
-  { label: "This Weekend", href: "#this-weekend" },
-  { label: "Pavilion", href: "#pavilion-events" },
-  { label: "Auto", href: "#pavilion-events" },
-  { label: "Full Scan", href: "#full-local-scan" },
-];
-
-const eventSources = [
-  {
-    title: "The Woodlands Township Calendar",
-    description: "Public meetings, parks programs, neighborhood events, festivals, farmers markets, and Township-run activities.",
-    url: sourceUrls.township,
-  },
-  {
-    title: "Visit The Woodlands Events",
-    description: "Lifestyle events, arts, dining, shopping, seasonal activities, and visitor-friendly things to do.",
-    url: sourceUrls.visit,
-  },
-  {
-    title: "Cynthia Woods Mitchell Pavilion",
-    description: "Concerts, Houston Symphony events, performing arts nights, and major live entertainment in The Woodlands.",
-    url: sourceUrls.pavilion,
-  },
-  {
-    title: "Market Street Events",
-    description: "Shopping, dining, live music, seasonal events, art shows, and community gatherings near Town Center.",
-    url: sourceUrls.marketStreet,
-  },
-  {
-    title: "Woodlands Online Events",
-    description: "A broad community calendar with local classes, family events, holiday events, concerts, and business gatherings.",
-    url: sourceUrls.woodlandsOnline,
-  },  {
-    title: "Cars & Automotive Events",
-    description: "Cars & Coffee, local car shows, automotive meetups, and enthusiast events around The Woodlands area.",
-    url: sourceUrls.automotive,
-  },
-  {
-    title: "Hello Woodlands Calendar",
-    description: "Local guides and community event coverage across The Woodlands and Montgomery County area.",
-    url: sourceUrls.helloWoodlands,
-  },
-];
+const sources = [
+  { title: "Visit The Woodlands Events", description: "The live feed used on this page, published by the official local tourism organization.", url: "https://www.visitthewoodlands.com/events/" },
+  { title: "The Woodlands Township Calendar", description: "Township meetings, parks programs, festivals, markets, and public activities.", url: "https://www.thewoodlandstownship-tx.gov/Events-directory" },
+  { title: "Cynthia Woods Mitchell Pavilion", description: "The official schedule for concerts, symphony performances, and performing arts events.", url: "https://www.woodlandscenter.org/events" },
+  { title: "Market Street Events", description: "Live music, seasonal programming, and gatherings at Market Street.", url: "https://shopatmarketstreet.com/whats-happening/events/" },
+  { title: "Woodlands Online Events", description: "A broad local calendar covering classes, family events, entertainment, and business gatherings.", url: "https://www.woodlandsonline.com/evps/" },
+  { title: "Hello Woodlands Calendar", description: "Community event coverage across The Woodlands and Montgomery County.", url: "https://hellowoodlands.com/calendar/" },
+] as const;
 
 const lifestyleCategories = [
-  ["Concerts & Pavilion Nights", "Pavilion nights, free performing arts, major tours, and symphony events give buyers a reason to picture weekends here.", Music],
-  ["Market Street & Waterway", "Dining, shopping, patios, walkability, and events near Market Street and The Waterway define the Town Center lifestyle.", Sparkles],
-  ["Parks & Family Events", "Parks, pools, trails, camps, farmers markets, and Township programming are part of the everyday Woodlands draw.", TreePine],
-  ["Relocation Weekends", "For buyers visiting from out of town, a good event calendar can make one weekend feel like a real test drive of the area.", Home],
-];
+  ["Pavilion nights", "Major tours, free performing arts, and symphony events make Town Center a strong live-entertainment anchor.", Music],
+  ["Market Street & Waterway", "Dining, patios, shopping, walkability, and public programming shape the Town Center lifestyle.", Sparkles],
+  ["Parks & community", "Trails, pools, markets, parks, and Township programming are part of daily life across the villages.", TreePine],
+  ["Relocation weekends", "A current local calendar helps visiting buyers test-drive the area instead of seeing only houses.", Home],
+] as const;
 
-const seasonalGuides = [
-  ["Spring", "Art events, patio weather, golf, parks, school visits, and early relocation trips."],
-  ["Summer", "Pavilion shows, Fourth of July, splash pads, pool season, camps, and Waterway evenings."],
-  ["Fall", "Outdoor festivals, football weekends, school calendars, Market Street nights, and cooler showings."],
-  ["Holiday", "Tree lightings, holiday markets, The Ice Rink, family visits, and end-of-year moves."],
-];
+type Filter = "all" | "today" | "weekend" | "pavilion";
 
-const pageSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "The Woodlands Private Local Brief",
-  url: "https://thewoodlandslistingagent.com/the-woodlands-events",
-  description: "A curated private local calendar brief for The Woodlands, Texas from Josh Wisdom Realtor.",
-  about: ["The Woodlands TX events", "The Woodlands lifestyle", "The Woodlands real estate"],
-  mainEntity: {
-    "@type": "ItemList",
-    name: "Curated The Woodlands events",
-    itemListElement: allCuratedEvents.map((event, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Event",
-        name: event.title,
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        location: {
-          "@type": "Place",
-          name: event.venue,
-          address: event.area,
-        },
-        url: event.href,
-        description: `${event.day}, ${event.date} - ${event.category} at ${event.venue}. Source: ${event.source}.`,
-      },
-    })),
-  },
-};
+function centralDateKey(date = new Date()): string {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day}`;
+}
+
+function addDays(dateKey: string, days: number): string {
+  const date = new Date(`${dateKey}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function weekendRange(today: string): [string, string] {
+  const day = new Date(`${today}T12:00:00Z`).getUTCDay();
+  const fridayOffset = day === 6 ? -1 : day === 0 ? -2 : 5 - day;
+  const friday = addDays(today, fridayOffset);
+  return [friday, addDays(friday, 2)];
+}
+
+function formatEventDate(dateKey: string): { day: string; date: string } {
+  const date = new Date(`${dateKey}T12:00:00Z`);
+  return {
+    day: new Intl.DateTimeFormat("en-US", { weekday: "long", timeZone: "UTC" }).format(date),
+    date: new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(date),
+  };
+}
+
+function matchesFilter(event: CalendarEvent, filter: Filter, today: string, weekend: [string, string]): boolean {
+  if (filter === "today") return event.date === today;
+  if (filter === "weekend") return event.date >= weekend[0] && event.date <= weekend[1];
+  if (filter === "pavilion") return event.categories.some((category) => category.toLowerCase().includes("pavilion"));
+  return true;
+}
 
 function Eyebrow({ children, light = false }: { children: string; light?: boolean }) {
-  return <p className={`text-[11px] font-bold uppercase tracking-[0.34em] ${light ? "text-[#d7b56d]" : "text-[#9b6d1d]"}`}>{children}</p>;
+  return <p className={`text-[11px] font-bold uppercase tracking-[0.3em] ${light ? "text-[#d7b56d]" : "text-[#6f4b0d]"}`}>{children}</p>;
 }
 
-function EventCard({ event, dark = false }: { event: CuratedEvent; dark?: boolean }) {
-  const mutedText = dark ? "text-white/58" : "text-neutral-600";
-  const titleText = dark ? "text-white" : "text-black";
-
-  return (
-    <a
-      href={event.href}
-      target="_blank"
-      rel="noreferrer"
-      className={`group grid gap-x-4 gap-y-1 py-2.5 text-sm transition hover:px-2 md:grid-cols-[164px_minmax(280px,1.15fr)_minmax(250px,0.85fr)_118px] md:items-center ${
-        dark ? "text-white hover:bg-white/[0.035]" : "text-black hover:bg-white"
-      }`}
-    >
-      <div className="flex min-w-[154px] items-center gap-2 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.14em] text-[#a97822]">
-        <span>{event.day.slice(0, 3)}</span>
-        <span className="h-px w-2 shrink-0 bg-[#c69a44]/60" />
-        <span>{event.date}</span>
-      </div>
-
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className={`text-base font-semibold leading-tight tracking-[-0.01em] md:text-[17px] ${titleText}`}>{event.title}</h3>
-          {event.featured && <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#a97822]">Pick</span>}
-        </div>
-        {event.note && <p className={`mt-0.5 text-[11px] leading-4 ${dark ? "text-white/45" : "text-neutral-500"}`}>{event.note}</p>}
-      </div>
-
-      <div className={`flex flex-col gap-0.5 text-xs leading-4 md:text-[13px] ${mutedText}`}>
-        <p className="flex gap-1.5"><Clock className="mt-0.5 h-3 w-3 shrink-0 text-[#c69a44]" /> {event.time}</p>
-        <p className="flex gap-1.5"><MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#c69a44]" /> {event.venue} - {event.area}</p>
-      </div>
-
-      <div className="flex items-center justify-between gap-3 md:justify-end">
-        <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#a97822] md:text-right">{event.category}</span>
-        <ExternalLink className="h-3 w-3 shrink-0 text-[#a97822] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </div>
-    </a>
-  );
-}
 export default function TheWoodlandsEvents() {
+  const [filter, setFilter] = useState<Filter>("all");
+  const query = useGetEvents({
+    query: {
+      queryKey: getGetEventsQueryKey(),
+      staleTime: 5 * 60 * 1000,
+      refetchInterval: 15 * 60 * 1000,
+      refetchOnWindowFocus: true,
+      retry: 2,
+    },
+  });
+  const today = centralDateKey();
+  const weekend = weekendRange(today);
+  const events = query.data?.events ?? [];
+  const visibleEvents = useMemo(
+    () => events.filter((event) => matchesFilter(event, filter, today, weekend)),
+    [events, filter, today, weekend[0], weekend[1]],
+  );
+  const updatedAt = query.data?.fetchedAt
+    ? new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Chicago" }).format(new Date(query.data.fetchedAt))
+    : null;
+  const schema = query.data ? {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "The Woodlands Events Brief",
+    url: absoluteUrl("/the-woodlands-events"),
+    dateModified: query.data.fetchedAt,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: query.data.events.slice(0, 12).map((event, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: { "@type": "Event", name: event.title, startDate: event.date, url: event.url, eventStatus: "https://schema.org/EventScheduled" },
+      })),
+    },
+  } : null;
+
   return (
     <>
       <Helmet>
-        <title>The Woodlands Brief | Private Local Calendar for The Woodlands</title>
-        <meta name="description" content="A private-style Woodlands local brief with curated events, Pavilion dates, Market Street happenings, and lifestyle intelligence from Josh Wisdom Realtor." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/the-woodlands-events" />
-        <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
+        <title>The Woodlands Events | Automatically Updated Local Calendar</title>
+        <meta name="description" content="An automatically refreshed Woodlands events brief sourced from the official Visit The Woodlands calendar." />
+        <link rel="canonical" href={absoluteUrl("/the-woodlands-events")} />
+        {schema ? <script type="application/ld+json">{JSON.stringify(schema)}</script> : null}
       </Helmet>
 
-      <section className="relative overflow-hidden bg-[#050505] text-white">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:80px_80px]" />
-        <div className="relative mx-auto grid min-h-[74vh] max-w-[1500px] gap-14 px-5 py-16 md:px-9 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+      <section className="bg-[#050505] py-20 text-white md:py-28">
+        <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1fr_0.72fr] lg:items-end">
           <div>
-            <Eyebrow light>The Woodlands Brief</Eyebrow>
-            <h1 className="mt-7 max-w-5xl font-serif text-[clamp(3.4rem,7vw,8.2rem)] font-semibold leading-[0.86] tracking-[-0.035em]">Private local intelligence, already filtered.</h1>
-            <p className="mt-8 max-w-3xl text-xl leading-9 text-white/76">A selective Woodlands-area brief for clients who want the signal: worthwhile dates, lifestyle anchors, and source links without digging through public calendars.</p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:bg-[#e1c06f]"><a href="#current-calendars"><CalendarDays className="mr-2 h-4 w-4" /> Private Brief</a></Button>
-              <Button asChild variant="outline" className="h-14 rounded-none border-white/55 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-white hover:text-black"><a href="#this-weekend">Weekend Picks</a></Button>
+            <Eyebrow light>The Woodlands Events</Eyebrow>
+            <h1 className="mt-7 max-w-5xl font-serif text-[clamp(3.5rem,7vw,7.8rem)] font-semibold leading-[0.88] tracking-[-0.04em]">The local brief, automatically refreshed.</h1>
+            <p className="mt-8 max-w-3xl text-xl leading-9 text-white/76">Current public events from the official Visit The Woodlands calendar, refreshed every 15 minutes and linked directly to the publisher.</p>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white"><a href="#upcoming"><CalendarDays className="mr-2 h-4 w-4" /> Current Events</a></Button>
+              <Button asChild variant="outline" className="h-14 rounded-none border-white/55 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black"><a href="#sources">Source Calendars</a></Button>
             </div>
-            <p className="mt-7 flex max-w-2xl items-start gap-3 text-sm leading-6 text-white/56"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#d7b56d]" /> Curated snapshot last checked June 25, 2026. The full source is still linked for tickets, changes, and final details.</p>
           </div>
-          <div className="border border-[#c69a44]/35 bg-[#11100d] p-5 shadow-2xl shadow-black/35">
-            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Woodlands_Waterway_(5050352741).jpg?width=1400" alt="The Woodlands Waterway in The Woodlands, Texas" className="h-[480px] w-full object-cover opacity-90" loading="eager" />
-            <div className="mt-5 grid gap-px bg-white/12 sm:grid-cols-3">
-              {["Brief", "Weekend", "Upcoming"].map((label, index) => (
-                <div key={label} className="bg-[#050505] p-5">
-                  <p className="font-serif text-4xl font-semibold text-white">{index === 0 ? todaysEvents.length : index === 1 ? weekendEvents.length : upcomingEvents.length}</p>
-                  <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#d7b56d]">{label}</p>
-                </div>
+          <div className="border border-[#c69a44]/35 bg-[#11100d] p-7" aria-live="polite">
+            <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-[#d7b56d]"><RefreshCw className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`} /> Live calendar status</p>
+            {query.isLoading ? <p className="mt-5 text-lg leading-8 text-white/72">Checking the official calendar...</p> : query.isError ? <p className="mt-5 text-lg leading-8 text-white/72">The live feed is temporarily unavailable. Use the official source links below while it reconnects.</p> : <p className="mt-5 text-lg leading-8 text-white/72">{query.data?.stale ? "Showing the last successful update" : "Connected to Visit The Woodlands"}{updatedAt ? ` - updated ${updatedAt}` : ""}.</p>}
+          </div>
+        </div>
+      </section>
+
+      <section id="upcoming" className="scroll-mt-24 bg-white py-20 text-black md:py-28">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-9">
+          <div className="flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
+            <div><Eyebrow>Live Feed</Eyebrow><h2 className="mt-5 font-serif text-5xl font-semibold md:text-7xl">What is happening now.</h2></div>
+            <div className="flex flex-wrap gap-2" aria-label="Filter events">
+              {([['all', 'All upcoming'], ['today', 'Today'], ['weekend', 'This weekend'], ['pavilion', 'Pavilion']] as const).map(([value, label]) => (
+                <button key={value} type="button" onClick={() => setFilter(value)} aria-pressed={filter === value} className={`border px-5 py-3 text-[10px] font-bold uppercase tracking-[0.18em] transition ${filter === value ? "border-black bg-black text-white" : "border-black/20 bg-white hover:border-black"}`}>{label}</button>
               ))}
             </div>
           </div>
+
+          {query.isLoading ? (
+            <div className="mt-10 border-y border-black/15 py-14 text-center text-neutral-600" role="status">Loading current events...</div>
+          ) : query.isError ? (
+            <div className="mt-10 border-y border-black/15 py-14 text-center"><p className="text-lg text-neutral-700">Current event records could not be loaded.</p><a href={sources[0].url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center text-[11px] font-bold uppercase tracking-[0.18em] text-[#6f4b0d]">Open the official calendar <ExternalLink className="ml-2 h-4 w-4" /></a></div>
+          ) : visibleEvents.length === 0 ? (
+            <div className="mt-10 border-y border-black/15 py-14 text-center text-neutral-700">No events match this filter. Choose another view or check the official calendar.</div>
+          ) : (
+            <div className="mt-10 divide-y divide-black/10 border-y border-black/15" data-testid="live-events-list">
+              {visibleEvents.map((event) => {
+                const formatted = formatEventDate(event.date);
+                return (
+                  <a key={`${event.id}-${event.date}`} href={event.url} target="_blank" rel="noopener noreferrer" className="group grid gap-4 py-7 transition hover:bg-[#f7f3ec] hover:px-5 md:grid-cols-[130px_1fr_0.7fr_auto] md:items-center">
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#6f4b0d]">{formatted.day}</p><p className="mt-1 font-serif text-3xl font-semibold">{formatted.date}</p></div>
+                    <div><h3 className="font-serif text-2xl font-semibold">{event.title}</h3>{event.summary ? <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">{event.summary}</p> : null}</div>
+                    <p className="flex items-start gap-2 text-sm text-neutral-600"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#9b6d1d]" />{event.categories.length ? event.categories.join(" / ") : "The Woodlands"}</p>
+                    <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.18em] text-[#6f4b0d]">Event details<ExternalLink className="ml-2 h-3.5 w-3.5" /></span>
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
-      <section id="current-calendars" className="bg-white py-10 text-black md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-10 border-b border-black pb-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow>Private Brief</Eyebrow>
-              <h2 className="mt-5 font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-7xl">Worth knowing now.</h2>
-            </div>
-            <div>
-              <p className="max-w-3xl text-base leading-7 text-neutral-700">A tighter edit of the local calendar: the events most likely to matter for a relocation weekend, a client visit, a Pavilion night, or a polished Woodlands lifestyle conversation.</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {briefFilters.map((filter) => (
-                  <a key={filter.label} href={filter.href} className="border border-black/15 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black transition hover:border-black hover:bg-black hover:text-white">{filter.label}</a>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="mt-4 divide-y divide-black/10 border-b border-black/10">
-            {privateBriefEvents.map((event) => <EventCard key={`brief-${event.date}-${event.title}`} event={event} />)}
-          </div>
-        </div>
-      </section>
-
-      <section id="today" className="bg-[#f8f5ef] py-10 text-black md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow>Thursday, June 25, 2026</Eyebrow>
-              <h2 className="mt-4 font-serif text-4xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-5xl">Today in The Woodlands.</h2>
-            </div>
-            <p className="max-w-3xl text-base leading-7 text-neutral-700">The complete local scan for today, kept compact so it is useful instead of showy.</p>
-          </div>
-          <div className="mt-4 divide-y divide-black/10 border-y border-black/10">
-            {todaysEvents.map((event) => <EventCard key={`${event.date}-${event.title}`} event={event} />)}
+      <section id="sources" className="scroll-mt-24 bg-[#f7f3ec] py-20 text-black md:py-28">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-9">
+          <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end"><div><Eyebrow>Source Calendars</Eyebrow><h2 className="mt-5 font-serif text-5xl font-semibold md:text-7xl">Go to the publisher.</h2></div><p className="max-w-3xl text-lg leading-8 text-neutral-700">The event feed above refreshes from Visit The Woodlands. These additional publisher links provide the broadest local coverage and remain the authority for changes and tickets.</p></div>
+          <div className="mt-12 grid gap-px bg-black/10 md:grid-cols-2 lg:grid-cols-3">
+            {sources.map((source) => <a key={source.title} href={source.url} target="_blank" rel="noopener noreferrer" className="group min-h-64 bg-white p-7 transition hover:bg-black hover:text-white"><ExternalLink className="h-5 w-5 text-[#9b6d1d]" /><h3 className="mt-10 font-serif text-3xl font-semibold">{source.title}</h3><p className="mt-4 leading-7 text-neutral-600 transition group-hover:text-white/70">{source.description}</p></a>)}
           </div>
         </div>
       </section>
 
-      <section id="this-weekend" className="bg-[#050505] py-10 text-white md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow light>June 26 - 28</Eyebrow>
-              <h2 className="mt-4 font-serif text-4xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-5xl">Weekend picks.</h2>
-            </div>
-            <p className="max-w-3xl text-xl leading-9 text-white/72">Concerts, Market Street, outdoor plans, and family-friendly options, narrowed into a clean weekend agenda.</p>
-          </div>
-          <div className="mt-4 divide-y divide-white/12 border-y border-white/12">
-            {weekendEvents.map((event) => <EventCard key={`${event.date}-${event.title}`} event={event} dark />)}
-          </div>
-        </div>
+      <section className="bg-[#0b0a08] py-20 text-white md:py-28">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-9"><Eyebrow light>Why It Matters</Eyebrow><div className="mt-10 grid gap-px bg-white/10 md:grid-cols-2 lg:grid-cols-4">{lifestyleCategories.map(([title, copy, Icon]) => <article key={title} className="bg-[#0b0a08] p-7"><Icon className="h-5 w-5 text-[#d7b56d]" /><h2 className="mt-12 font-serif text-3xl font-semibold">{title}</h2><p className="mt-5 leading-7 text-white/68">{copy}</p></article>)}</div><Button asChild variant="outline" className="mt-9 h-13 rounded-none border-white/50 bg-transparent px-7 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black"><Link href="/communities/the-woodlands">Explore The Woodlands <ArrowRight className="ml-2 h-4 w-4" /></Link></Button></div>
       </section>
 
-      <section id="pavilion-events" className="bg-[#f8f5ef] py-10 text-black md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow>Next Dates To Know</Eyebrow>
-              <h2 className="mt-4 font-serif text-4xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-5xl">Coming up next.</h2>
-            </div>
-            <p className="max-w-3xl text-xl leading-9 text-neutral-700">Bigger upcoming dates around the Fourth of July, Pavilion season, camps, and summer activities across The Woodlands area.</p>
-          </div>
-          <div className="mt-4 divide-y divide-black/10 border-y border-black/10">
-            {upcomingEvents.map((event) => <EventCard key={`${event.date}-${event.title}`} event={event} />)}
-          </div>
-        </div>
-      </section>
-
-      <section id="full-local-scan" className="bg-white py-10 text-black md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow>Full Local Scan</Eyebrow>
-              <h2 className="mt-6 font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-7xl">Source calendars.</h2>
-            </div>
-            <p className="max-w-3xl text-xl leading-9 text-neutral-700">These links stay here as backup for tickets, cancellations, venue rules, and newly added events. The curated list above is meant to save visitors the first round of searching.</p>
-          </div>
-          <div className="mt-14 grid gap-px bg-neutral-200 md:grid-cols-2 lg:grid-cols-3">
-            {eventSources.map((source) => (
-              <a key={source.title} href={source.url} target="_blank" rel="noreferrer" className="group bg-[#f8f5ef] p-8 transition hover:bg-black hover:text-white">
-                <ExternalLink className="h-5 w-5 text-[#9b6d1d] transition group-hover:text-[#d7b56d]" />
-                <h3 className="mt-10 font-serif text-4xl font-semibold leading-none">{source.title}</h3>
-                <p className="mt-5 leading-7 text-neutral-700 transition group-hover:text-white/72">{source.description}</p>
-                <span className="mt-8 inline-flex items-center text-[11px] font-bold uppercase tracking-[0.22em] text-[#9b6d1d] transition group-hover:text-[#d7b56d]">Open calendar <ArrowRight className="ml-3 h-4 w-4" /></span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f8f5ef] py-10 text-black md:py-14">
-        <div className="mx-auto grid max-w-[1500px] gap-14 px-5 md:px-9 lg:grid-cols-[0.82fr_1.18fr]">
-          <div>
-            <Eyebrow>Why Events Matter</Eyebrow>
-            <h2 className="mt-6 font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-7xl">Lifestyle is part of the real estate decision.</h2>
-            <p className="mt-7 text-lg leading-8 text-neutral-700">Buyers compare more than bedrooms and square footage. They compare restaurants, concerts, schools, parks, commute patterns, walkability, and weekend routines.</p>
-          </div>
-          <div className="grid gap-px bg-black/15 md:grid-cols-2">
-            {lifestyleCategories.map(([title, copy, Icon]) => {
-              const CategoryIcon = Icon as typeof Music;
-              return (
-                <article key={title as string} className="bg-white p-8">
-                  <CategoryIcon className="h-7 w-7 text-[#9b6d1d]" />
-                  <h3 className="mt-10 font-serif text-4xl font-semibold">{title as string}</h3>
-                  <p className="mt-5 leading-8 text-neutral-700">{copy as string}</p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#050505] py-10 text-white md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <Eyebrow light>Seasonal Guide</Eyebrow>
-              <h2 className="mt-6 font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-7xl">When The Woodlands feels most active.</h2>
-            </div>
-            <p className="max-w-3xl text-xl leading-9 text-white/72">Seasonal activity can shape first impressions, showing traffic, relocation weekends, and how a buyer understands the area.</p>
-          </div>
-          <div className="mt-14 grid gap-px bg-white/10 md:grid-cols-4">
-            {seasonalGuides.map(([season, copy]) => (
-              <article key={season} className="bg-[#050505] p-8">
-                <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#d7b56d]">{season}</p>
-                <p className="mt-10 leading-8 text-white/76">{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 text-black md:py-14">
-        <div className="mx-auto grid max-w-[1500px] gap-14 px-5 md:px-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div>
-            <Eyebrow>Local Real Estate Help</Eyebrow>
-            <h2 className="mt-6 font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.025em] md:text-7xl">Planning a move around The Woodlands lifestyle?</h2>
-            <p className="mt-7 text-lg leading-8 text-neutral-700">Tell Josh what kind of weekends, commute, schools, parks, dining, and neighborhood feel matter to you. He can help compare areas before you spend time touring the wrong homes.</p>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-neutral-700">
-              {["The Woodlands", "Tomball", "Spring", "Magnolia", "Conroe", "North Houston"].map((area) => (
-                <span key={area} className="border border-black/15 px-4 py-3"><MapPin className="mr-2 inline h-4 w-4 text-[#9b6d1d]" />{area}</span>
-              ))}
-            </div>
-          </div>
-          <LeadForm leadType="relocation" showArea title="Ask about events, neighborhoods, or relocation" subtitle="Share what kind of lifestyle you want near The Woodlands and Josh will help you narrow the right areas." buttonText="Ask Josh" />
-        </div>
+      <section className="bg-white py-20 text-black md:py-28">
+        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:px-9 lg:grid-cols-[0.78fr_1.22fr] lg:items-start"><div><Eyebrow>Planning a Move?</Eyebrow><h2 className="mt-6 font-serif text-5xl font-semibold leading-[0.96] md:text-7xl">Make the visit count.</h2><p className="mt-7 max-w-xl text-lg leading-8 text-neutral-700">Share your timing and priorities. Josh can help organize a focused community and home-search conversation around your visit.</p></div><LeadForm leadType="relocation" showArea title="Plan a Woodlands conversation" subtitle="Tell Josh when you are visiting and what matters most." buttonText="Contact Josh" /></div>
       </section>
     </>
   );

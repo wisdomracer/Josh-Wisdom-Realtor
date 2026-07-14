@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
+import { absoluteUrl, siteConfig } from "@/config/site";
 
 export const blogPosts = [
   {
@@ -63,7 +64,7 @@ export function BlogIndex() {
       <Helmet>
         <title>The Woodlands Real Estate Blog | Josh Wisdom Realtor</title>
         <meta name="description" content="Seller guides, luxury home advice, and local market insight for The Woodlands, Tomball, and Greater Houston homeowners." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/blog" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/blog" />
       </Helmet>
       <section className="bg-black py-20 text-white md:py-28">
         <div className="container mx-auto px-4 md:px-6">
@@ -76,7 +77,7 @@ export function BlogIndex() {
         <div className="container mx-auto grid gap-5 px-4 md:grid-cols-2 md:px-6">
           {blogPosts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group border border-neutral-200 p-7 transition hover:border-amber-500">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-600">{post.category}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">{post.category}</p>
               <h2 className="mt-4 text-2xl font-semibold leading-tight text-black group-hover:text-amber-700">{post.title}</h2>
               <p className="mt-4 leading-7 text-neutral-700">{post.description}</p>
               <span className="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.16em] text-black">Read Article <ArrowRight className="ml-2 h-4 w-4" /></span>
@@ -98,17 +99,17 @@ export function BlogPost({ slug }: { slug: string }) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { "@type": "Person", name: "Josh Wisdom" },
-    publisher: { "@type": "Organization", name: "Josh Wisdom Realtor" },
-    mainEntityOfPage: `https://thewoodlandslistingagent.com/blog/${post.slug}`,
+    author: { "@type": "Person", name: siteConfig.agentName },
+    publisher: { "@type": "Organization", name: siteConfig.name },
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
   };
 
   return (
     <>
       <Helmet>
-        <title>{post.title} | Josh Wisdom Realtor</title>
+        <title>{`${post.title} | Josh Wisdom Realtor`}</title>
         <meta name="description" content={post.description} />
-        <link rel="canonical" href={`https://thewoodlandslistingagent.com/blog/${post.slug}`} />
+        <link rel="canonical" href={absoluteUrl(`/blog/${post.slug}`)} />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
       <article className="bg-white">
@@ -116,7 +117,7 @@ export function BlogPost({ slug }: { slug: string }) {
           <div className="container mx-auto max-w-4xl px-4 md:px-6">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">{post.category}</p>
             <h1 className="mt-5 text-4xl font-semibold leading-tight text-white md:text-6xl">{post.title}</h1>
-            <p className="mt-5 text-sm text-white/55">{post.date} � {post.readTime}</p>
+            <p className="mt-5 text-sm text-white/55">{post.date} · {post.readTime}</p>
           </div>
         </header>
         <div className="container mx-auto max-w-4xl px-4 py-14 md:px-6 md:py-20">

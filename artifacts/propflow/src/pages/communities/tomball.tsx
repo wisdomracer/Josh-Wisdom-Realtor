@@ -1,8 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { MapPin, Store, Trees } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Store, Trees } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
+import { CommunityHero } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 
 export default function Tomball() {
   return (
@@ -10,22 +11,15 @@ export default function Tomball() {
       <Helmet>
         <title>Tomball TX Real Estate & Neighborhood Guide | Josh Wisdom</title>
         <meta name="description" content="Discover Tomball real estate. Explore acreage properties, historic charm, and new master-planned communities in the Tomball area." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities/tomball" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/communities/tomball" />
       </Helmet>
 
-      <section className="relative py-32 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Local Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands, Tomball & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Home Value . Selling . Buying</p></div></div>
-          <div className="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <span className="text-white/80 uppercase tracking-widest text-sm font-semibold mb-4 block">Community Guide</span>
-          <h1 className="text-4xl md:text-6xl font-serif mb-6 text-white drop-shadow-md">Tomball</h1>
-          <p className="text-xl text-white/90 leading-relaxed drop-shadow">
-            Historic charm, excellent schools, and a seamless blend of acreage living and modern convenience.
-          </p>
-        </div>
-      </section>
+      <CommunityHero
+        eyebrow="Community Guide"
+        title="Tomball"
+        description="Historic charm, excellent schools, and a seamless blend of acreage living and modern convenience."
+        photo={locationPhotos.tomball}
+      />
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
@@ -34,7 +28,7 @@ export default function Tomball() {
               <div>
                 <h2 className="text-3xl font-serif text-primary mb-6">Welcome to Tomball</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Tomball offers a unique lifestyle that bridges the gap between rural tranquility and suburban convenience. Known for its award-winning Tomball Independent School District (TISD) and a strong sense of community, it has become a highly sought-after destination north of Houston.
+                  Tomball includes a historic town center, established subdivisions, newer master-planned communities, and rural acreage. Buyers should compare the exact property, commute, taxes, school zoning, and nearby development rather than treating it as one uniform market.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   With the expansion of the Grand Parkway (Highway 99) and Highway 249, Tomball provides excellent connectivity while retaining its historic, small-town feel.

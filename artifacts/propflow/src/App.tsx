@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -7,27 +7,28 @@ import { HelmetProvider } from "react-helmet-async";
 
 import { MainLayout } from "@/components/layout/main-layout";
 import Home from "@/pages/home";
-import About from "@/pages/about";
-import Buy from "@/pages/buy";
-import Sell from "@/pages/sell";
-import HomeValuation from "@/pages/home-valuation";
-import Relocation from "@/pages/relocation";
-import Communities from "@/pages/communities";
-import TheWoodlands from "@/pages/communities/the-woodlands";
-import Tomball from "@/pages/communities/tomball";
-import GreaterHouston from "@/pages/communities/greater-houston";
-import LuxuryHomes from "@/pages/luxury-homes";
-import MarketUpdates from "@/pages/market-updates";
-import TheWoodlandsEvents from "@/pages/the-woodlands-events";
-import Contact from "@/pages/contact";
 import { BlogIndex, BlogPost, blogPosts } from "@/pages/blog";
-import { PrivacyPolicy, TermsPage } from "@/pages/legal";
 import { SeoLandingPage, seoLandingPages } from "@/pages/seo-landing";
 import { FeaturePage, featurePages } from "@/pages/feature-page";
 import NotFound from "@/pages/not-found";
+import { Analytics } from "@/components/analytics";
 
 const queryClient = new QueryClient();
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const About = lazy(() => import("@/pages/about"));
+const Buy = lazy(() => import("@/pages/buy"));
+const Sell = lazy(() => import("@/pages/sell"));
+const HomeValuation = lazy(() => import("@/pages/home-valuation"));
+const Relocation = lazy(() => import("@/pages/relocation"));
+const Communities = lazy(() => import("@/pages/communities"));
+const TheWoodlands = lazy(() => import("@/pages/communities/the-woodlands"));
+const Tomball = lazy(() => import("@/pages/communities/tomball"));
+const GreaterHouston = lazy(() => import("@/pages/communities/greater-houston"));
+const LuxuryHomes = lazy(() => import("@/pages/luxury-homes"));
+const TheWoodlandsEvents = lazy(() => import("@/pages/the-woodlands-events"));
+const Contact = lazy(() => import("@/pages/contact"));
+const PrivacyPolicy = lazy(() => import("@/pages/legal").then((module) => ({ default: module.PrivacyPolicy })));
+const TermsPage = lazy(() => import("@/pages/legal").then((module) => ({ default: module.TermsPage })));
 function ScrollToTop() {
   const [location] = useLocation();
 
@@ -41,6 +42,7 @@ function ScrollToTop() {
 function AppRoutes() {
   return (
     <MainLayout>
+      <Suspense fallback={<div className="mx-auto min-h-[60vh] max-w-[1440px] px-5 py-24 text-sm text-neutral-600" role="status">Loading page…</div>}>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
@@ -53,7 +55,6 @@ function AppRoutes() {
         <Route path="/communities/tomball" component={Tomball} />
         <Route path="/communities/greater-houston" component={GreaterHouston} />
         <Route path="/luxury-homes" component={LuxuryHomes} />
-        <Route path="/market-updates" component={MarketUpdates} />
         <Route path="/the-woodlands-events" component={TheWoodlandsEvents} />
         <Route path="/blog" component={BlogIndex} />
         {blogPosts.map((post) => (
@@ -70,6 +71,7 @@ function AppRoutes() {
         ))}
         <Route component={NotFound} />
       </Switch>
+      </Suspense>
     </MainLayout>
   );
 }
@@ -81,6 +83,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <ScrollToTop />
+            <Analytics />
             <AppRoutes />
             <Toaster />
           </TooltipProvider>

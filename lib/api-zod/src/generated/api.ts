@@ -36,6 +36,54 @@ export const CreateLeadBody = zod.object({
   ]),
   area: zod.string().nullish(),
   propertyAddress: zod.string().nullish(),
+  submissionId: zod.string().uuid(),
+  company: zod
+    .string()
+    .nullish()
+    .describe("Honeypot field that must remain empty"),
+  landingPageUrl: zod.string().nullish(),
+  currentPageUrl: zod.string().nullish(),
+  referrer: zod.string().nullish(),
+  utmSource: zod.string().nullish(),
+  utmMedium: zod.string().nullish(),
+  utmCampaign: zod.string().nullish(),
+  utmTerm: zod.string().nullish(),
+  utmContent: zod.string().nullish(),
+  gclid: zod.string().nullish(),
+  gbraid: zod.string().nullish(),
+  wbraid: zod.string().nullish(),
+  fbclid: zod.string().nullish(),
+  firstTouchAt: zod.coerce.date().nullish(),
+  submittedAt: zod.coerce.date(),
+  deviceCategory: zod
+    .union([
+      zod.literal("mobile"),
+      zod.literal("tablet"),
+      zod.literal("desktop"),
+      zod.literal(null),
+    ])
+    .nullish(),
+});
+
+/**
+ * Returns upcoming events from the official Visit The Woodlands RSS calendar, cached for 15 minutes
+ * @summary Get current Woodlands events
+ */
+export const GetEventsResponse = zod.object({
+  events: zod.array(
+    zod.object({
+      id: zod.string(),
+      title: zod.string(),
+      url: zod.string().url(),
+      date: zod.coerce.date(),
+      categories: zod.array(zod.string()),
+      summary: zod.string().nullable(),
+    }),
+  ),
+  fetchedAt: zod.coerce.date(),
+  expiresAt: zod.number(),
+  source: zod.string(),
+  stale: zod.boolean().optional(),
 });
 
 /**

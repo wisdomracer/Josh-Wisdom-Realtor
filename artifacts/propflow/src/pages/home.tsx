@@ -5,14 +5,14 @@ import { LeadForm } from "@/components/forms/lead-form";
 import { ArrowRight, BadgeCheck, CalendarDays, Home, MapPin, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
 
 const heroImage = {
-  src: "https://upload.wikimedia.org/wikipedia/commons/5/57/The_Woodlands_Waterway_(5050352741).jpg",
+  src: "/images/the-woodlands-waterway.jpg",
   alt: "The Woodlands Waterway in The Woodlands, Texas",
 };
 
 const communities = [
-  ["Carlton Woods", "Private golf estates, gated streets, estate lots, and the highest luxury buyer expectations.", "/carlton-woods-homes-for-sale"],
-  ["East Shore", "Lake Woodlands, walkability, Market Street access, and lock-and-leave luxury appeal.", "/east-shore-homes-for-sale"],
-  ["Creekside Park", "Newer homes, parks, schools, trails, and strong family-driven buyer demand.", "/creekside-park-homes-for-sale"],
+  ["Carlton Woods", "Private golf estates, gated streets, estate lots, and premium property considerations.", "/communities/carlton-woods"],
+  ["East Shore", "Lake Woodlands, walkability, Market Street access, and lock-and-leave luxury appeal.", "/communities/east-shore"],
+  ["Creekside Park", "Newer homes, parks, trails, amenities, and distinct village-level market context.", "/communities/creekside-park"],
   ["The Woodlands", "Village-by-village guidance across Sterling Ridge, Alden Bridge, Panther Creek, and more.", "/communities/the-woodlands"],
 ];
 
@@ -62,11 +62,12 @@ export default function HomePage() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
-      <section className="relative overflow-hidden bg-[#050505] text-white">
+      <section className="luxury-hero relative overflow-hidden bg-[#050505] text-white">
         <div className="absolute inset-0">
-          <img src={heroImage.src} alt={heroImage.alt} className="h-full w-full object-cover opacity-42" loading="eager" />
+          <img src={heroImage.src} alt={heroImage.alt} width="1200" height="1600" className="h-full w-full object-cover opacity-42" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_48%,rgba(0,0,0,0.45)_100%)]" />
           <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] to-transparent" />
+          <a href="https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg" target="_blank" rel="noopener noreferrer license" className="absolute bottom-3 right-4 z-10 text-[9px] text-white/55 underline-offset-2 hover:text-white hover:underline">Photo: Social Woodlands · CC BY 2.0</a>
         </div>
 
         <div className="relative mx-auto grid min-h-[640px] max-w-[1440px] items-center px-5 py-20 md:px-9 lg:grid-cols-[0.88fr_0.56fr] lg:gap-16">
@@ -83,10 +84,10 @@ export default function HomePage() {
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-13 rounded-none bg-[#d7b56d] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white">
-                <Link href="/home-valuation">Request Private Valuation</Link>
+                <Link href="/home-valuation" data-primary-cta>Request Private Valuation</Link>
               </Button>
               <Button asChild variant="outline" className="h-13 rounded-none border-white/60 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black">
-                <Link href="/contact">Schedule Consultation</Link>
+                <Link href="/contact" data-primary-cta>Schedule Consultation</Link>
               </Button>
             </div>
           </div>
@@ -133,7 +134,7 @@ export default function HomePage() {
 
           <div className="grid gap-px bg-neutral-200 md:grid-cols-2">
             {process.map(([number, title, copy]) => (
-              <article key={title} className="min-h-72 bg-[#f7f3ec] p-8 transition hover:bg-black hover:text-white">
+              <article key={title} className="group min-h-72 bg-[#f7f3ec] p-8 transition hover:bg-black hover:text-white">
                 <p className="font-serif text-5xl text-[#9b6d1d]">{number}</p>
                 <h3 className="mt-12 font-serif text-4xl font-semibold">{title}</h3>
                 <p className="mt-5 leading-8 text-neutral-700 transition group-hover:text-white/70">{copy}</p>

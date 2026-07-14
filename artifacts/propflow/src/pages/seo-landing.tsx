@@ -3,6 +3,9 @@ import { Link } from "wouter";
 import { ArrowRight, BadgeCheck, CheckCircle2, Home, Landmark, MapPin, Search, Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
+import { PhotoCredit } from "@/components/location-hero";
+import { absoluteUrl } from "@/config/site";
+import { photoForSeoSlug } from "@/config/location-photos";
 
 export type SeoLanding = {
   slug: string;
@@ -76,18 +79,18 @@ export const seoLandingPages: SeoLanding[] = [
     ],
   },
   {
-    slug: "carlton-woods-homes-for-sale",
-    eyebrow: "Carlton Woods Homes For Sale",
-    title: "Carlton Woods homes deserve a premium help selling.",
-    metaTitle: "Carlton Woods Homes For Sale | Josh Wisdom Realtor",
-    description: "Explore seller guidance and luxury home advice for Carlton Woods homes for sale in The Woodlands, Texas.",
+    slug: "communities/carlton-woods",
+    eyebrow: "Carlton Woods Real Estate",
+    title: "Carlton Woods real estate guidance for buyers and sellers.",
+    metaTitle: "Carlton Woods Real Estate Guide | Josh Wisdom Realtor",
+    description: "Seller and buyer guidance for Carlton Woods estates, golf properties, and luxury real estate in The Woodlands, Texas.",
     hero: "Carlton Woods buyers expect privacy, architecture, golf-club lifestyle, and estate-level presentation. Your listing should make those strengths clear from day one.",
     area: "Carlton Woods, The Woodlands",
     bullets: ["Estate home guidance", "Golf and gated-community context", "Luxury marketing"],
     sections: [
       { title: "Premium buyer expectations", copy: "Carlton Woods buyers compare finishes, lot setting, privacy, club proximity, and long-term prestige." },
       { title: "Launch with intention", copy: "The listing should be prepared with strong photography, measured copy, and a plan for qualified attention." },
-      { title: "IDX-ready for active inventory", copy: "When your IDX provider is connected, this page can support live Carlton Woods homes for sale while preserving fast-loading local SEO structure." },
+      { title: "Property-specific guidance", copy: "Estate lots, golf-course settings, architecture, updates, and club proximity can shape value differently from one property to the next." },
     ],
     faqs: [
       { question: "Is Carlton Woods a luxury market?", answer: "Yes. Carlton Woods is one of The Woodlands' most recognized luxury and gated-community markets." },
@@ -95,18 +98,18 @@ export const seoLandingPages: SeoLanding[] = [
     ],
   },
   {
-    slug: "east-shore-homes-for-sale",
-    eyebrow: "East Shore Homes For Sale",
+    slug: "communities/east-shore",
+    eyebrow: "East Shore Real Estate",
     title: "East Shore listing guidance for lakefront and Waterway-area sellers.",
-    metaTitle: "East Shore Homes For Sale | Josh Wisdom Realtor",
-    description: "Seller-focused real estate guidance for East Shore homes for sale near Lake Woodlands, Market Street, and The Woodlands Waterway.",
+    metaTitle: "East Shore Real Estate Guide | Josh Wisdom Realtor",
+    description: "Seller and buyer guidance for East Shore real estate near Lake Woodlands, Market Street, and The Woodlands Waterway.",
     hero: "East Shore buyers often value convenience, architecture, walkability, water access, and low-maintenance luxury. The marketing should make that lifestyle clear.",
     area: "East Shore, The Woodlands",
     bullets: ["Lifestyle-focused marketing", "Waterway and Market Street guidance", "Premium buyer copy"],
     sections: [
       { title: "Lifestyle is the product", copy: "East Shore listings should communicate more than square footage. Walkability, dining, lake access, and the feel of the neighborhood all matter." },
       { title: "Online first impressions", copy: "Strong visuals and concise copy help buyers understand the East Shore value proposition quickly." },
-      { title: "Prepared for live listings", copy: "This page is ready for IDX integration once approved listing data is connected." },
+      { title: "Property and location context", copy: "Architecture, water proximity, maintenance profile, and exact position within East Shore can all affect the comparison." },
     ],
     faqs: [
       { question: "What attracts buyers to East Shore?", answer: "Many buyers are drawn to Lake Woodlands access, Market Street proximity, walkability, and luxury lock-and-leave living." },
@@ -114,18 +117,18 @@ export const seoLandingPages: SeoLanding[] = [
     ],
   },
   {
-    slug: "creekside-park-homes-for-sale",
-    eyebrow: "Creekside Park Homes For Sale",
-    title: "Creekside Park homes for sale need local knowledge.",
-    metaTitle: "Creekside Park Homes For Sale | Josh Wisdom Realtor",
-    description: "Seller strategy and neighborhood guidance for Creekside Park homes for sale in The Woodlands and Tomball-area market.",
+    slug: "communities/creekside-park",
+    eyebrow: "Creekside Park Real Estate",
+    title: "Creekside Park real estate needs local context.",
+    metaTitle: "Creekside Park Real Estate Guide | Josh Wisdom Realtor",
+    description: "Seller strategy and buyer guidance for Creekside Park real estate in The Woodlands and Tomball-area market.",
     hero: "Creekside Park appeals to buyers who want newer construction, village amenities, parks, and convenient access. The listing should connect those details to value.",
     area: "Creekside Park, The Woodlands",
     bullets: ["Move-up buyer guidance", "Amenity and school-zone context", "Preparation before launch"],
     sections: [
       { title: "Know the buyer pool", copy: "Creekside Park buyers often compare floor plans, age, updates, school access, commute, and neighborhood amenities." },
       { title: "Preparation pays", copy: "A cleaner launch can reduce buyer objections and make the home easier to compare favorably against active competition." },
-      { title: "Ready for IDX", copy: "The page can support active Creekside Park listings once approved data is connected." },
+      { title: "Compare the right details", copy: "Section, builder, floor plan, age, lot, updates, and nearby competition can create meaningful differences within the village." },
     ],
     faqs: [
       { question: "Is Creekside Park in The Woodlands?", answer: "Creekside Park is one of The Woodlands' villages and is closely tied to the Tomball-area market as well." },
@@ -229,6 +232,7 @@ export const seoLandingPages: SeoLanding[] = [
 ];
 
 export function SeoLandingPage({ page }: { page: SeoLanding }) {
+  const heroPhoto = photoForSeoSlug(page.slug);
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -244,36 +248,51 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
       <Helmet>
         <title>{page.metaTitle}</title>
         <meta name="description" content={page.description} />
-        <link rel="canonical" href={`https://thewoodlandslistingagent.com/${page.slug}`} />
+        <link rel="canonical" href={absoluteUrl(`/${page.slug}`)} />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
-      <section className="relative overflow-hidden bg-[#050505] py-20 text-white md:py-28">`n        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:76px_76px]" />
-        <div className="relative mx-auto max-w-[1500px] px-5 md:px-9">
-          <div className="max-w-4xl">
+      <section className="overflow-hidden bg-[#050505] text-white">
+        <div className="mx-auto grid max-w-[1600px] lg:grid-cols-[0.98fr_1.02fr]">
+          <div className="relative flex items-center px-5 py-20 md:px-9 md:py-24 lg:px-12 lg:py-28">
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:76px_76px]" />
+            <div className="relative max-w-3xl">
             <div className="mb-6 inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-amber-300">
               <MapPin className="h-4 w-4" />
               {page.area}
             </div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white/50">{page.eyebrow}</p>
-            <h1 className="mt-6 font-serif text-5xl font-semibold leading-[0.95] tracking-[-0.025em] text-white md:text-7xl">{page.title}</h1>
-            <p className="mt-7 max-w-3xl text-xl leading-9 text-white/76">{page.hero}</p>
+            <h1 className="mt-6 font-serif text-[clamp(3rem,5.1vw,6.25rem)] font-semibold leading-[0.92] tracking-[-0.035em] text-white">{page.title}</h1>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl">{page.hero}</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:bg-[#e1c06f]">
                 <Link href="/home-valuation">Get Home Value</Link>
               </Button>
               <Button asChild variant="outline" className="h-14 rounded-none border-white bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-white hover:text-black">
-                <Link href="/contact">Request Current Listings</Link>
+                <Link href="/contact">Ask About Current Options</Link>
               </Button>
             </div>
           </div>
+          </div>
+          <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[720px]">
+            <img
+              src={heroPhoto.src}
+              alt={heroPhoto.alt}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: heroPhoto.objectPosition }}
+              loading="eager"
+              fetchPriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+            <PhotoCredit photo={heroPhoto} />
+          </figure>
         </div>
       </section>
 
       <section className="bg-[#f8f5ef] py-16 text-black md:py-24">
         <div className="mx-auto grid max-w-[1500px] gap-12 px-5 md:px-9 lg:grid-cols-[0.72fr_1.28fr]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#9b6d1d]">What Josh Focuses On</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">What Josh Focuses On</p>
             <div className="mt-7 space-y-4">
               {page.bullets.map((bullet) => (
                 <div key={bullet} className="flex gap-3 border-t border-black/15 pt-4">
@@ -297,7 +316,7 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
       <section className="bg-white py-16 text-black md:py-24">
         <div className="mx-auto grid max-w-[1500px] gap-10 px-5 md:px-9 lg:grid-cols-2">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#9b6d1d]">Questions</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">Questions</p>
             <h2 className="mt-4 font-serif text-5xl font-semibold leading-tight text-black">Common seller questions.</h2>
             <div className="mt-8 space-y-5">
               {page.faqs.map((faq) => (

@@ -1,0 +1,19 @@
+import { expect, test } from "@playwright/test";
+
+test("capture verified desktop homepage for visual QA", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.screenshot({ path: "output/visual/home-desktop.png", fullPage: true });
+});
+
+test("mobile valuation flow keeps the complete form before the footer", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/home-valuation", { waitUntil: "networkidle" });
+  await expect(page.locator("form")).toBeVisible();
+  const formBox = await page.locator("form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  await page.screenshot({ path: "output/visual/valuation-mobile.png", fullPage: true });
+});

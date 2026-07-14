@@ -360,7 +360,10 @@ export async function customFetch<T = unknown>(
 
   const requestInfo = { method, url: resolveUrl(input) };
 
-  const response = await fetch(input, { ...init, method, headers });
+  // Avoid leaving visitors in a permanent submitting state when a network or
+  // upstream API request stalls. Callers can still provide a custom signal.
+  const signal = init.signal ?? AbortSignal.timeout(12_000);
+  const response = await fetch(input, { ...init, method, headers, signal });
 
   if (!response.ok) {
     const errorData = await parseErrorBody(response, method);

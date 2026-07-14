@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { absoluteUrl, emailHref, phoneHref, siteConfig } from "@/config/site";
 
 export default function Contact() {
   return (
@@ -8,7 +9,7 @@ export default function Contact() {
       <Helmet>
         <title>Contact Josh Wisdom Realtor | The Woodlands Listing Agent</title>
         <meta name="description" content="Contact Josh Wisdom Realtor for listing strategy, home valuation, luxury homes, and real estate guidance in The Woodlands, Tomball, and Greater Houston." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/contact" />
+        <link rel="canonical" href={absoluteUrl("/contact")} />
       </Helmet>
 
       <section className="bg-black py-20 text-white md:py-28">
@@ -26,9 +27,9 @@ export default function Contact() {
               <p className="mt-4 leading-7 text-neutral-700">Reach out for a seller consultation, home valuation, neighborhood question, or private luxury conversation.</p>
             </div>
             <div className="space-y-5 border-t border-neutral-200 pt-8">
-              <a href="tel:+18329818920" className="flex gap-4 text-black hover:text-amber-700"><Phone className="h-5 w-5" /><span>832-981-8920</span></a>
-              <a href="mailto:WisdomRacer@gmail.com" className="flex gap-4 text-black hover:text-amber-700"><Mail className="h-5 w-5" /><span>WisdomRacer@gmail.com</span></a>
-              <div className="flex gap-4 text-black"><MapPin className="h-5 w-5" /><span>VIP Realty, 5100 Westheimer Ste 200, Houston, TX 77027</span></div>
+              <a href={phoneHref} className="flex gap-4 text-black hover:text-amber-700"><Phone className="h-5 w-5" /><span>{siteConfig.phone}</span></a>
+              <a href={emailHref} className="flex gap-4 text-black hover:text-amber-700"><Mail className="h-5 w-5" /><span>{siteConfig.email}</span></a>
+              <div className="flex gap-4 text-black"><MapPin className="h-5 w-5" /><span>{siteConfig.brokerage.name}, {siteConfig.brokerage.streetAddress}, {siteConfig.brokerage.locality}, {siteConfig.brokerage.region} {siteConfig.brokerage.postalCode}</span></div>
             </div>
           </div>
           <LeadForm leadType="consultation" showAddress title="Send Josh a message" subtitle="Tell Josh what you are considering and the best way to reach you." buttonText="Send Message" />

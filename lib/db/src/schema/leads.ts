@@ -15,6 +15,7 @@ export const leadTypeEnum = pgEnum("lead_type", [
 
 export const leadsTable = pgTable("leads", {
   id: serial("id").primaryKey(),
+  submissionId: text("submission_id").notNull().unique(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone"),
@@ -22,6 +23,23 @@ export const leadsTable = pgTable("leads", {
   leadType: leadTypeEnum("lead_type").notNull(),
   area: text("area"),
   propertyAddress: text("property_address"),
+  landingPageUrl: text("landing_page_url"),
+  currentPageUrl: text("current_page_url"),
+  referrer: text("referrer"),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  utmTerm: text("utm_term"),
+  utmContent: text("utm_content"),
+  gclid: text("gclid"),
+  gbraid: text("gbraid"),
+  wbraid: text("wbraid"),
+  fbclid: text("fbclid"),
+  deviceCategory: text("device_category"),
+  firstTouchAt: timestamp("first_touch_at", { withTimezone: true }),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }).notNull(),
+  notificationStatus: text("notification_status").notNull().default("pending"),
+  notifiedAt: timestamp("notified_at", { withTimezone: true }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

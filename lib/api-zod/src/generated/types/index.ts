@@ -6,12 +6,15 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./calendarEvent";
 export * from "./createLeadBody";
+export * from "./createLeadBodyDeviceCategory";
 export * from "./createLeadBodyLeadType";
 export * from "./createPropertyBody";
 export * from "./createPropertyBodyStatus";
 export * from "./createPropertyBodyType";
 export * from "./errorResponse";
+export * from "./eventsResponse";
 export * from "./healthStatus";
 export * from "./lead";
 export * from "./listPropertiesParams";

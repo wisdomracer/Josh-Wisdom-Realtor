@@ -5,6 +5,7 @@
  * PropFlow - Property Intelligence Platform API
  * OpenAPI spec version: 0.1.0
  */
+import type { CreateLeadBodyDeviceCategory } from "./createLeadBodyDeviceCategory";
 import type { CreateLeadBodyLeadType } from "./createLeadBodyLeadType";
 
 export interface CreateLeadBody {
@@ -19,4 +20,39 @@ export interface CreateLeadBody {
   area?: string | null;
   /** @nullable */
   propertyAddress?: string | null;
+  submissionId: string;
+  /**
+   * Honeypot field that must remain empty
+   * @nullable
+   */
+  company?: string | null;
+  /** @nullable */
+  landingPageUrl?: string | null;
+  /** @nullable */
+  currentPageUrl?: string | null;
+  /** @nullable */
+  referrer?: string | null;
+  /** @nullable */
+  utmSource?: string | null;
+  /** @nullable */
+  utmMedium?: string | null;
+  /** @nullable */
+  utmCampaign?: string | null;
+  /** @nullable */
+  utmTerm?: string | null;
+  /** @nullable */
+  utmContent?: string | null;
+  /** @nullable */
+  gclid?: string | null;
+  /** @nullable */
+  gbraid?: string | null;
+  /** @nullable */
+  wbraid?: string | null;
+  /** @nullable */
+  fbclid?: string | null;
+  /** @nullable */
+  firstTouchAt?: Date | null;
+  submittedAt: Date;
+  /** @nullable */
+  deviceCategory?: CreateLeadBodyDeviceCategory;
 }

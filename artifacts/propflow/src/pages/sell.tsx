@@ -23,7 +23,7 @@ export default function Sell() {
       <Helmet>
         <title>Selling A Home In The Woodlands | Josh Wisdom Realtor</title>
         <meta name="description" content="Sell your Woodlands, Tomball, or Greater Houston home with Josh Wisdom Realtor using strategic pricing, premium marketing, and seller-first negotiation." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/sell" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/sell" />
       </Helmet>
 
       <section className="bg-black py-20 text-white md:py-28">
@@ -44,14 +44,14 @@ export default function Sell() {
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[1fr_0.9fr] md:px-6">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-600">The Listing Plan</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-700">The Listing Plan</p>
             <h2 className="mt-4 text-4xl font-semibold text-black md:text-5xl">A clean process for a stronger sale.</h2>
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {steps.map((step) => {
                 const Icon = step.icon;
                 return (
                   <div key={step.title} className="border border-neutral-200 p-6">
-                    <Icon className="mb-5 h-7 w-7 text-amber-600" />
+                    <Icon className="mb-5 h-7 w-7 text-amber-700" />
                     <h3 className="text-2xl font-semibold text-black">{step.title}</h3>
                     <p className="mt-3 leading-7 text-neutral-700">{step.copy}</p>
                   </div>
@@ -60,7 +60,7 @@ export default function Sell() {
             </div>
             <div className="mt-10 space-y-4 border-t border-neutral-200 pt-8">
               {["Clear pricing counsel", "Seller-first valuation review", "Neighborhood-specific marketing plan"].map((item) => (
-                <div key={item} className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 text-amber-600" /><span className="text-neutral-800">{item}</span></div>
+                <div key={item} className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 text-amber-700" /><span className="text-neutral-800">{item}</span></div>
               ))}
             </div>
           </div>

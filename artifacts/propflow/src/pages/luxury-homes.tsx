@@ -7,7 +7,7 @@ export default function LuxuryHomes() {
       <Helmet>
         <title>The Woodlands Luxury Homes | Josh Wisdom Realtor</title>
         <meta name="description" content="Luxury listing and buyer representation for The Woodlands estates, Carlton Woods, East Shore, and Greater Houston premium homes." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/luxury-homes" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/luxury-homes" />
       </Helmet>
 
       <section className="relative bg-black py-24 text-white md:py-32">

@@ -19,5 +19,9 @@ export interface Lead {
   area?: string | null;
   /** @nullable */
   propertyAddress?: string | null;
+  submissionId: string;
+  notificationStatus: string;
+  /** @nullable */
+  notifiedAt?: string | null;
   createdAt: string;
 }

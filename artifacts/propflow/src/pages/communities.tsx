@@ -14,7 +14,7 @@ export default function Communities() {
       <Helmet>
         <title>Communities | The Woodlands, Tomball, Greater Houston Real Estate</title>
         <meta name="description" content="Explore The Woodlands, Tomball, and Greater Houston communities with Josh Wisdom Realtor." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/communities" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/communities" />
       </Helmet>
 
       <section className="bg-black py-20 text-white md:py-28">
@@ -31,7 +31,7 @@ export default function Communities() {
             <Link key={community.slug} href={`/communities/${community.slug}`} className="group border border-neutral-200 p-7 transition hover:border-amber-500">
               <div className="mb-8 flex h-28 items-center justify-between bg-black p-5 text-white">
                 <span className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Guide</span>
-                <span className="text-5xl font-semibold text-white/10">{community.name.slice(0, 2).toUpperCase()}</span>
+                <span aria-hidden="true" className="text-5xl font-semibold text-white/40">{community.name.slice(0, 2).toUpperCase()}</span>
               </div>
               <h2 className="text-3xl font-semibold text-black">{community.name}</h2>
               <p className="mt-4 leading-7 text-neutral-700">{community.description}</p>

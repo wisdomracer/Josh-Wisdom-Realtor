@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: events
+    description: Current public event calendar
   - name: properties
     description: Property listing operations
   - name: memberships
@@ -55,6 +57,26 @@ paths:
                 $ref: "#/components/schemas/Lead"
         "400":
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /events:
+    get:
+      operationId: getEvents
+      tags: [events]
+      summary: Get current Woodlands events
+      description: Returns upcoming events from the official Visit The Woodlands RSS calendar, cached for 15 minutes
+      responses:
+        "200":
+          description: Current calendar events
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventsResponse"
+        "503":
+          description: Live calendar temporarily unavailable
           content:
             application/json:
               schema:
@@ -400,6 +422,45 @@ components:
       required:
         - status
 
+    CalendarEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        date:
+          type: string
+          format: date
+        categories:
+          type: array
+          items:
+            type: string
+        summary:
+          type: ["string", "null"]
+      required: [id, title, url, date, categories, summary]
+
+    EventsResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/CalendarEvent"
+        fetchedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: integer
+        source:
+          type: string
+        stale:
+          type: boolean
+      required: [events, fetchedAt, expiresAt, source]
+
     CreateLeadBody:
       type: object
       properties:
@@ -418,10 +479,51 @@ components:
           type: ["string", "null"]
         propertyAddress:
           type: ["string", "null"]
+        submissionId:
+          type: string
+          format: uuid
+        company:
+          type: ["string", "null"]
+          description: Honeypot field that must remain empty
+        landingPageUrl:
+          type: ["string", "null"]
+        currentPageUrl:
+          type: ["string", "null"]
+        referrer:
+          type: ["string", "null"]
+        utmSource:
+          type: ["string", "null"]
+        utmMedium:
+          type: ["string", "null"]
+        utmCampaign:
+          type: ["string", "null"]
+        utmTerm:
+          type: ["string", "null"]
+        utmContent:
+          type: ["string", "null"]
+        gclid:
+          type: ["string", "null"]
+        gbraid:
+          type: ["string", "null"]
+        wbraid:
+          type: ["string", "null"]
+        fbclid:
+          type: ["string", "null"]
+        firstTouchAt:
+          type: ["string", "null"]
+          format: date-time
+        submittedAt:
+          type: string
+          format: date-time
+        deviceCategory:
+          type: ["string", "null"]
+          enum: [mobile, tablet, desktop, null]
       required:
         - name
         - email
         - leadType
+        - submissionId
+        - submittedAt
 
     Lead:
       type: object
@@ -442,13 +544,21 @@ components:
           type: ["string", "null"]
         propertyAddress:
           type: ["string", "null"]
+        submissionId:
+          type: string
+        notificationStatus:
+          type: string
+        notifiedAt:
+          type: ["string", "null"]
         createdAt:
           type: string
       required:
         - id
+        - submissionId
         - name
         - email
         - leadType
+        - notificationStatus
         - createdAt
 
     ErrorResponse:

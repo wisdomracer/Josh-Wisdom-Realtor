@@ -9,6 +9,24 @@ export interface HealthStatus {
   status: string;
 }
 
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  url: string;
+  date: string;
+  categories: string[];
+  /** @nullable */
+  summary: string | null;
+}
+
+export interface EventsResponse {
+  events: CalendarEvent[];
+  fetchedAt: string;
+  expiresAt: number;
+  source: string;
+  stale?: boolean;
+}
+
 export type CreateLeadBodyLeadType =
   (typeof CreateLeadBodyLeadType)[keyof typeof CreateLeadBodyLeadType];
 
@@ -23,6 +41,19 @@ export const CreateLeadBodyLeadType = {
   new_construction: "new_construction",
 } as const;
 
+/**
+ * @nullable
+ */
+export type CreateLeadBodyDeviceCategory =
+  | (typeof CreateLeadBodyDeviceCategory)[keyof typeof CreateLeadBodyDeviceCategory]
+  | null;
+
+export const CreateLeadBodyDeviceCategory = {
+  mobile: "mobile",
+  tablet: "tablet",
+  desktop: "desktop",
+} as const;
+
 export interface CreateLeadBody {
   name: string;
   email: string;
@@ -35,6 +66,41 @@ export interface CreateLeadBody {
   area?: string | null;
   /** @nullable */
   propertyAddress?: string | null;
+  submissionId: string;
+  /**
+   * Honeypot field that must remain empty
+   * @nullable
+   */
+  company?: string | null;
+  /** @nullable */
+  landingPageUrl?: string | null;
+  /** @nullable */
+  currentPageUrl?: string | null;
+  /** @nullable */
+  referrer?: string | null;
+  /** @nullable */
+  utmSource?: string | null;
+  /** @nullable */
+  utmMedium?: string | null;
+  /** @nullable */
+  utmCampaign?: string | null;
+  /** @nullable */
+  utmTerm?: string | null;
+  /** @nullable */
+  utmContent?: string | null;
+  /** @nullable */
+  gclid?: string | null;
+  /** @nullable */
+  gbraid?: string | null;
+  /** @nullable */
+  wbraid?: string | null;
+  /** @nullable */
+  fbclid?: string | null;
+  /** @nullable */
+  firstTouchAt?: string | null;
+  submittedAt: string;
+  /** @nullable */
+  deviceCategory?: CreateLeadBodyDeviceCategory;
 }
 
 export interface Lead {
@@ -50,6 +116,10 @@ export interface Lead {
   area?: string | null;
   /** @nullable */
   propertyAddress?: string | null;
+  submissionId: string;
+  notificationStatus: string;
+  /** @nullable */
+  notifiedAt?: string | null;
   createdAt: string;
 }
 

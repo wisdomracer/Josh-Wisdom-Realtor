@@ -7,7 +7,7 @@ export default function Buy() {
       <Helmet>
         <title>Buy a Home in The Woodlands & Tomball | Josh Wisdom</title>
         <meta name="description" content="Navigate the home buying process in the northern Houston suburbs with local expert Josh Wisdom. First-time buyers, new construction, and luxury homes." />
-        <link rel="canonical" href="https://thewoodlandslistingagent.com/buy" />
+        <link rel="canonical" href="https://joshwisdomrealtor.com/buy" />
       </Helmet>
 
       <section className="py-24 bg-primary text-primary-foreground">

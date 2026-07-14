@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { emailHref, phoneHref, siteConfig } from "@/config/site";
 
 export function Footer() {
   return (
@@ -12,17 +13,17 @@ export function Footer() {
               Luxury real estate guidance for The Woodlands, Tomball, and Greater Houston homeowners.
             </p>
             <div className="space-y-3 pt-2">
-              <a href="tel:+18329818920" className="flex items-center gap-2 text-sm text-white/90 hover:text-amber-300">
+              <a href={phoneHref} className="flex items-center gap-2 text-sm text-white/90 hover:text-amber-300">
                 <Phone className="h-4 w-4" />
-                <span>832-981-8920</span>
+                <span>{siteConfig.phone}</span>
               </a>
-              <a href="mailto:WisdomRacer@gmail.com" className="flex items-center gap-2 text-sm text-white/90 hover:text-amber-300">
+              <a href={emailHref} className="flex items-center gap-2 text-sm text-white/90 hover:text-amber-300">
                 <Mail className="h-4 w-4" />
-                <span>WisdomRacer@gmail.com</span>
+                <span>{siteConfig.email}</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-white/80">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>VIP Realty<br />5100 Westheimer Ste 200, Houston, TX 77027</span>
+                <span>{siteConfig.brokerage.name}<br />{siteConfig.brokerage.streetAddress}, {siteConfig.brokerage.locality}, {siteConfig.brokerage.region} {siteConfig.brokerage.postalCode}</span>
               </div>
             </div>
           </div>
@@ -41,9 +42,9 @@ export function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Communities</h4>
             <ul className="space-y-3 text-sm text-white/70">
               <li><Link href="/communities/the-woodlands" className="hover:text-white">The Woodlands</Link></li>
-              <li><Link href="/carlton-woods-homes-for-sale" className="hover:text-white">Carlton Woods</Link></li>
-              <li><Link href="/east-shore-homes-for-sale" className="hover:text-white">East Shore</Link></li>
-              <li><Link href="/creekside-park-homes-for-sale" className="hover:text-white">Creekside Park</Link></li>
+              <li><Link href="/communities/carlton-woods" className="hover:text-white">Carlton Woods</Link></li>
+              <li><Link href="/communities/east-shore" className="hover:text-white">East Shore</Link></li>
+              <li><Link href="/communities/creekside-park" className="hover:text-white">Creekside Park</Link></li>
               <li><Link href="/communities/tomball" className="hover:text-white">Tomball</Link></li>
               <li><Link href="/magnolia-realtor" className="hover:text-white">Magnolia</Link></li>
               <li><Link href="/spring-realtor" className="hover:text-white">Spring</Link></li>
@@ -56,14 +57,14 @@ export function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Resources</h4>
             <ul className="space-y-3 text-sm text-white/70">
               <li><Link href="/about" className="hover:text-white">About Josh</Link></li>
-              <li><Link href="/market-updates" className="hover:text-white">Market Updates</Link></li>
+              <li><Link href="/mortgage-estimate" className="hover:text-white">Mortgage Estimate</Link></li>
               <li><Link href="/the-woodlands-events" className="hover:text-white">The Woodlands Events</Link></li>
               <li><Link href="/blog" className="hover:text-white">Seller Blog</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-white">Terms & Notices</Link></li>
-              <li><a href="https://www.trec.texas.gov/forms/consumer-protection-notice" className="hover:text-white">TREC Consumer Protection Notice</a></li>
-              <li><a href="https://www.trec.texas.gov/forms/information-about-brokerage-services" className="hover:text-white">TREC Information About Brokerage Services</a></li>
+              <li><a href={siteConfig.disclosures.consumerProtectionNotice} target="_blank" rel="noopener noreferrer" className="hover:text-white">TREC Consumer Protection Notice</a></li>
+              <li><a href={siteConfig.disclosures.informationAboutBrokerageServices} target="_blank" rel="noopener noreferrer" className="hover:text-white">TREC Information About Brokerage Services</a></li>
             </ul>
           </div>
         </div>

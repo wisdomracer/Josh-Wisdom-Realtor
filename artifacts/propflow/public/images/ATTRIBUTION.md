@@ -1,0 +1,7 @@
+# Image attribution
+
+- `the-woodlands-waterway-lifestyle.jpg` — “Great Blue Heron, Woodlands Waterway” by Philcomanforterie, via Wikimedia Commons, used without modification under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Source](https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg)
+- `tomball-griffin-house.jpg` — “Griffin House” by Michael Martin, via Wikimedia Commons, used without modification under [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/). [Source](https://commons.wikimedia.org/wiki/File:Griffin_House_-_Flickr_-_pinemikey.jpg)
+- `magnolia-historic-depot.jpg` — “Magnolia Historic Depot” by Stedil, via Wikimedia Commons, used without modification under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Source](https://commons.wikimedia.org/wiki/File:Magnolia_Historic_Depot.jpg)
+- `houston-skyline.jpg` — “Downtown Houston, TX Skyline - 2018” by David Daniel Turner, via Wikimedia Commons, used without modification under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Source](https://commons.wikimedia.org/wiki/File:Downtown_Houston,_TX_Skyline_-_2018.jpg)
+- `the-woodlands-waterway.jpg` — “The Woodlands Waterway” by Social Woodlands, via Wikimedia Commons, used without modification under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). [Source](https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg)
