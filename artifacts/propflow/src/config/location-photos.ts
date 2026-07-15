@@ -14,6 +14,18 @@ export type LocationPhoto = {
 };
 
 export const locationPhotos = {
+  listingRepresentation: {
+    src: "/images/listing-representation-exterior.jpg",
+    srcSet: "/images/listing-representation-exterior-960.webp 960w, /images/listing-representation-exterior-1600.webp 1600w",
+    width: 1600,
+    height: 1068,
+    alt: "Contemporary residence with a private landscaped yard and mature trees",
+    credit: "Max Vakhtbovych",
+    sourceUrl: "https://www.pexels.com/photo/modern-house-exterior-7587880/",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    objectPosition: "center",
+  },
   woodlands: {
     src: "/images/the-woodlands-waterway-lifestyle.jpg",
     srcSet: "/images/the-woodlands-waterway-lifestyle-960.webp 960w, /images/the-woodlands-waterway-lifestyle-1920.webp 1920w",
@@ -91,6 +103,7 @@ export const locationPhotos = {
 } satisfies Record<string, LocationPhoto>;
 
 export function photoForSeoSlug(slug: string): LocationPhoto {
+  if (slug === "the-woodlands-listing-agent") return locationPhotos.listingRepresentation;
   if (slug === "magnolia-realtor") return locationPhotos.magnolia;
   if (slug === "spring-realtor") return locationPhotos.spring;
   if (slug === "conroe-realtor") return locationPhotos.conroe;

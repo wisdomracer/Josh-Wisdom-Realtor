@@ -149,6 +149,12 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation in The Woodlands.");
   await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
   await expect(page.locator("main")).not.toContainText("The Woodlands Listing Agent");
+  const listingImage = page.locator('main img[src="/images/listing-representation-exterior.jpg"]');
+  await expect(listingImage).toBeVisible();
+  await expect(listingImage).toHaveAttribute("alt", "Contemporary residence with a private landscaped yard and mature trees");
+  await expect(listingImage).toHaveAttribute("width", "1600");
+  await expect(listingImage).toHaveAttribute("height", "1068");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/modern-house-exterior-7587880/"]')).toContainText("Max Vakhtbovych");
   await expect(page.getByRole("link", { name: "View Seller Strategy" })).toHaveAttribute("href", "/sell");
   const structuredData = JSON.parse(
     (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
@@ -630,6 +636,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/blog/how-to-price-a-home-in-the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
     ["/mortgage-estimate", 1600],
+    ["/the-woodlands-listing-agent", 1600],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });
     const image = page.locator("main picture img").first();
