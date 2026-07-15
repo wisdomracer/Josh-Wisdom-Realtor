@@ -14,7 +14,7 @@ import { getLeadAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/analytics";
 import { phoneHref, siteConfig, textHref } from "@/config/site";
 
-const sellerLeadTypes = ["selling", "valuation", "consultation", "luxury"] as const;
+const sellerLeadTypes = ["selling", "valuation", "luxury"] as const;
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -262,7 +262,11 @@ export function LeadForm({ leadType, showAddress, showArea, buttonText = "Submit
           <div className="min-h-5 text-center text-xs text-neutral-500" aria-live="polite" role="status">
             {createLead.isPending ? "Securely sending your request. Please keep this page open." : createLead.isError ? <>Not confirmed. Try again or call <a className="font-semibold text-black underline underline-offset-4" href={phoneHref}>{siteConfig.phone}</a>.</> : null}
           </div>
-          {isSellerLead && <p className="text-center text-xs leading-5 text-neutral-500">Private seller requests are reviewed personally. No spam, no automated valuation blast.</p>}
+          {isSellerLead ? (
+            <p className="text-center text-xs leading-5 text-neutral-500">Private seller requests are reviewed personally. No spam, no automated valuation blast.</p>
+          ) : leadType === "consultation" ? (
+            <p className="text-center text-xs leading-5 text-neutral-500">Private inquiries are reviewed personally. No spam or automated sales sequence.</p>
+          ) : null}
           <p className="text-center text-xs leading-5 text-neutral-500">By submitting, you agree Josh may contact you about your request. Your information is handled according to the <Link href="/privacy-policy" className="underline underline-offset-4 hover:text-black">privacy policy</Link>.</p>
         </form>
       </Form>

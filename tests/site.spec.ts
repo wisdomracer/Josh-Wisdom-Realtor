@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { publicRoutes, retiredPlaceholderRoutes } from "../artifacts/propflow/src/config/routes";
-import { absoluteUrl, emailHref, phoneHref } from "../artifacts/propflow/src/config/site";
+import { absoluteUrl, emailHref, phoneHref, textHref } from "../artifacts/propflow/src/config/site";
 import { provideEventsFixture } from "./events-fixture";
 
 function watchPageErrors(page: Page) {
@@ -285,6 +285,28 @@ test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();
   await expect(page.locator(`a[href="${emailHref}"]`).first()).toBeVisible();
+});
+
+test("contact page routes private conversations without turning the form into a seller-only intake", async ({ page }) => {
+  await page.goto("/contact", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Begin with the property, the timing, and the decision.");
+  await expect(page.locator(`main a[href="${phoneHref}"]`).first()).toBeVisible();
+  await expect(page.locator(`main a[href="${emailHref}"]`).first()).toBeVisible();
+  await expect(page.locator(`main a[href="${textHref}"]`).first()).toBeVisible();
+  for (const href of ["/sell", "/buy", "/luxury-homes", "/relocation"]) {
+    await expect(page.locator(`main a[href="${href}"]`)).toBeVisible();
+  }
+  await expect(page.locator("#private-consultation form")).toBeVisible();
+  await expect(page.getByLabel("Phone Number")).toBeVisible();
+  await expect(page.getByLabel("Phone Number *")).toHaveCount(0);
+  await expect(page.locator("#private-consultation")).toContainText("Private inquiries are reviewed personally.");
+  await expect(page.locator("#private-consultation")).not.toContainText("Private seller requests");
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@type"]).toBe("ContactPage");
+  expect(structuredData.mainEntity["@type"]).toBe("RealEstateAgent");
+  expect(structuredData.mainEntity.telephone).toBe("+18329818920");
 });
 
 test("mobile pages select responsive WebP photography with intrinsic dimensions", async ({ page }) => {
