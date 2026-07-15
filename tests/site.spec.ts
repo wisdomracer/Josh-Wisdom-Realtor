@@ -173,6 +173,18 @@ test("SEO landing pages use intent-aware consultation funnels", async ({ page })
   await expect(page.getByRole("button", { name: "Request Private Consultation" })).toBeVisible();
 });
 
+test("local landing pages use place-specific, attributed photography", async ({ page }) => {
+  for (const [route, src, creditUrl] of [
+    ["/magnolia-realtor", "/images/magnolia-historic-depot.jpg", "https://commons.wikimedia.org/wiki/File:Magnolia_Historic_Depot.jpg"],
+    ["/spring-realtor", "/images/spring-old-town.jpg", "https://commons.wikimedia.org/wiki/File:Old_Town_Spring_Wiki_5.jpg"],
+    ["/conroe-realtor", "/images/lake-conroe-sunset.jpg", "https://commons.wikimedia.org/wiki/File:Lake_Conroe_on_July_4th.jpg"],
+  ] as const) {
+    await page.goto(route);
+    await expect(page.locator(`main img[src="${src}"]`)).toBeVisible();
+    await expect(page.locator(`main a[href="${creditUrl}"]`)).toBeVisible();
+  }
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();

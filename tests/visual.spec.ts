@@ -20,6 +20,8 @@ for (const [route, filename] of [
   ["/the-woodlands-listing-agent", "listing-agent-desktop.png"],
   ["/the-woodlands-realtor", "woodlands-realtor-desktop.png"],
   ["/the-woodlands-luxury-homes", "woodlands-luxury-desktop.png"],
+  ["/spring-realtor", "spring-realtor-desktop.png"],
+  ["/conroe-realtor", "conroe-realtor-desktop.png"],
 ] as const) {
   test(`capture verified ${route} page for visual QA`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
