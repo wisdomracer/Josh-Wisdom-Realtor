@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "wouter";
 import { absoluteUrl, siteConfig } from "@/config/site";
 
-const defaultDescription = "Private real estate guidance for homeowners and buyers across The Woodlands and North Houston.";
+const defaultDescription = "Private real estate advisory for homeowners and buyers across The Woodlands and North Houston.";
 
 export function SocialMetadata() {
   const [location] = useLocation();

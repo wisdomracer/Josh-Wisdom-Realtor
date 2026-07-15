@@ -74,13 +74,13 @@ export default function HomePage() {
           <div className="max-w-4xl luxury-reveal">
             <div className="mb-7 flex items-center gap-4 text-white/70">
               <span className="h-px w-14 bg-[#d7b56d]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.28em]">The Woodlands • Spring • Tomball</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.28em]">The Woodlands • North Houston</span>
             </div>
             <h1 className="max-w-4xl font-serif text-[clamp(3.6rem,7.2vw,7.6rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-white">
-              Josh Wisdom Realtor
+              Private real estate advisory.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl md:leading-9">
-              Private listing strategy for homeowners across The Woodlands and North Houston who want stronger pricing, sharper presentation, and better negotiation before going live.
+              Discreet, seller-first representation across The Woodlands and North Houston for homeowners who expect stronger pricing, considered presentation, and disciplined negotiation.
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-13 rounded-none bg-[#d7b56d] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white">

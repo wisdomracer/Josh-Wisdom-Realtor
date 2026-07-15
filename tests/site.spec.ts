@@ -118,6 +118,16 @@ test("desktop and mobile primary navigation work", async ({ page }) => {
   await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeHidden();
 });
 
+test("luxury-facing brand language preserves listing-agent SEO", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private real estate advisory.");
+  await expect(page.locator("main")).toContainText("The Woodlands");
+
+  await page.goto("/the-woodlands-listing-agent");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation for The Woodlands homeowners.");
+  await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();

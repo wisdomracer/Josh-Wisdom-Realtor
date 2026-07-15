@@ -10,7 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="font-serif text-2xl font-semibold tracking-normal">Josh Wisdom Realtor</h3>
             <p className="max-w-xs leading-7 text-white/70">
-              Luxury real estate guidance for The Woodlands, Tomball, and Greater Houston homeowners.
+              Private real estate advisory for The Woodlands and North Houston homeowners.
             </p>
             <div className="space-y-3 pt-2">
               <a href={phoneHref} className="flex items-center gap-2 text-sm text-white/90 hover:text-amber-300">
@@ -31,7 +31,7 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300">Seller Pages</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href="/the-woodlands-listing-agent" className="hover:text-white">The Woodlands Listing Agent</Link></li>
+              <li><Link href="/the-woodlands-listing-agent" className="hover:text-white">Private Seller Advisory</Link></li>
               <li><Link href="/selling-a-home-in-the-woodlands" className="hover:text-white">Selling In The Woodlands</Link></li>
               <li><Link href="/home-valuation" className="hover:text-white">Get Home Value</Link></li>
               <li><Link href="/sell" className="hover:text-white">Seller Strategy</Link></li>

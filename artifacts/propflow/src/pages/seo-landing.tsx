@@ -23,11 +23,11 @@ export type SeoLanding = {
 export const seoLandingPages: SeoLanding[] = [
   {
     slug: "the-woodlands-listing-agent",
-    eyebrow: "The Woodlands Listing Agent",
-    title: "The Woodlands Listing Agent for homeowners who want a stronger sale.",
+    eyebrow: "Private Seller Advisory",
+    title: "Private listing representation for The Woodlands homeowners.",
     metaTitle: "The Woodlands Listing Agent | Josh Wisdom Realtor",
     description: "Work with Josh Wisdom Realtor for help selling, pricing guidance, premium marketing, and seller representation in The Woodlands, Texas.",
-    hero: "A listing launch should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the home, position the price, and create buyer interest with a clear marketing plan.",
+    hero: "A successful sale should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the property, position the price, and enter the market with clarity, discretion, and a disciplined launch plan.",
     area: "The Woodlands, TX",
     bullets: ["Village-level pricing review", "Launch plan for photography, copy, and marketing", "Negotiation strategy before offers arrive"],
     sections: [
