@@ -312,7 +312,7 @@ test("buyer service page presents a complete decision brief without implying a l
   await expect(image).toHaveAttribute("alt", "Spacious contemporary interior with a curved staircase");
   await expect(image).toHaveAttribute("width", "1600");
   await expect(image).toHaveAttribute("height", "1068");
-  await expect(page.locator('main a[href="https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/"]')).toContainText("Editorial interior");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/"]')).toContainText("Max Vakhtbovych");
   await expect(page.locator("#buyer-consultation form")).toBeVisible();
   await expect(page.locator('main a[href="/communities/the-woodlands"]')).toBeVisible();
   await expect(page.locator("main")).not.toContainText(/our listing|recently sold|exclusive inventory/i);
@@ -519,6 +519,71 @@ test("private home value review distinguishes evidence from an automated estimat
     .toEqual(["Service", "FAQPage"]);
 });
 
+test("mortgage estimator models a complete housing payment and resets example inputs", async ({ page }) => {
+  await page.goto("/mortgage-estimate", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Estimate the payment. Then test the property.");
+
+  const image = page.locator('main img[src="/images/buyer-brief-interior.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("width", "1600");
+  await expect(image).toHaveAttribute("height", "1068");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/"]')).toContainText("Max Vakhtbovych");
+
+  for (const heading of [
+    "Build the complete monthly picture.",
+    "A payment estimate is only as good as the property inputs.",
+    "Replace the scenario with the Loan Estimate.",
+    "Bring the scenario back to the actual property.",
+  ]) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+  }
+
+  await expect(page.getByRole("link", { name: /CFPB Loan Estimate Explainer/i })).toHaveAttribute("href", "https://www.consumerfinance.gov/owning-a-home/loan-estimate/");
+  await expect(page.getByRole("link", { name: /Compare Loan Estimates with CFPB guidance/i })).toHaveAttribute("href", "https://www.consumerfinance.gov/owning-a-home/compare/compare-loan-estimates/");
+
+  const inputs: Array<[string, string]> = [
+    ["Purchase price", "500000"],
+    ["Down payment", "100000"],
+    ["Example interest rate", "0"],
+    ["Loan term", "30"],
+    ["Property tax rate", "0"],
+    ["Annual homeowner insurance", "0"],
+    ["Annual supplemental insurance", "0"],
+    ["Monthly mortgage insurance", "0"],
+    ["Monthly HOA or association dues", "0"],
+    ["Other monthly assessments", "0"],
+    ["Monthly ownership reserve", "0"],
+    ["Estimated closing costs", "0"],
+    ["Estimated prepaids and initial escrow", "0"],
+    ["Credits and deposits already paid", "0"],
+  ];
+  for (const [label, value] of inputs) await page.getByLabel(label).fill(value);
+
+  const results = page.getByRole("complementary", { name: "Mortgage estimate results" });
+  await expect(results).toContainText("$1,111");
+  await expect(results.getByText("$400,000", { exact: true })).toBeVisible();
+  await expect(results.getByText("$100,000", { exact: true })).toBeVisible();
+
+  await page.getByLabel("Monthly HOA or association dues").fill("200");
+  await expect(results.getByText("$1,311", { exact: true }).first()).toBeVisible();
+
+  await page.getByRole("button", { name: "Reset Example Inputs" }).click();
+  await expect(page.getByLabel("Purchase price")).toHaveValue("750000");
+  await expect(page.getByLabel("Example interest rate")).toHaveValue("6.5");
+
+  await expect(page.locator("#payment-brief form")).toBeVisible();
+  await expect(page.getByLabel("Property Address")).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Buyer Consultation" })).toBeVisible();
+
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["WebApplication", "FAQPage"]);
+  await expect(page.locator("main")).not.toContainText(/current mortgage rate|guaranteed approval|this is a lender quote/i);
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();
@@ -564,6 +629,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/blog", 1920],
     ["/blog/how-to-price-a-home-in-the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
+    ["/mortgage-estimate", 1600],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });
     const image = page.locator("main picture img").first();

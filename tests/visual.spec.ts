@@ -27,6 +27,7 @@ for (const [route, filename] of [
   ["/magnolia-realtor", "magnolia-realtor-desktop.png"],
   ["/spring-realtor", "spring-realtor-desktop.png"],
   ["/conroe-realtor", "conroe-realtor-desktop.png"],
+  ["/mortgage-estimate", "mortgage-estimate-desktop.png"],
   ["/the-woodlands-events", "events-desktop.png"],
 ] as const) {
   test(`capture verified ${route} page for visual QA`, async ({ page }) => {
@@ -74,6 +75,25 @@ test("mobile buyer journey keeps its decision brief and consultation in one comp
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.screenshot({ path: "output/visual/buy-mobile.png", fullPage: true });
+});
+
+test("mobile mortgage planning keeps the complete estimate and buyer brief composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/mortgage-estimate", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "Estimate the payment. Then test the property." })).toBeVisible();
+  await expect(page.locator('img[src="/images/buyer-brief-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build the complete monthly picture." })).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Mortgage estimate results" })).toBeVisible();
+  await expect(page.locator("#payment-brief form")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Buyer Consultation" })).toBeVisible();
+  const formBox = await page.locator("#payment-brief form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/mortgage-estimate-mobile.png", fullPage: true });
 });
 
 test("mobile relocation journey keeps its move brief and consultation in one composed flow", async ({ page }) => {
