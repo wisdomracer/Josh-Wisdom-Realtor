@@ -163,6 +163,24 @@ test("mobile Tomball guide keeps property context, land diligence, and the area 
   await page.screenshot({ path: "output/visual/tomball-mobile.png", fullPage: true });
 });
 
+test("mobile Greater Houston guide keeps regional comparison and consultation in one flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/communities/greater-houston", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "Greater Houston" })).toBeVisible();
+  await expect(page.locator('img[src="/images/houston-skyline.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Different settings answer different briefs." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The route begins at the front door." })).toBeVisible();
+  await expect(page.locator("#greater-houston-consultation form")).toBeVisible();
+  const formBox = await page.locator("#greater-houston-consultation form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/greater-houston-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });

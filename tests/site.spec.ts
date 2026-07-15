@@ -355,6 +355,42 @@ test("Tomball guide distinguishes the mailing city from property-level ownership
   await expect(page.locator("main")).not.toContainText(/guaranteed commute|best acreage|guaranteed appreciation|perfect property/i);
 });
 
+test("Greater Houston guide turns a broad region into a property and route brief", async ({ page }) => {
+  await page.goto("/communities/greater-houston", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/houston-skyline.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "The downtown Houston skyline viewed across Buffalo Bayou");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "960");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Downtown_Houston,_TX_Skyline_-_2018.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Narrow the region by consequences, not zip codes." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Different settings answer different briefs." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The route begins at the front door." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The setting changes the diligence." })).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  for (const href of [
+    "/communities/the-woodlands",
+    "/communities/tomball",
+    "/magnolia-realtor",
+    "/spring-realtor",
+    "/conroe-realtor",
+    "/shenandoah-realtor",
+    "/home-valuation",
+    "/sell",
+  ]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  await expect(page.locator("#greater-houston-consultation form")).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Regional Consultation" })).toBeVisible();
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["WebPage", "FAQPage"]);
+  await expect(page.locator("main")).not.toContainText(/guaranteed commute|best suburb|top school|guaranteed appreciation|perfect community/i);
+});
+
 test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
   await page.goto("/about", { waitUntil: "networkidle" });
   await expect(page.locator("main")).toContainText("VIP Realty");
@@ -445,6 +481,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/communities", 1920],
     ["/communities/the-woodlands", 1920],
     ["/communities/tomball", 1920],
+    ["/communities/greater-houston", 1920],
     ["/magnolia-realtor", 1920],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });
