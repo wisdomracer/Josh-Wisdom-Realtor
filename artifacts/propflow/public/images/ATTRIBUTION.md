@@ -3,6 +3,7 @@
 The numbered `.webp` files are resized and re-encoded derivatives of the corresponding JPEG source and retain the source license shown below.
 
 - `luxury-architecture-dusk.*` — “Exterior of a Modern Villa” by Gustavo Galeano Maz, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial architectural imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/)
+- `seller-presentation-interior.*` — “Elegant Living Room Interior” by Thiha Soe, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial interior imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/elegant-living-room-interior-5883721/)
 
 - `the-woodlands-waterway-lifestyle.*` — “Great Blue Heron, Woodlands Waterway” by Philcomanforterie, via Wikimedia Commons, under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Source](https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg)
 - `tomball-griffin-house.*` — “Griffin House” by Michael Martin, via Wikimedia Commons, under [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/). [Source](https://commons.wikimedia.org/wiki/File:Griffin_House_-_Flickr_-_pinemikey.jpg)

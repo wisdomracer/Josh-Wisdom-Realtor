@@ -218,6 +218,19 @@ test("luxury service page uses licensed editorial architecture without implying 
   await expect(page.locator("main")).not.toContainText(/our listing|recently sold/i);
 });
 
+test("seller service page presents a complete pre-market plan without fabricated proof", async ({ page }) => {
+  await page.goto("/sell", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/seller-presentation-interior.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "Prepared contemporary living and dining space");
+  await expect(image).toHaveAttribute("width", "1600");
+  await expect(image).toHaveAttribute("height", "1067");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/elegant-living-room-interior-5883721/"]')).toContainText("Editorial interior");
+  await expect(page.locator("#seller-consultation form")).toBeVisible();
+  await expect(page.locator('main a[href="/blog/how-to-price-a-home-in-the-woodlands"]')).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/our listing|recently sold|number one agent/i);
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();
@@ -229,6 +242,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
 
   for (const [route, expectedWidth] of [
     ["/", 1200],
+    ["/sell", 1600],
     ["/luxury-homes", 1600],
     ["/relocation", 1920],
     ["/communities/the-woodlands", 1920],

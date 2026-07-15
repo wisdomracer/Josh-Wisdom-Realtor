@@ -10,6 +10,7 @@ test("capture verified desktop homepage for visual QA", async ({ page }) => {
 for (const [route, filename] of [
   ["/about", "about-desktop.png"],
   ["/buy", "buy-desktop.png"],
+  ["/sell", "sell-desktop.png"],
   ["/luxury-homes", "luxury-desktop.png"],
   ["/relocation", "relocation-desktop.png"],
   ["/communities", "communities-desktop.png"],
@@ -55,6 +56,18 @@ test("mobile luxury journey keeps its editorial image and consultation in one co
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.screenshot({ path: "output/visual/luxury-mobile.png", fullPage: true });
+});
+
+test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/sell", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.locator('img[src="/images/seller-presentation-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Discuss the property before deciding the next move." })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Seller Consultation" })).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/sell-mobile.png", fullPage: true });
 });
 
 test("confirmed valuation request presents a composed next step", async ({ page }) => {
