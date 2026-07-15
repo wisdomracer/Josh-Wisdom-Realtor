@@ -22,7 +22,7 @@ import type {
   ErrorResponse,
   EventsResponse,
   HealthStatus,
-  Lead,
+  LeadReceipt,
   ListPropertiesParams,
   ListPropertiesResponse,
   MembershipPlan,
@@ -132,8 +132,8 @@ export const getCreateLeadUrl = () => {
 export const createLead = async (
   createLeadBody: CreateLeadBody,
   options?: RequestInit,
-): Promise<Lead> => {
-  return customFetch<Lead>(getCreateLeadUrl(), {
+): Promise<LeadReceipt> => {
+  return customFetch<LeadReceipt>(getCreateLeadUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },

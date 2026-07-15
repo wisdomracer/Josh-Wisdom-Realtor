@@ -103,24 +103,19 @@ export interface CreateLeadBody {
   deviceCategory?: CreateLeadBodyDeviceCategory;
 }
 
-export interface Lead {
-  id: number;
-  name: string;
-  email: string;
-  /** @nullable */
-  phone?: string | null;
-  /** @nullable */
-  message?: string | null;
-  leadType: string;
-  /** @nullable */
-  area?: string | null;
-  /** @nullable */
-  propertyAddress?: string | null;
+export type LeadReceiptNotificationStatus =
+  (typeof LeadReceiptNotificationStatus)[keyof typeof LeadReceiptNotificationStatus];
+
+export const LeadReceiptNotificationStatus = {
+  sent: "sent",
+} as const;
+
+export interface LeadReceipt {
   submissionId: string;
-  notificationStatus: string;
+  notificationStatus: LeadReceiptNotificationStatus;
   /** @nullable */
-  notifiedAt?: string | null;
-  createdAt: string;
+  notifiedAt: string | null;
+  receivedAt: string;
 }
 
 export interface ErrorResponse {

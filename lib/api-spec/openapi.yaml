@@ -54,9 +54,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lead"
+                $ref: "#/components/schemas/LeadReceipt"
         "400":
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Submission conflict or delivery already in progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Too many new inquiries from this client
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds before a new inquiry should be attempted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: Inquiry saved but its notification could not yet be confirmed
           content:
             application/json:
               schema:
@@ -474,7 +497,17 @@ components:
           type: ["string", "null"]
         leadType:
           type: string
-          enum: [general, buying, selling, valuation, relocation, consultation, luxury, new_construction]
+          enum:
+            [
+              general,
+              buying,
+              selling,
+              valuation,
+              relocation,
+              consultation,
+              luxury,
+              new_construction,
+            ]
         area:
           type: ["string", "null"]
         propertyAddress:
@@ -525,41 +558,25 @@ components:
         - submissionId
         - submittedAt
 
-    Lead:
+    LeadReceipt:
       type: object
       properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: ["string", "null"]
-        message:
-          type: ["string", "null"]
-        leadType:
-          type: string
-        area:
-          type: ["string", "null"]
-        propertyAddress:
-          type: ["string", "null"]
         submissionId:
           type: string
         notificationStatus:
           type: string
+          enum: [sent]
         notifiedAt:
           type: ["string", "null"]
-        createdAt:
+          format: date-time
+        receivedAt:
           type: string
+          format: date-time
       required:
-        - id
         - submissionId
-        - name
-        - email
-        - leadType
         - notificationStatus
-        - createdAt
+        - notifiedAt
+        - receivedAt
 
     ErrorResponse:
       type: object
