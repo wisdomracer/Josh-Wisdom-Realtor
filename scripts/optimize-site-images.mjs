@@ -5,6 +5,7 @@ import { chromium } from "@playwright/test";
 
 const imageDirectory = path.resolve(import.meta.dirname, "../artifacts/propflow/public/images");
 const sources = [
+  { name: "homepage-wooded-residence", widths: [960, 1920] },
   { name: "the-woodlands-waterway", widths: [600, 1200] },
   { name: "the-woodlands-waterway-lifestyle", widths: [960, 1920] },
   { name: "tomball-griffin-house", widths: [960, 1920] },

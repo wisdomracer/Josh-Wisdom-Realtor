@@ -85,9 +85,9 @@ export default function HomePage() {
             </div>
           </div>
           <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[680px]">
-            <ResponsiveLocationImage photo={locationPhotos.woodlands} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 52vw, 100vw" loading="eager" fetchPriority="high" />
+            <ResponsiveLocationImage photo={locationPhotos.homepage} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 52vw, 100vw" loading="eager" fetchPriority="high" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-            <PhotoCredit photo={locationPhotos.woodlands} />
+            <PhotoCredit photo={locationPhotos.homepage} label="Editorial photo" />
           </figure>
         </div>
       </section>

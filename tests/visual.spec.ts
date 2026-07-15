@@ -11,7 +11,7 @@ test("mobile homepage keeps the local hero, seller proof, and private valuation 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { level: 1, name: "Private real estate advisory." })).toBeVisible();
-  const heroImage = page.locator('img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  const heroImage = page.locator('img[src="/images/homepage-wooded-residence.jpg"]');
   await expect(heroImage).toBeVisible();
   await expect(page.getByText("Seller-first", { exact: true })).toBeVisible();
   await expect(page.locator("main form")).toBeVisible();

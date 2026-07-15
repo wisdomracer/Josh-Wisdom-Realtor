@@ -144,12 +144,13 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private real estate advisory.");
   await expect(page.locator("main")).toContainText("The Woodlands");
-  const homeHero = page.locator('main img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  const homeHero = page.locator('main img[src="/images/homepage-wooded-residence.jpg"]');
   await expect(homeHero).toBeVisible();
-  await expect(homeHero).toHaveAttribute("alt", "A great blue heron beside paddleboards on The Woodlands Waterway");
+  await expect(homeHero).toHaveAttribute("alt", "Editorial view of a stone residence among tall pine trees at dusk");
   await expect(homeHero).toHaveAttribute("width", "1920");
-  await expect(homeHero).toHaveAttribute("height", "1280");
-  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg"]')).toContainText("Philcomanforterie");
+  await expect(homeHero).toHaveAttribute("height", "1281");
+  await expect(page.locator("main figure")).toContainText("Editorial photo");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/modern-stone-house-in-tranquil-forest-setting-36777966/"]')).toContainText("Curtis Adams");
   await expect(page.locator("main")).toHaveText(/Seller-first[\s\S]*Local focus[\s\S]*Private guidance/);
 
   await page.goto("/the-woodlands-listing-agent");

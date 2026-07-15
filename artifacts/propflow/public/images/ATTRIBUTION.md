@@ -2,6 +2,7 @@
 
 The numbered `.webp` files are resized and re-encoded derivatives of the corresponding JPEG source and retain the source license shown below.
 
+- `homepage-wooded-residence.*` — “Modern Stone House in Tranquil Forest Setting” by Curtis Adams, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial architectural imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/modern-stone-house-in-tranquil-forest-setting-36777966/)
 - `listing-representation-exterior.*` — “Modern House Exterior” by Max Vakhtbovych, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial architectural imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/modern-house-exterior-7587880/)
 - `creekside-wooded-residence.*` — “Modern Suburban Home Surrounded by Tall Trees” by Curtis Adams, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial architectural imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/modern-suburban-home-surrounded-by-tall-trees-36777840/)
 - `buyer-brief-interior.*` — “Interior of Modern House with Staircase” by Max Vakhtbovych, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial interior imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/)

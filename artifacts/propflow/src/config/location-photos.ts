@@ -14,6 +14,18 @@ export type LocationPhoto = {
 };
 
 export const locationPhotos = {
+  homepage: {
+    src: "/images/homepage-wooded-residence.jpg",
+    srcSet: "/images/homepage-wooded-residence-960.webp 960w, /images/homepage-wooded-residence-1920.webp 1920w",
+    width: 1920,
+    height: 1281,
+    alt: "Editorial view of a stone residence among tall pine trees at dusk",
+    credit: "Curtis Adams",
+    sourceUrl: "https://www.pexels.com/photo/modern-stone-house-in-tranquil-forest-setting-36777966/",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    objectPosition: "center",
+  },
   carltonWoods: {
     src: "/images/luxury-architecture-dusk.jpg",
     srcSet: "/images/luxury-architecture-dusk-960.webp 960w, /images/luxury-architecture-dusk-1600.webp 1600w",
