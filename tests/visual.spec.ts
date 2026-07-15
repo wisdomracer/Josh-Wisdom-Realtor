@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { provideEventsFixture } from "./events-fixture";
 
 test("capture verified desktop homepage for visual QA", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -22,9 +23,11 @@ for (const [route, filename] of [
   ["/the-woodlands-luxury-homes", "woodlands-luxury-desktop.png"],
   ["/spring-realtor", "spring-realtor-desktop.png"],
   ["/conroe-realtor", "conroe-realtor-desktop.png"],
+  ["/the-woodlands-events", "events-desktop.png"],
 ] as const) {
   test(`capture verified ${route} page for visual QA`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
+    if (route === "/the-woodlands-events") await provideEventsFixture(page);
     await page.goto(route, { waitUntil: "networkidle" });
     await page.screenshot({ path: `output/visual/${filename}`, fullPage: true });
   });

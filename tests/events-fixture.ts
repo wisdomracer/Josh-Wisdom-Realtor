@@ -38,6 +38,11 @@ export const eventsFixture = {
   source: "Visit The Woodlands",
 };
 
-export async function provideEventsFixture(page: Page) {
-  await page.route("**/api/events", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(eventsFixture) }));
+export async function provideEventsFixture(page: Page, fixture: typeof eventsFixture & { stale?: boolean } = eventsFixture) {
+  let requests = 0;
+  await page.route("**/api/events", (route) => {
+    requests += 1;
+    return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(fixture) });
+  });
+  return () => requests;
 }

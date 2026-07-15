@@ -45,7 +45,7 @@ export default function About() {
       <section className="bg-[#f7f5f0] py-20 md:py-28">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">About Josh</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">About Josh</p>
             <h2 className="mt-5 font-serif text-4xl leading-[0.98] text-black md:text-6xl">A serious decision deserves more than a sales pitch.</h2>
             <p className="mt-7 text-lg leading-8 text-neutral-700">
               The work begins by understanding the property, the timing, and the outcome you need. From there, Josh builds a practical plan around value, preparation, market position, and negotiation.
@@ -73,7 +73,7 @@ export default function About() {
       <section className="bg-white py-20 md:py-24">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-8 border border-black/15 px-7 py-10 md:flex-row md:items-center md:justify-between md:px-12">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">Start With Clarity</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">Start With Clarity</p>
             <h2 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-black md:text-5xl">Discuss the property before deciding the next move.</h2>
           </div>
           <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col">

@@ -63,6 +63,11 @@ function centralDate(date: Date): string {
   }).format(date);
 }
 
+export function currentEvents(events: CalendarEvent[], now = new Date()): CalendarEvent[] {
+  const today = centralDate(now);
+  return events.filter((event) => event.date >= today);
+}
+
 export function parseEventsRss(xml: string, now = new Date()): CalendarEvent[] {
   const today = centralDate(now);
   const latest = new Date(now.getTime() + 62 * 24 * 60 * 60 * 1000);
@@ -141,10 +146,14 @@ router.get("/events", async (req, res) => {
     res.json({ ...result, source: "Visit The Woodlands" });
   } catch (error) {
     if (cache) {
-      req.log.warn({ err: error }, "calendar refresh failed; serving cached events");
-      res.setHeader("Warning", '110 - "Calendar feed response is stale"');
-      res.json({ ...cache, source: "Visit The Woodlands", stale: true });
-      return;
+      const events = currentEvents(cache.events);
+      if (events.length > 0) {
+        req.log.warn({ err: error }, "calendar refresh failed; serving current cached events");
+        res.setHeader("Warning", '110 - "Calendar feed response is stale"');
+        res.json({ ...cache, events, source: "Visit The Woodlands", stale: true });
+        return;
+      }
+      req.log.warn({ err: error }, "calendar refresh failed; cached events are no longer current");
     }
     req.log.error({ err: error }, "calendar refresh failed");
     res.status(503).json({ error: "The live calendar is temporarily unavailable." });

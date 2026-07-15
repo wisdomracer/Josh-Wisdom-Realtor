@@ -58,6 +58,7 @@ function formatEventDate(dateKey: string): { day: string; date: string } {
 }
 
 function matchesFilter(event: CalendarEvent, filter: Filter, today: string, weekend: [string, string]): boolean {
+  if (event.date < today) return false;
   if (filter === "today") return event.date === today;
   if (filter === "weekend") return event.date >= weekend[0] && event.date <= weekend[1];
   if (filter === "pavilion") return event.categories.some((category) => category.toLowerCase().includes("pavilion"));
@@ -119,7 +120,7 @@ export default function TheWoodlandsEvents() {
           <div>
             <Eyebrow light>The Woodlands Events</Eyebrow>
             <h1 className="mt-7 max-w-5xl font-serif text-[clamp(3.5rem,7vw,7.8rem)] font-semibold leading-[0.88] tracking-[-0.04em]">The local brief, automatically refreshed.</h1>
-            <p className="mt-8 max-w-3xl text-xl leading-9 text-white/76">Current public events from the official Visit The Woodlands calendar, refreshed every 15 minutes and linked directly to the publisher.</p>
+            <p className="mt-8 max-w-3xl text-xl leading-9 text-white/76">Current public events from the official Visit The Woodlands calendar, checked automatically and linked directly to the publisher.</p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white"><a href="#upcoming"><CalendarDays className="mr-2 h-4 w-4" /> Current Events</a></Button>
               <Button asChild variant="outline" className="h-14 rounded-none border-white/55 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black"><a href="#sources">Source Calendars</a></Button>
@@ -128,6 +129,9 @@ export default function TheWoodlandsEvents() {
           <div className="border border-[#c69a44]/35 bg-[#11100d] p-7" aria-live="polite">
             <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-[#d7b56d]"><RefreshCw className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`} /> Live calendar status</p>
             {query.isLoading ? <p className="mt-5 text-lg leading-8 text-white/72">Checking the official calendar...</p> : query.isError ? <p className="mt-5 text-lg leading-8 text-white/72">The live feed is temporarily unavailable. Use the official source links below while it reconnects.</p> : <p className="mt-5 text-lg leading-8 text-white/72">{query.data?.stale ? "Showing the last successful update" : "Connected to Visit The Woodlands"}{updatedAt ? ` - updated ${updatedAt}` : ""}.</p>}
+            <button type="button" onClick={() => query.refetch()} disabled={query.isFetching} className="mt-6 inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-[#d7b56d] disabled:cursor-wait disabled:opacity-60">
+              <RefreshCw className={`mr-2 h-3.5 w-3.5 ${query.isFetching ? "animate-spin" : ""}`} /> {query.isFetching ? "Refreshing calendar" : "Refresh calendar"}
+            </button>
           </div>
         </div>
       </section>

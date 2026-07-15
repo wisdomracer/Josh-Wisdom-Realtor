@@ -26,7 +26,7 @@ export default function TheWoodlands() {
       <section className="bg-[#f7f5f0] py-20 md:py-28">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">A More Precise Search</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">A More Precise Search</p>
             <h2 className="mt-5 max-w-4xl font-serif text-4xl leading-[0.98] text-black md:text-6xl">The Woodlands is a collection of distinct buying decisions.</h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-neutral-700">The useful comparison is rarely one village against another in isolation. It is the complete fit: the home, its immediate setting, the routes you will use, the work it may need, and the properties a future buyer will compare with it.</p>
 
@@ -41,7 +41,7 @@ export default function TheWoodlands() {
             </div>
 
             <div className="mt-16">
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">Village Reference</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">Village Reference</p>
               <h3 className="mt-4 font-serif text-4xl text-black">Begin broad. Compare narrowly.</h3>
               <div className="mt-8 grid gap-px border border-black/10 bg-black/10 sm:grid-cols-2">
                 {villages.map((village) => (

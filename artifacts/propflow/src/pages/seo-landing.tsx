@@ -26,7 +26,7 @@ export const seoLandingPages: SeoLanding[] = [
     slug: "the-woodlands-listing-agent",
     intent: "seller",
     eyebrow: "Private Seller Advisory",
-    title: "Private listing representation for The Woodlands homeowners.",
+    title: "Private seller representation in The Woodlands.",
     metaTitle: "The Woodlands Listing Agent | Josh Wisdom Realtor",
     description: "Work with Josh Wisdom Realtor for help selling, pricing guidance, premium marketing, and seller representation in The Woodlands, Texas.",
     hero: "A successful sale should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the property, position the price, and enter the market with clarity, discretion, and a disciplined launch plan.",

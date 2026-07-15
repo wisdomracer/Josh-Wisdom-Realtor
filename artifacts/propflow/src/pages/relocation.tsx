@@ -44,7 +44,7 @@ export default function Relocation() {
       <section className="bg-[#f7f5f0] py-20 md:py-28">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">The Relocation Brief</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">The Relocation Brief</p>
             <h2 className="mt-5 max-w-3xl font-serif text-4xl leading-[0.98] text-black md:text-6xl">Make the first visit more useful.</h2>
             <div className="mt-10 grid gap-px border border-black/10 bg-black/10 md:grid-cols-2">
               {relocationBrief.map(([title, copy]) => (

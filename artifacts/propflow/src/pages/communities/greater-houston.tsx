@@ -27,7 +27,7 @@ export default function GreaterHouston() {
         <div className="mx-auto max-w-[1440px] px-5 md:px-9">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">A Better Starting Point</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">A Better Starting Point</p>
               <h2 className="mt-5 font-serif text-4xl leading-[0.98] text-black md:text-6xl">Start with the week you will live—not a map of suburbs.</h2>
               <p className="mt-7 text-lg leading-8 text-neutral-700">Greater Houston is too broad for a generic ranking. The right shortlist begins with the trips, property type, ownership preferences, and tradeoffs that will shape your actual experience.</p>
             </div>

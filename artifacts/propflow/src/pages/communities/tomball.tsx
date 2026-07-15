@@ -25,7 +25,7 @@ export default function Tomball() {
       <section className="bg-[#f7f5f0] py-20 md:py-28">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#9b6d1d]">Property-Specific Guidance</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#875d17]">Property-Specific Guidance</p>
             <h2 className="mt-5 max-w-4xl font-serif text-4xl leading-[0.98] text-black md:text-6xl">In Tomball, the land and the route belong in the same conversation.</h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-neutral-700">Tomball is not one uniform suburban market. A useful search distinguishes the town core, established subdivisions, newer planned communities, and rural or acreage properties—then evaluates the practical ownership details within each one.</p>
 

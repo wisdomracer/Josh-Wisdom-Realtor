@@ -124,7 +124,7 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await expect(page.locator("main")).toContainText("The Woodlands");
 
   await page.goto("/the-woodlands-listing-agent");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation for The Woodlands homeowners.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private seller representation in The Woodlands.");
   await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
 
   for (const [route, heading] of [
