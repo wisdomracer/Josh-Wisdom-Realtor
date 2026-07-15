@@ -45,6 +45,18 @@ test("mobile valuation flow keeps the complete form before the footer", async ({
   await page.screenshot({ path: "output/visual/valuation-mobile.png", fullPage: true });
 });
 
+test("mobile luxury journey keeps its editorial image and consultation in one composed flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/luxury-homes", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.locator('img[src="/images/luxury-architecture-dusk.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Begin with the property and your priorities." })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Private Consultation" }).last()).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/luxury-mobile.png", fullPage: true });
+});
+
 test("confirmed valuation request presents a composed next step", async ({ page }) => {
   await page.route("**/api/leads", (route) => route.fulfill({
     status: 201,

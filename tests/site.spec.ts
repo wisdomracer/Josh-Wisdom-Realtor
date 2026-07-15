@@ -207,6 +207,17 @@ test("local landing pages use place-specific, attributed photography", async ({ 
   }
 });
 
+test("luxury service page uses licensed editorial architecture without implying a listing", async ({ page }) => {
+  await page.goto("/luxury-homes", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/luxury-architecture-dusk.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "Contemporary residence illuminated at dusk");
+  await expect(image).toHaveAttribute("width", "1600");
+  await expect(image).toHaveAttribute("height", "1067");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/"]')).toContainText("Editorial architecture");
+  await expect(page.locator("main")).not.toContainText(/our listing|recently sold/i);
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();
@@ -218,6 +229,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
 
   for (const [route, expectedWidth] of [
     ["/", 1200],
+    ["/luxury-homes", 1600],
     ["/relocation", 1920],
     ["/communities/the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
