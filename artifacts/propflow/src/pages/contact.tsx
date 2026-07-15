@@ -14,8 +14,8 @@ export default function Contact() {
 
       <section className="bg-black py-20 text-white md:py-28">
         <div className="container mx-auto px-4 md:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">Contact</p>
-          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Talk with Josh about value, timing, and your next move.</h1>
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-400">Private Consultation</p>
+          <h1 className="mt-5 max-w-4xl font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.03em] text-white md:text-7xl">Begin with the property, the timing, and the decision.</h1>
         </div>
       </section>
 
@@ -23,8 +23,8 @@ export default function Contact() {
         <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.85fr_1.15fr] md:px-6">
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl font-semibold text-black">Direct Contact</h2>
-              <p className="mt-4 leading-7 text-neutral-700">Reach out for a seller consultation, home valuation, neighborhood question, or private luxury conversation.</p>
+              <h2 className="font-serif text-4xl text-black">Direct contact with Josh.</h2>
+              <p className="mt-4 leading-7 text-neutral-700">Discuss a sale, private valuation, purchase, relocation, or property-specific question without entering an automated sales sequence.</p>
             </div>
             <div className="space-y-5 border-t border-neutral-200 pt-8">
               <a href={phoneHref} className="flex gap-4 text-black hover:text-amber-700"><Phone className="h-5 w-5" /><span>{siteConfig.phone}</span></a>
@@ -32,7 +32,7 @@ export default function Contact() {
               <div className="flex gap-4 text-black"><MapPin className="h-5 w-5" /><span>{siteConfig.brokerage.name}, {siteConfig.brokerage.streetAddress}, {siteConfig.brokerage.locality}, {siteConfig.brokerage.region} {siteConfig.brokerage.postalCode}</span></div>
             </div>
           </div>
-          <LeadForm leadType="consultation" showAddress title="Send Josh a message" subtitle="Tell Josh what you are considering and the best way to reach you." buttonText="Send Message" />
+          <LeadForm leadType="consultation" showAddress title="Request a private conversation" subtitle="Tell Josh what you are considering and the best way to reach you." buttonText="Request Consultation" />
         </div>
       </section>
     </>

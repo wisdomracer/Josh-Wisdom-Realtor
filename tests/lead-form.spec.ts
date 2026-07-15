@@ -27,7 +27,7 @@ test("lead form reports success only after a confirmed API response", async ({ p
 
   await page.goto("/home-valuation?utm_source=playwright&utm_campaign=form-test&gclid=test-click");
   await fillValuationForm(page);
-  await page.getByRole("button", { name: "Get My Home Value" }).click();
+  await page.getByRole("button", { name: "Request Private Valuation" }).click();
 
   await expect(page.getByRole("heading", { name: "Request received." })).toBeVisible();
   expect(requestBody).toMatchObject({
@@ -59,7 +59,7 @@ test("lead form preserves data and reuses its idempotency key after delivery fai
 
   await page.goto("/home-valuation");
   await fillValuationForm(page);
-  const submit = page.getByRole("button", { name: "Get My Home Value" });
+  const submit = page.getByRole("button", { name: "Request Private Valuation" });
   await submit.click();
 
   await expect(page.getByRole("status")).toContainText("Not confirmed");
@@ -78,7 +78,7 @@ test("seller validation blocks incomplete requests before the API call", async (
   });
 
   await page.goto("/home-valuation");
-  await page.getByRole("button", { name: "Get My Home Value" }).click();
+  await page.getByRole("button", { name: "Request Private Valuation" }).click();
   await expect(page.getByText("Name is required")).toBeVisible();
   await expect(page.getByText("Invalid email address")).toBeVisible();
   await expect(page.getByText("Phone number is required for private seller consultations")).toBeVisible();

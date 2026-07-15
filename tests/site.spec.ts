@@ -131,6 +131,10 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
     ["/about", "Clear judgment. Considered execution. Direct guidance."],
     ["/buy", "Buy with a clear brief, not more noise."],
     ["/luxury-homes", "Exceptional homes require disciplined representation."],
+    ["/relocation", "Choose the area around the life you will live."],
+    ["/communities", "The address is only the beginning of the comparison."],
+    ["/contact", "Begin with the property, the timing, and the decision."],
+    ["/home-valuation", "Know the position before choosing the price."],
   ] as const) {
     await page.goto(route);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
@@ -143,7 +147,7 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
 
 test("premium service pages remain composed on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const route of ["/about", "/buy", "/sell", "/luxury-homes"]) {
+  for (const route of ["/about", "/buy", "/sell", "/luxury-homes", "/relocation", "/communities", "/contact", "/home-valuation"]) {
     await page.goto(route);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1);

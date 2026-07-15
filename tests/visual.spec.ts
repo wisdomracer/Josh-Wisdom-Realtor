@@ -10,6 +10,10 @@ for (const [route, filename] of [
   ["/about", "about-desktop.png"],
   ["/buy", "buy-desktop.png"],
   ["/luxury-homes", "luxury-desktop.png"],
+  ["/relocation", "relocation-desktop.png"],
+  ["/communities", "communities-desktop.png"],
+  ["/contact", "contact-desktop.png"],
+  ["/home-valuation", "valuation-desktop.png"],
 ] as const) {
   test(`capture verified ${route} page for visual QA`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
