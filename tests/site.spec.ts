@@ -155,6 +155,24 @@ test("premium service pages remain composed on mobile", async ({ page }) => {
   }
 });
 
+test("SEO landing pages use intent-aware consultation funnels", async ({ page }) => {
+  await page.goto("/the-woodlands-listing-agent");
+  await expect(page.getByRole("heading", { name: "Questions sellers ask." })).toBeVisible();
+  await expect(page.getByLabel("Property Address")).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Request Private Valuation" })).toBeVisible();
+
+  await page.goto("/the-woodlands-realtor");
+  await expect(page.getByRole("heading", { name: "Questions to clarify early." })).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
+  await expect(page.getByLabel("Property Address")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Request Local Consultation" })).toBeVisible();
+
+  await page.goto("/the-woodlands-luxury-homes");
+  await expect(page.getByLabel("Property Address")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Private Consultation" })).toBeVisible();
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();

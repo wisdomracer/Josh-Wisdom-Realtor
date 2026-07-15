@@ -15,6 +15,7 @@ export type SeoLanding = {
   description: string;
   hero: string;
   area: string;
+  intent: "seller" | "luxury" | "advisory";
   bullets: string[];
   sections: { title: string; copy: string }[];
   faqs: { question: string; answer: string }[];
@@ -23,6 +24,7 @@ export type SeoLanding = {
 export const seoLandingPages: SeoLanding[] = [
   {
     slug: "the-woodlands-listing-agent",
+    intent: "seller",
     eyebrow: "Private Seller Advisory",
     title: "Private listing representation for The Woodlands homeowners.",
     metaTitle: "The Woodlands Listing Agent | Josh Wisdom Realtor",
@@ -42,44 +44,47 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "the-woodlands-realtor",
-    eyebrow: "The Woodlands Realtor",
-    title: "A Woodlands Realtor focused on local clarity and premium guidance.",
+    intent: "advisory",
+    eyebrow: "Private Real Estate Advisory",
+    title: "Private real estate guidance for The Woodlands.",
     metaTitle: "The Woodlands Realtor | Josh Wisdom Realtor",
     description: "Josh Wisdom Realtor serves The Woodlands, Tomball, and Greater Houston with seller-focused real estate guidance and local market knowledge.",
-    hero: "From village differences to buyer interest patterns, local nuance matters. Josh helps clients understand what the market is rewarding before they make a move.",
+    hero: "Begin with the property, the timing, and the decision—not a generic market pitch. Josh organizes the relevant local context so buyers and sellers can move with a clearer position.",
     area: "The Woodlands, Tomball, Spring, Magnolia, and Greater Houston",
-    bullets: ["Seller consultations", "Buyer and relocation guidance", "Neighborhood-level market insight"],
+    bullets: ["Seller positioning", "Buyer and relocation strategy", "Village-level comparisons"],
     sections: [
-      { title: "Local decisions need local context", copy: "A home near the Waterway is evaluated differently from a golf-course estate, a Creekside Park move-up home, or a Tomball acreage property." },
-      { title: "Guidance without pressure", copy: "The process starts with goals, timing, and facts. Josh's role is to help you see the decision clearly and move only when the strategy makes sense." },
-      { title: "Greater Houston reach", copy: "The site is centered on The Woodlands and Tomball, with broader service across Spring, Magnolia, Conroe, Cypress, Houston, Klein, Montgomery, Kingwood, Katy, Sugar Land, and nearby suburbs." },
+      { title: "Property-specific decisions", copy: "A home near the Waterway should not be evaluated like a golf-course estate, a Creekside Park property, or Tomball acreage. Setting, condition, alternatives, and buyer expectations change the comparison." },
+      { title: "Clear advice without a forced timeline", copy: "The conversation starts with goals, timing, and facts. Josh's role is to surface tradeoffs, organize the next decision, and help you move only when the strategy supports it." },
+      { title: "Focused locally. Connected regionally.", copy: "The primary focus is The Woodlands and Tomball, with service extending through Spring, Magnolia, Conroe, Cypress, Houston, Klein, Montgomery, Kingwood, Katy, Sugar Land, and nearby communities when the client brief requires it." },
     ],
     faqs: [
-      { question: "Does Josh serve areas outside The Woodlands?", answer: "Yes. The primary focus is The Woodlands and Tomball, with broader Greater Houston coverage." },
-      { question: "Can Josh help with both buying and selling?", answer: "Yes. The site is seller-focused, but Josh also provides buyer, relocation, and luxury property guidance." },
+      { question: "Does Josh advise beyond The Woodlands?", answer: "Yes. The primary focus is The Woodlands and Tomball, with broader Greater Houston coverage when the search or sale requires it." },
+      { question: "Can Josh help with both buying and selling?", answer: "Yes. Josh provides seller representation as well as buyer, relocation, and luxury-property guidance." },
     ],
   },
   {
     slug: "the-woodlands-luxury-homes",
-    eyebrow: "The Woodlands Luxury Homes",
-    title: "Luxury home representation in The Woodlands, Texas.",
+    intent: "luxury",
+    eyebrow: "Private Luxury Representation",
+    title: "Private representation for distinctive Woodlands homes.",
     metaTitle: "The Woodlands Luxury Homes | Josh Wisdom Realtor",
     description: "Luxury listing and buyer guidance for The Woodlands estates, custom homes, golf-course properties, and premium neighborhoods.",
-    hero: "Luxury buyers compare presentation, privacy, finishes, setting, and lifestyle. Josh helps market high-value homes with care.",
+    hero: "Distinctive properties require a sharper value narrative, controlled presentation, and an exposure plan calibrated to the seller—not a louder version of ordinary marketing.",
     area: "The Woodlands luxury market",
-    bullets: ["Luxury listing preparation", "Private consultation", "Luxury neighborhood guidance"],
+    bullets: ["Property-specific positioning", "Presentation and launch planning", "Qualified, controlled exposure"],
     sections: [
-      { title: "Presentation is leverage", copy: "Luxury marketing must feel considered. Photography, staging, copy, and marketing should communicate value before the appointment is booked." },
-      { title: "Neighborhood prestige matters", copy: "Carlton Woods, East Shore, and other premium areas require copy and pricing that reflect both property features and lifestyle access." },
-      { title: "Discretion and qualification", copy: "High-value homes need thoughtful exposure and serious buyer handling. The goal is visibility without chaos." },
+      { title: "Position before promotion", copy: "Photography, preparation, copy, and launch sequencing should establish the property's value narrative before a qualified buyer requests access." },
+      { title: "Value is property-specific", copy: "Architecture, lot placement, privacy, construction, condition, setting, and competing alternatives can carry different weight from one distinctive home to another." },
+      { title: "Control the exposure", copy: "The right plan balances reach with discretion, buyer qualification, showing management, and consistent communication of the property's position." },
     ],
     faqs: [
-      { question: "What makes selling a luxury home different?", answer: "Luxury sales depend more heavily on presentation, qualified exposure, privacy, and negotiation of complex terms." },
+      { question: "What makes selling a distinctive home different?", answer: "The buyer pool is narrower and the comparison is more property-specific, placing greater weight on preparation, qualified exposure, privacy, and negotiation of the complete offer." },
       { question: "Can Josh advise before photos or staging?", answer: "Yes. A pre-listing consultation can identify which improvements and presentation details are likely to matter most." },
     ],
   },
   {
     slug: "communities/carlton-woods",
+    intent: "luxury",
     eyebrow: "Carlton Woods Real Estate",
     title: "Carlton Woods real estate guidance for buyers and sellers.",
     metaTitle: "Carlton Woods Real Estate Guide | Josh Wisdom Realtor",
@@ -99,6 +104,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "communities/east-shore",
+    intent: "seller",
     eyebrow: "East Shore Real Estate",
     title: "East Shore listing guidance for lakefront and Waterway-area sellers.",
     metaTitle: "East Shore Real Estate Guide | Josh Wisdom Realtor",
@@ -118,6 +124,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "communities/creekside-park",
+    intent: "seller",
     eyebrow: "Creekside Park Real Estate",
     title: "Creekside Park real estate needs local context.",
     metaTitle: "Creekside Park Real Estate Guide | Josh Wisdom Realtor",
@@ -137,6 +144,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "magnolia-realtor",
+    intent: "advisory",
     eyebrow: "Magnolia Realtor",
     title: "Magnolia real estate guidance for acreage, new communities, and north Houston moves.",
     metaTitle: "Magnolia Realtor | Josh Wisdom Realtor",
@@ -156,6 +164,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "spring-realtor",
+    intent: "advisory",
     eyebrow: "Spring Realtor",
     title: "Spring real estate guidance for buyers and sellers near The Woodlands.",
     metaTitle: "Spring Realtor | Josh Wisdom Realtor",
@@ -175,6 +184,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "conroe-realtor",
+    intent: "advisory",
     eyebrow: "Conroe Realtor",
     title: "Conroe real estate guidance for lake, acreage, and north Houston growth.",
     metaTitle: "Conroe Realtor | Josh Wisdom Realtor",
@@ -194,6 +204,7 @@ export const seoLandingPages: SeoLanding[] = [
   },
   {
     slug: "shenandoah-realtor",
+    intent: "advisory",
     eyebrow: "Shenandoah Realtor",
     title: "Shenandoah real estate guidance near The Woodlands Medical Center and Market Street.",
     metaTitle: "Shenandoah Realtor | Josh Wisdom Realtor",
@@ -212,6 +223,7 @@ export const seoLandingPages: SeoLanding[] = [
     ],
   },  {
     slug: "selling-a-home-in-the-woodlands",
+    intent: "seller",
     eyebrow: "Selling A Home In The Woodlands",
     title: "Selling a home in The Woodlands starts with strategy, not guesswork.",
     metaTitle: "Selling A Home In The Woodlands | Josh Wisdom Realtor",
@@ -233,6 +245,31 @@ export const seoLandingPages: SeoLanding[] = [
 
 export function SeoLandingPage({ page }: { page: SeoLanding }) {
   const heroPhoto = photoForSeoSlug(page.slug);
+  const isSeller = page.intent === "seller" || page.intent === "luxury";
+  const isLuxury = page.intent === "luxury";
+  const primaryAction = isSeller
+    ? { href: "/home-valuation", label: isLuxury ? "Request Private Consultation" : "Request Private Valuation" }
+    : { href: "/contact", label: "Request Private Consultation" };
+  const secondaryAction = isSeller
+    ? { href: "/contact", label: "Discuss the Property" }
+    : { href: "/communities", label: "Explore Area Guides" };
+  const form = isSeller
+    ? {
+        leadType: isLuxury ? "luxury" as const : "valuation" as const,
+        title: isLuxury ? "Request a private property consultation" : "Request a private value review",
+        subtitle: `Share the property, timing, and goals you are considering in ${page.area}.`,
+        buttonText: isLuxury ? "Request Private Consultation" : "Request Private Valuation",
+        showAddress: true,
+        showArea: false,
+      }
+    : {
+        leadType: "general" as const,
+        title: "Start a private local conversation",
+        subtitle: `Share the decision, timing, and area you are considering around ${page.area}.`,
+        buttonText: "Request Local Consultation",
+        showAddress: false,
+        showArea: true,
+      };
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -266,10 +303,10 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl">{page.hero}</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:bg-[#e1c06f]">
-                <Link href="/home-valuation">Get Home Value</Link>
+                <Link href={primaryAction.href}>{primaryAction.label}</Link>
               </Button>
               <Button asChild variant="outline" className="h-14 rounded-none border-white bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-white hover:text-black">
-                <Link href="/contact">Ask About Current Options</Link>
+                <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
               </Button>
             </div>
           </div>
@@ -292,7 +329,7 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
       <section className="bg-[#f8f5ef] py-16 text-black md:py-24">
         <div className="mx-auto grid max-w-[1500px] gap-12 px-5 md:px-9 lg:grid-cols-[0.72fr_1.28fr]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">What Josh Focuses On</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">Advisory Focus</p>
             <div className="mt-7 space-y-4">
               {page.bullets.map((bullet) => (
                 <div key={bullet} className="flex gap-3 border-t border-black/15 pt-4">
@@ -305,7 +342,7 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
           <div className="space-y-10">
             {page.sections.map((section) => (
               <article key={section.title} className="border-b border-neutral-200 pb-10">
-                <h2 className="text-3xl font-semibold text-black">{section.title}</h2>
+                <h2 className="font-serif text-4xl font-normal leading-tight text-black">{section.title}</h2>
                 <p className="mt-4 text-lg leading-8 text-neutral-700">{section.copy}</p>
               </article>
             ))}
@@ -317,7 +354,7 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
         <div className="mx-auto grid max-w-[1500px] gap-10 px-5 md:px-9 lg:grid-cols-2">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">Questions</p>
-            <h2 className="mt-4 font-serif text-5xl font-semibold leading-tight text-black">Common seller questions.</h2>
+            <h2 className="mt-4 font-serif text-5xl font-semibold leading-tight text-black">{isSeller ? "Questions sellers ask." : "Questions to clarify early."}</h2>
             <div className="mt-8 space-y-5">
               {page.faqs.map((faq) => (
                 <div key={faq.question} className="border border-neutral-200 bg-[#f8f5ef] p-6">
@@ -328,11 +365,12 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
             </div>
           </div>
           <LeadForm
-            leadType="valuation"
-            showAddress
-            title="Ask Josh for a local value review"
-            subtitle={`Get a seller-focused opinion for ${page.area}.`}
-            buttonText="Request Valuation"
+            leadType={form.leadType}
+            showAddress={form.showAddress}
+            showArea={form.showArea}
+            title={form.title}
+            subtitle={form.subtitle}
+            buttonText={form.buttonText}
           />
         </div>
       </section>

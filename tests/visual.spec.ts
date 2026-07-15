@@ -17,6 +17,9 @@ for (const [route, filename] of [
   ["/communities/greater-houston", "greater-houston-desktop.png"],
   ["/contact", "contact-desktop.png"],
   ["/home-valuation", "valuation-desktop.png"],
+  ["/the-woodlands-listing-agent", "listing-agent-desktop.png"],
+  ["/the-woodlands-realtor", "woodlands-realtor-desktop.png"],
+  ["/the-woodlands-luxury-homes", "woodlands-luxury-desktop.png"],
 ] as const) {
   test(`capture verified ${route} page for visual QA`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
