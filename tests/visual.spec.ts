@@ -37,6 +37,9 @@ for (const [route, filename] of [
 test("mobile valuation flow keeps the complete form before the footer", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/home-valuation", { waitUntil: "networkidle" });
+  await expect(page.locator('img[src="/images/valuation-property-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The details around the number matter." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A number is not a launch strategy." })).toBeVisible();
   await expect(page.locator("form")).toBeVisible();
   const formBox = await page.locator("form").boundingBox();
   const footerBox = await page.locator("footer").boundingBox();

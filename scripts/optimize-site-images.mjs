@@ -12,6 +12,7 @@ const sources = [
   { name: "magnolia-historic-depot", widths: [960, 1920] },
   { name: "spring-old-town", widths: [960, 1920] },
   { name: "lake-conroe-sunset", widths: [960, 1920] },
+  { name: "valuation-property-interior", widths: [960, 1600] },
 ];
 
 await mkdir(imageDirectory, { recursive: true });

@@ -281,6 +281,26 @@ test("seller service page presents a complete pre-market plan without fabricated
   await expect(page.locator("main")).not.toContainText(/our listing|recently sold|number one agent/i);
 });
 
+test("private home value review distinguishes evidence from an automated estimate", async ({ page }) => {
+  await page.goto("/home-valuation", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/valuation-property-interior.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "Contemporary open-plan kitchen, dining, and living interior");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "1280");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/luxury-modern-kitchen-and-living-room-interior-design-32025967/"]')).toContainText("Editorial interior");
+  await expect(page.getByRole("heading", { name: "A number is not a launch strategy." })).toBeVisible();
+  await expect(page.locator("#valuation-form form")).toBeVisible();
+  await expect(page.locator('main a[href="/sell"]').first()).toBeVisible();
+  await expect(page.locator("main")).toContainText("It is not a licensed appraisal");
+  await expect(page.locator("main")).not.toContainText(/instant offer|guaranteed value|cash offer|our listing|recently sold/i);
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["Service", "FAQPage"]);
+});
+
 test("phone and email actions use real protocols", async ({ page }) => {
   await page.goto("/contact");
   await expect(page.locator(`a[href="${phoneHref}"]`).first()).toBeVisible();
@@ -318,6 +338,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/sell", 1600],
     ["/luxury-homes", 1600],
     ["/relocation", 1920],
+    ["/home-valuation", 1920],
     ["/communities/the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
   ] as const) {
