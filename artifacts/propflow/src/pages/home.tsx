@@ -26,6 +26,33 @@ const process = [
   ["04", "Negotiate", "Protect price, terms, appraisal risk, concessions, financing, and closing timing."],
 ];
 
+const editorialSequence = [
+  {
+    number: "01",
+    title: "Craft",
+    copy: "The details that distinguish the property deserve their own moment.",
+    photo: locationPhotos.editorialWineCellar,
+    className: "min-h-[480px] lg:col-span-7 lg:row-span-2 lg:min-h-[700px]",
+    sizes: "(min-width: 1024px) 58vw, 100vw",
+  },
+  {
+    number: "02",
+    title: "Finish",
+    copy: "Materials, light, and restraint shape the buyer's first impression.",
+    photo: locationPhotos.editorialMarbleBathroom,
+    className: "min-h-[420px] lg:col-span-5 lg:min-h-0",
+    sizes: "(min-width: 1024px) 42vw, 100vw",
+  },
+  {
+    number: "03",
+    title: "Private living",
+    copy: "Market the way the home is meant to be experienced.",
+    photo: locationPhotos.editorialPrivatePool,
+    className: "min-h-[420px] lg:col-span-5 lg:min-h-0",
+    sizes: "(min-width: 1024px) 42vw, 100vw",
+  },
+];
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -125,6 +152,42 @@ export default function HomePage() {
                 <h3 className="mt-12 font-serif text-4xl font-semibold">{title}</h3>
                 <p className="mt-5 leading-8 text-neutral-700 transition group-hover:text-white/70">{copy}</p>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section data-testid="editorial-property-sequence" className="overflow-hidden bg-[#f0ece4] py-20 text-black md:py-28">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-9">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#765014]">Editorial Property Perspective</p>
+              <h2 className="mt-6 max-w-4xl font-serif text-[clamp(2.9rem,5vw,6.2rem)] font-semibold leading-[0.92] tracking-[-0.04em]">
+                The impression begins before the showing.
+              </h2>
+            </div>
+            <div className="max-w-2xl lg:justify-self-end">
+              <p className="text-lg leading-8 text-neutral-700">
+                Luxury marketing is not visual excess. It is a deliberate sequence of architecture, finish, and private living that helps the right buyer understand the property.
+              </p>
+              <p className="mt-5 border-l border-[#9b6d1d] pl-4 text-sm leading-6 text-neutral-600">
+                Editorial photography shown for visual context. These are not listings represented or sold by Josh Wisdom.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid gap-5 lg:grid-cols-12 lg:grid-rows-[repeat(2,minmax(0,1fr))]">
+            {editorialSequence.map(({ number, title, copy, photo, className, sizes }) => (
+              <figure key={title} className={`group relative overflow-hidden bg-black ${className}`}>
+                <ResponsiveLocationImage photo={photo} className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.025]" sizes={sizes} />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/5 to-black/45" />
+                <figcaption className="absolute left-5 top-5 z-10 max-w-[75%] text-white md:left-7 md:top-7">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#e4c47e]">{number} / Editorial</p>
+                  <h3 className="mt-3 font-serif text-4xl font-semibold leading-none md:text-5xl">{title}</h3>
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-white/78 md:text-base">{copy}</p>
+                </figcaption>
+                <PhotoCredit photo={photo} label="Editorial photo" />
+              </figure>
             ))}
           </div>
         </div>

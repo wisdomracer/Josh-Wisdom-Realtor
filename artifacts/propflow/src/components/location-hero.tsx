@@ -28,7 +28,7 @@ export function ResponsiveLocationImage({ photo, className, sizes, loading = "la
 
 export function PhotoCredit({ photo, label = "Photo" }: { photo: LocationPhoto; label?: string }) {
   return (
-    <p className="absolute bottom-3 right-3 z-10 bg-black/70 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 backdrop-blur-sm">
+    <p className="absolute bottom-3 right-3 z-10 max-w-[calc(100%-1.5rem)] bg-black/70 px-3 py-1.5 text-right text-[9px] font-semibold uppercase leading-4 tracking-[0.16em] text-white/80 backdrop-blur-sm">
       {label}: <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">{photo.credit}</a>
       <span aria-hidden="true"> · </span>
       <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">{photo.license}</a>

@@ -221,9 +221,23 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await expect(homeHero).toHaveAttribute("alt", "Editorial view of a stone residence among tall pine trees at dusk");
   await expect(homeHero).toHaveAttribute("width", "1920");
   await expect(homeHero).toHaveAttribute("height", "1281");
-  await expect(page.locator("main figure")).toContainText("Editorial photo");
+  await expect(homeHero.locator("xpath=ancestor::figure")).toContainText("Editorial photo");
   await expect(page.locator('main a[href="https://www.pexels.com/photo/modern-stone-house-in-tranquil-forest-setting-36777966/"]')).toContainText("Curtis Adams");
   await expect(page.locator("main")).toHaveText(/Seller-first[\s\S]*Local focus[\s\S]*Private guidance/);
+  const editorialSection = page.getByTestId("editorial-property-sequence");
+  await expect(editorialSection.getByRole("heading", { level: 2 })).toHaveText("The impression begins before the showing.");
+  await expect(editorialSection).toContainText("These are not listings represented or sold by Josh Wisdom.");
+  for (const [src, alt, width, sourceUrl, credit] of [
+    ["/images/editorial-wine-cellar.jpg", "Editorial view of a sculptural wood-and-black wine cellar", "1920", "https://www.pexels.com/photo/cellar-with-glass-case-on-parquet-in-building-7045304/", "Max Vakhtbovych"],
+    ["/images/editorial-marble-bathroom.jpg", "Editorial view of a warm marble residential bathroom", "1600", "https://www.pexels.com/photo/luxurious-marble-bathroom-with-modern-fixtures-31525748/", "Pușcaș Adryan"],
+    ["/images/editorial-private-pool.jpg", "Editorial view of a modern villa and illuminated pool at dusk", "1920", "https://www.pexels.com/photo/view-of-the-terrace-with-a-swimming-pool-at-the-resort-24805054/", "Ahmet ÇÖTÜR"],
+  ] as const) {
+    const image = editorialSection.locator(`img[src="${src}"]`);
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute("alt", alt);
+    await expect(image).toHaveAttribute("width", width);
+    await expect(editorialSection.locator(`a[href="${sourceUrl}"]`)).toContainText(credit);
+  }
 
   await page.goto("/the-woodlands-listing-agent");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation in The Woodlands.");
