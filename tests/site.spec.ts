@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { publicRoutes, retiredPlaceholderRoutes } from "../artifacts/propflow/src/config/routes";
+import { routeMetadataForPath } from "../artifacts/propflow/src/config/route-metadata";
 import { absoluteUrl, emailHref, phoneHref, textHref } from "../artifacts/propflow/src/config/site";
 import { provideEventsFixture } from "./events-fixture";
 
@@ -22,28 +23,39 @@ function watchPageErrors(page: Page) {
   return errors;
 }
 
+function escapeHtml(value: string): string {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+}
+
 for (const route of publicRoutes) {
   test(`${route} renders as a complete, canonical page`, async ({ page }) => {
     if (route === "/the-woodlands-events") await provideEventsFixture(page);
     const errors = watchPageErrors(page);
     const response = await page.goto(route, { waitUntil: "networkidle" });
+    const metadata = routeMetadataForPath(route);
 
     expect(response?.status()).toBe(200);
+    expect(metadata).toBeDefined();
+    const responseHtml = await response!.text();
+    expect(responseHtml).toContain(`<title data-static-social>${escapeHtml(metadata!.title)}</title>`);
+    expect(responseHtml).toContain(`<meta data-static-social name="description" content="${escapeHtml(metadata!.description)}" />`);
+    expect(responseHtml).toContain(`<link data-static-social rel="canonical" href="${absoluteUrl(route)}" />`);
+    expect(responseHtml).toContain(`<meta data-static-social property="og:image" content="${absoluteUrl(metadata!.image.src)}" />`);
     await expect(page.locator("main")).toBeVisible();
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator("title")).toHaveCount(1);
-    expect((await page.title()).trim()).not.toBe("");
+    expect(await page.title()).toBe(metadata!.title);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", metadata!.description);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", absoluteUrl(route));
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:description"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", absoluteUrl(route));
-    const hasEventsImage = route === "/the-woodlands-events";
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", absoluteUrl(hasEventsImage ? "/images/the-woodlands-pavilion-night.jpg" : "/og-image.png"));
-    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", hasEventsImage ? "1920" : "1200");
-    await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", hasEventsImage ? "1275" : "630");
-    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", hasEventsImage ? /Cynthia Woods Mitchell Pavilion/ : /Josh Wisdom Realtor/);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", absoluteUrl(metadata!.image.src));
+    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", String(metadata!.image.width));
+    await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", String(metadata!.image.height));
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", metadata!.image.alt);
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
-    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", absoluteUrl(hasEventsImage ? "/images/the-woodlands-pavilion-night.jpg" : "/og-image.png"));
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", absoluteUrl(metadata!.image.src));
     await expect(page.locator("[data-static-social]")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /page not found/i })).toHaveCount(0);
 
@@ -69,13 +81,14 @@ test("raw entrypoint provides a complete social preview to non-JavaScript crawle
   const response = await request.get("/");
   expect(response.status()).toBe(200);
   const html = await response.text();
-  expect(html).toContain('<meta data-static-social property="og:image" content="https://joshwisdomrealtor.com/og-image.png"');
+  expect(html).toContain('<meta data-static-social property="og:image" content="https://joshwisdomrealtor.com/images/homepage-wooded-residence.jpg"');
   expect(html).toContain('<meta data-static-social name="twitter:card" content="summary_large_image"');
-  expect(html).toContain("Private Real Estate Advisory");
+  expect(html).toContain("The Woodlands Luxury Real Estate");
+  expect(html).toContain('<link data-static-social rel="canonical" href="https://joshwisdomrealtor.com/"');
 
-  const image = await request.get("/og-image.png");
+  const image = await request.get("/images/homepage-wooded-residence.jpg");
   expect(image.status()).toBe(200);
-  expect(image.headers()["content-type"]).toContain("image/png");
+  expect(image.headers()["content-type"]).toContain("image/jpeg");
   expect((await image.body()).byteLength).toBeGreaterThan(100_000);
 });
 

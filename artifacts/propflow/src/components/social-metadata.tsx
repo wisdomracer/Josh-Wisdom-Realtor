@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "wouter";
-import { locationPhotos } from "@/config/location-photos";
+import { routeMetadataForPath } from "@/config/route-metadata";
 import { absoluteUrl, siteConfig } from "@/config/site";
 
 const defaultDescription = "Private real estate advisory for homeowners and buyers across The Woodlands and North Houston.";
@@ -10,9 +10,7 @@ export function SocialMetadata() {
   const [location] = useLocation();
   const route = location.split(/[?#]/)[0] || "/";
   const [metadata, setMetadata] = useState<{ title: string; description: string }>({ title: siteConfig.name, description: defaultDescription });
-  const socialImage = route === "/the-woodlands-events"
-    ? { src: locationPhotos.pavilion.src, width: locationPhotos.pavilion.width, height: locationPhotos.pavilion.height, alt: locationPhotos.pavilion.alt }
-    : { src: siteConfig.socialImage, width: 1200, height: 630, alt: siteConfig.socialImageAlt };
+  const socialImage = routeMetadataForPath(route)?.image ?? { src: siteConfig.socialImage, width: 1200, height: 630, alt: siteConfig.socialImageAlt };
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
