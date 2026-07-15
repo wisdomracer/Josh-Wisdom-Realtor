@@ -20,7 +20,7 @@ export function Header() {
   const [location] = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050505]/95 text-white backdrop-blur-xl">
+    <header className="site-header sticky top-0 z-50 border-b border-white/10 bg-[#050505]/95 text-white backdrop-blur-xl">
       <div className="mx-auto grid h-[76px] max-w-[1540px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-9">
         <Link href="/" className="flex items-center gap-4 justify-self-start" aria-label="Josh Wisdom Realtor home">
           <span className="grid h-11 w-11 place-items-center border border-[#c69a44] font-serif text-lg leading-none text-[#d7b56d]">JW</span>

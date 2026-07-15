@@ -105,14 +105,14 @@
 
 @layer components {
   main section { position: relative; isolation: isolate; }
-  main a[class*="group"], main article, main figure, form, header a, header button { transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+  main a[class*="group"], main article, main figure, form, .site-header a, .site-header button { transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-  header { box-shadow: 0 10px 34px rgba(0, 0, 0, 0.16); }
-  header > div { height: 64px !important; }
-  header .h-11.w-11 { height: 38px !important; width: 38px !important; }
-  header .font-serif.text-2xl, header .md\:text-\[28px\] { font-size: 1.45rem !important; }
-  header nav { gap: 1.8rem !important; }
-  header a[class*="h-12"], header button[class*="h-12"] { height: 2.75rem !important; padding-left: 1.35rem !important; padding-right: 1.35rem !important; }
+  .site-header { box-shadow: 0 10px 34px rgba(0, 0, 0, 0.16); }
+  .site-header > div { height: 64px !important; }
+  .site-header .h-11.w-11 { height: 38px !important; width: 38px !important; }
+  .site-header .font-serif.text-2xl, .site-header .md\:text-\[28px\] { font-size: 1.45rem !important; }
+  .site-header nav { gap: 1.8rem !important; }
+  .site-header a[class*="h-12"], .site-header button[class*="h-12"] { height: 2.75rem !important; padding-left: 1.35rem !important; padding-right: 1.35rem !important; }
 
   main .luxury-hero {
     min-height: 650px !important;
@@ -201,7 +201,7 @@
 }
 
 @media (max-width: 640px) {
-  header > div { height: 60px !important; }
+  .site-header > div { height: 60px !important; }
   main .luxury-hero, main .luxury-hero > div[class*="grid"] { min-height: auto !important; }
   main .luxury-hero > div[class*="grid"] { padding-top: 3.6rem !important; padding-bottom: 4rem !important; }
   main .luxury-hero h1 { font-size: clamp(2.95rem, 13.5vw, 4.6rem) !important; line-height: .94 !important; max-width: 8.8ch !important; }

@@ -238,6 +238,62 @@ test("local landing pages use place-specific, attributed photography", async ({ 
   }
 });
 
+test("Insights index presents attributed editorial briefs instead of text-only cards", async ({ page }) => {
+  await page.goto("/blog", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Read for the decision ahead.");
+  const hero = page.locator('main img[src="/images/the-woodlands-waterway-lifestyle.jpg"]').first();
+  await expect(hero).toBeVisible();
+  await expect(hero).toHaveAttribute("width", "1920");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg"]').first()).toBeVisible();
+  await expect(page.locator('main img[src="/images/valuation-property-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Useful before the conversation becomes urgent." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Useful guidance does not need manufactured authority." })).toBeVisible();
+  for (const slug of [
+    "how-to-price-a-home-in-the-woodlands",
+    "what-carlton-woods-buyers-compare",
+    "selling-near-the-woodlands-waterway",
+    "creekside-park-seller-checklist",
+  ]) {
+    await expect(page.locator(`main a[href="/blog/${slug}"]`).first()).toBeVisible();
+  }
+  for (const href of ["/home-valuation", "/sell"]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["CollectionPage", "ItemList"]);
+  await expect(page.locator("main")).not.toContainText(/top producer|number one agent|guaranteed result|best realtor/i);
+});
+
+test("seller article provides a complete reading and consultation journey", async ({ page }) => {
+  await page.goto("/blog/how-to-price-a-home-in-the-woodlands", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("How to price a Woodlands home without surrendering the strategy");
+  await expect.poll(async () => (await page.locator("main article > header").boundingBox())?.height ?? 0).toBeGreaterThan(650);
+  const image = page.locator('main img[src="/images/valuation-property-interior.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "1280");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/luxury-modern-kitchen-and-living-room-interior-design-32025967/"]')).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Article sections" }).getByRole("link")).toHaveCount(4);
+  await expect(page.getByRole("heading", { name: "Separate closed evidence from current pressure" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Continue with the property, service, or local context." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The next useful brief." })).toBeVisible();
+  for (const href of ["/home-valuation", "/sell", "/communities/the-woodlands", "/blog"]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  await expect(page.locator("#article-consultation form")).toBeVisible();
+  await expect(page.getByLabel("Property Address")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Seller Consultation" })).toBeVisible();
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["Article", "BreadcrumbList"]);
+  await expect(page.locator("main")).not.toContainText(/guaranteed price|guaranteed sale|number one agent|recent listing/i);
+});
+
 test("luxury service page uses licensed editorial architecture without implying a listing", async ({ page }) => {
   await page.goto("/luxury-homes", { waitUntil: "networkidle" });
   const image = page.locator('main img[src="/images/luxury-architecture-dusk.jpg"]');
@@ -505,6 +561,8 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/communities/the-woodlands", 1920],
     ["/communities/tomball", 1920],
     ["/communities/greater-houston", 1920],
+    ["/blog", 1920],
+    ["/blog/how-to-price-a-home-in-the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });

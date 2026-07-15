@@ -17,6 +17,8 @@ for (const [route, filename] of [
   ["/communities/the-woodlands", "woodlands-desktop.png"],
   ["/communities/tomball", "tomball-desktop.png"],
   ["/communities/greater-houston", "greater-houston-desktop.png"],
+  ["/blog", "insights-desktop.png"],
+  ["/blog/how-to-price-a-home-in-the-woodlands", "pricing-article-desktop.png"],
   ["/contact", "contact-desktop.png"],
   ["/home-valuation", "valuation-desktop.png"],
   ["/the-woodlands-listing-agent", "listing-agent-desktop.png"],
@@ -220,6 +222,24 @@ test("mobile local advisory page keeps its decision brief and consultation in on
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.screenshot({ path: "output/visual/magnolia-realtor-mobile.png", fullPage: true });
+});
+
+test("mobile seller insight keeps article navigation, related decisions, and consultation composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/blog/how-to-price-a-home-in-the-woodlands", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "How to price a Woodlands home without surrendering the strategy" })).toBeVisible();
+  await expect(page.locator('img[src="/images/valuation-property-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Article sections" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Continue with the property, service, or local context." })).toBeVisible();
+  await expect(page.locator("#article-consultation form")).toBeVisible();
+  const formBox = await page.locator("#article-consultation form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/pricing-article-mobile.png", fullPage: true });
 });
 
 test("confirmed valuation request presents a composed next step", async ({ page }) => {
