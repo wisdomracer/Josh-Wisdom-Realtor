@@ -262,6 +262,18 @@ test("mobile Woodlands listing page keeps private representation and consultatio
   await page.screenshot({ path: "output/visual/listing-agent-mobile.png", fullPage: true });
 });
 
+test("mobile Woodlands luxury page keeps its editorial residence and private consultation composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/the-woodlands-luxury-homes", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private representation for distinctive Woodlands homes.");
+  await expect(page.locator('img[src="/images/woodlands-luxury-pool.jpg"]')).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Private Consultation" })).toBeVisible();
+  await expect(page.locator("#private-consultation form")).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/woodlands-luxury-mobile.png", fullPage: true });
+});
+
 test("mobile Woodlands neighborhood guides keep distinct imagery and consultation composed", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const [route, src, filename] of [

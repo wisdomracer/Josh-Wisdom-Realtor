@@ -62,6 +62,18 @@ export const locationPhotos = {
     licenseUrl: "https://www.pexels.com/license/",
     objectPosition: "center",
   },
+  woodlandsLuxury: {
+    src: "/images/woodlands-luxury-pool.jpg",
+    srcSet: "/images/woodlands-luxury-pool-960.webp 960w, /images/woodlands-luxury-pool-1920.webp 1920w",
+    width: 2400,
+    height: 1600,
+    alt: "Editorial view of an illuminated contemporary residence and pool at dusk",
+    credit: "Ahmet ÇÖTÜR — resized",
+    sourceUrl: "https://www.pexels.com/photo/luxury-rural-residence-with-swimming-pool-26859066/",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    objectPosition: "center",
+  },
   carltonWoods: {
     src: "/images/luxury-architecture-dusk.jpg",
     srcSet: "/images/luxury-architecture-dusk-960.webp 960w, /images/luxury-architecture-dusk-1600.webp 1600w",
@@ -212,6 +224,7 @@ export const locationPhotos = {
 
 export function photoForSeoSlug(slug: string): LocationPhoto {
   if (slug === "the-woodlands-listing-agent") return locationPhotos.listingRepresentation;
+  if (slug === "the-woodlands-luxury-homes") return locationPhotos.woodlandsLuxury;
   if (slug === "communities/carlton-woods") return locationPhotos.carltonWoods;
   if (slug === "communities/east-shore") return locationPhotos.eastShore;
   if (slug === "communities/creekside-park") return locationPhotos.creeksidePark;

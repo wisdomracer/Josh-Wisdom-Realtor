@@ -315,6 +315,11 @@ test("SEO landing pages use intent-aware consultation funnels", async ({ page })
   await expect(page.locator('a[href="#private-consultation"]')).toBeVisible();
 
   await page.goto("/the-woodlands-luxury-homes");
+  const woodlandsLuxuryImage = page.locator('main img[src="/images/woodlands-luxury-pool.jpg"]');
+  await expect(woodlandsLuxuryImage).toBeVisible();
+  await expect(woodlandsLuxuryImage).toHaveAttribute("alt", "Editorial view of an illuminated contemporary residence and pool at dusk");
+  await expect(woodlandsLuxuryImage).toHaveAttribute("width", "2400");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/luxury-rural-residence-with-swimming-pool-26859066/"]')).toContainText("Ahmet ÇÖTÜR");
   await expect(page.getByRole("heading", { name: "Position the property before controlling the exposure." })).toBeVisible();
   await expect(page.getByLabel("Property Address")).toBeVisible();
   await expect(page.getByRole("button", { name: "Request Private Consultation" })).toBeVisible();
@@ -768,6 +773,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/shenandoah-realtor", 1920],
     ["/mortgage-estimate", 1600],
     ["/the-woodlands-listing-agent", 1600],
+    ["/the-woodlands-luxury-homes", 2400],
     ["/communities/carlton-woods", 1600],
     ["/communities/east-shore", 1200],
     ["/communities/creekside-park", 1600],
