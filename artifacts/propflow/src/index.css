@@ -2,6 +2,22 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/inter-latin-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-variable.woff2") format("woff2");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -95,7 +111,7 @@
 @layer base {
   * { @apply border-border; }
   html { scroll-behavior: smooth; overflow-x: hidden; background: #050505; }
-  body { @apply bg-background font-sans text-foreground antialiased; overflow-x: hidden; text-rendering: geometricPrecision; }
+  body { @apply bg-background font-sans text-foreground antialiased; overflow-x: hidden; font-optical-sizing: auto; font-synthesis: none; text-rendering: geometricPrecision; }
   ::selection { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
   h1, h2, h3, h4, h5, h6 { @apply tracking-normal; color: inherit; text-wrap: balance; }
   p { text-wrap: pretty; }

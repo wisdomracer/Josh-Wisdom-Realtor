@@ -118,6 +118,38 @@ test("browser and saved-device surfaces use the JW brand identity", async ({ pag
   }
 });
 
+test("the luxury type system is self-hosted without third-party font requests", async ({ page, request }) => {
+  const thirdPartyFontRequests: string[] = [];
+  page.on("request", (outbound) => {
+    const url = new URL(outbound.url());
+    if (["fonts.googleapis.com", "fonts.gstatic.com"].includes(url.hostname)) thirdPartyFontRequests.push(outbound.url());
+  });
+
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator('link[rel="preload"][as="font"][href="/fonts/inter-latin-variable.woff2"]')).toHaveCount(1);
+  await expect(page.locator('link[rel="preload"][as="font"][href="/fonts/playfair-display-latin-variable.woff2"]')).toHaveCount(1);
+  expect(thirdPartyFontRequests).toEqual([]);
+  expect(await page.locator("body").evaluate((element) => getComputedStyle(element).fontFamily)).toContain("Inter");
+  expect(await page.locator("h1").evaluate((element) => getComputedStyle(element).fontFamily)).toContain("Playfair Display");
+  await expect.poll(() => page.evaluate(() => document.fonts.check('16px "Inter"') && document.fonts.check('48px "Playfair Display"'))).toBe(true);
+
+  for (const path of [
+    "/fonts/inter-latin-variable.woff2",
+    "/fonts/playfair-display-latin-variable.woff2",
+  ]) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("font/woff2");
+    expect((await response.body()).byteLength).toBeGreaterThan(30_000);
+  }
+
+  for (const path of ["/fonts/Inter-OFL.txt", "/fonts/Playfair-Display-OFL.txt"]) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(await response.text()).toContain("SIL OPEN FONT LICENSE");
+  }
+});
+
 test("every rendered internal link points to a declared public route or a real section", async ({ page }) => {
   await provideEventsFixture(page);
   const discovered = new Map<string, Set<string>>();
