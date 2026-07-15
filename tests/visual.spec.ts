@@ -17,6 +17,9 @@ for (const [route, filename] of [
   ["/communities/the-woodlands", "woodlands-desktop.png"],
   ["/communities/tomball", "tomball-desktop.png"],
   ["/communities/greater-houston", "greater-houston-desktop.png"],
+  ["/communities/carlton-woods", "carlton-woods-desktop.png"],
+  ["/communities/east-shore", "east-shore-desktop.png"],
+  ["/communities/creekside-park", "creekside-park-desktop.png"],
   ["/blog", "insights-desktop.png"],
   ["/blog/how-to-price-a-home-in-the-woodlands", "pricing-article-desktop.png"],
   ["/contact", "contact-desktop.png"],
@@ -225,6 +228,23 @@ test("mobile Woodlands listing page keeps private representation and consultatio
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.screenshot({ path: "output/visual/listing-agent-mobile.png", fullPage: true });
+});
+
+test("mobile Woodlands neighborhood guides keep distinct imagery and consultation composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const [route, src, filename] of [
+    ["/communities/carlton-woods", "/images/luxury-architecture-dusk.jpg", "carlton-woods-mobile.png"],
+    ["/communities/east-shore", "/images/the-woodlands-waterway.jpg", "east-shore-mobile.png"],
+    ["/communities/creekside-park", "/images/creekside-wooded-residence.jpg", "creekside-park-mobile.png"],
+  ] as const) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(`img[src="${src}"]`)).toBeVisible();
+    await expect(page.locator("#private-consultation form")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1);
+    await page.screenshot({ path: `output/visual/${filename}`, fullPage: true });
+  }
 });
 
 test("mobile local advisory page keeps its decision brief and consultation in one flow", async ({ page }) => {

@@ -234,6 +234,9 @@ test("shared local landing pages keep the private brief and consultation on the 
 
 test("local landing pages use place-specific, attributed photography", async ({ page }) => {
   for (const [route, src, creditUrl] of [
+    ["/communities/carlton-woods", "/images/luxury-architecture-dusk.jpg", "https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/"],
+    ["/communities/east-shore", "/images/the-woodlands-waterway.jpg", "https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg"],
+    ["/communities/creekside-park", "/images/creekside-wooded-residence.jpg", "https://www.pexels.com/photo/modern-suburban-home-surrounded-by-tall-trees-36777840/"],
     ["/magnolia-realtor", "/images/magnolia-historic-depot.jpg", "https://commons.wikimedia.org/wiki/File:Magnolia_Historic_Depot.jpg"],
     ["/spring-realtor", "/images/spring-old-town.jpg", "https://commons.wikimedia.org/wiki/File:Old_Town_Spring_Wiki_5.jpg"],
     ["/conroe-realtor", "/images/lake-conroe-sunset.jpg", "https://commons.wikimedia.org/wiki/File:Lake_Conroe_on_July_4th.jpg"],
@@ -637,6 +640,9 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/magnolia-realtor", 1920],
     ["/mortgage-estimate", 1600],
     ["/the-woodlands-listing-agent", 1600],
+    ["/communities/carlton-woods", 1600],
+    ["/communities/east-shore", 1200],
+    ["/communities/creekside-park", 1600],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });
     const image = page.locator("main picture img").first();

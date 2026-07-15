@@ -14,6 +14,42 @@ export type LocationPhoto = {
 };
 
 export const locationPhotos = {
+  carltonWoods: {
+    src: "/images/luxury-architecture-dusk.jpg",
+    srcSet: "/images/luxury-architecture-dusk-960.webp 960w, /images/luxury-architecture-dusk-1600.webp 1600w",
+    width: 1600,
+    height: 1067,
+    alt: "Contemporary residence illuminated at dusk",
+    credit: "Gustavo Galeano Maz",
+    sourceUrl: "https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    objectPosition: "center",
+  },
+  eastShore: {
+    src: "/images/the-woodlands-waterway.jpg",
+    srcSet: "/images/the-woodlands-waterway-600.webp 600w, /images/the-woodlands-waterway-1200.webp 1200w",
+    width: 1200,
+    height: 1600,
+    alt: "Water taxi and buildings along The Woodlands Waterway",
+    credit: "Social Woodlands",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg",
+    license: "CC BY 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+    objectPosition: "center 58%",
+  },
+  creeksidePark: {
+    src: "/images/creekside-wooded-residence.jpg",
+    srcSet: "/images/creekside-wooded-residence-960.webp 960w, /images/creekside-wooded-residence-1600.webp 1600w",
+    width: 1600,
+    height: 1067,
+    alt: "Contemporary suburban residence framed by tall pine trees",
+    credit: "Curtis Adams",
+    sourceUrl: "https://www.pexels.com/photo/modern-suburban-home-surrounded-by-tall-trees-36777840/",
+    license: "Pexels License",
+    licenseUrl: "https://www.pexels.com/license/",
+    objectPosition: "center",
+  },
   listingRepresentation: {
     src: "/images/listing-representation-exterior.jpg",
     srcSet: "/images/listing-representation-exterior-960.webp 960w, /images/listing-representation-exterior-1600.webp 1600w",
@@ -104,6 +140,9 @@ export const locationPhotos = {
 
 export function photoForSeoSlug(slug: string): LocationPhoto {
   if (slug === "the-woodlands-listing-agent") return locationPhotos.listingRepresentation;
+  if (slug === "communities/carlton-woods") return locationPhotos.carltonWoods;
+  if (slug === "communities/east-shore") return locationPhotos.eastShore;
+  if (slug === "communities/creekside-park") return locationPhotos.creeksidePark;
   if (slug === "magnolia-realtor") return locationPhotos.magnolia;
   if (slug === "spring-realtor") return locationPhotos.spring;
   if (slug === "conroe-realtor") return locationPhotos.conroe;
