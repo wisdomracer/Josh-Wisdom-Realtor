@@ -7,7 +7,9 @@ export type AnalyticsEvent =
   | "lead_submission_failure"
   | "click_phone"
   | "click_email"
+  | "click_sms"
   | "click_primary_cta"
+  | "click_outbound_resource"
   | "view_community"
   | "view_seller_service"
   | "view_blog_post";

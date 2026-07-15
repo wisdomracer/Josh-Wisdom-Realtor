@@ -30,6 +30,19 @@ test("lead form reports success only after a confirmed API response", async ({ p
   await page.getByRole("button", { name: "Request Private Valuation" }).click();
 
   await expect(page.getByRole("heading", { name: "Request received." })).toBeVisible();
+  await expect(page.getByRole("status")).toBeFocused();
+  await expect(page.getByRole("link", { name: "Call Josh", exact: true })).toHaveAttribute("href", "tel:+18329818920");
+  await expect(page.getByRole("link", { name: "Text Josh", exact: true })).toHaveAttribute("href", "sms:+18329818920");
+  expect(await page.evaluate(() => window.dataLayer?.filter((record) => record.event === "lead_submission_success"))).toContainEqual(expect.objectContaining({
+    lead_type: "valuation",
+    path: "/home-valuation",
+  }));
+  await page.evaluate(() => document.addEventListener("click", (event) => event.preventDefault(), true));
+  await page.getByRole("link", { name: "Text Josh", exact: true }).click();
+  expect(await page.evaluate(() => window.dataLayer?.filter((record) => record.event === "click_sms"))).toContainEqual(expect.objectContaining({
+    path: "/home-valuation",
+    placement: "main",
+  }));
   expect(requestBody).toMatchObject({
     name: lead.name,
     email: lead.email,

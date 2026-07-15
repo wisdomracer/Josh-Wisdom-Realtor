@@ -44,3 +44,21 @@ test("mobile valuation flow keeps the complete form before the footer", async ({
   expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
   await page.screenshot({ path: "output/visual/valuation-mobile.png", fullPage: true });
 });
+
+test("confirmed valuation request presents a composed next step", async ({ page }) => {
+  await page.route("**/api/leads", (route) => route.fulfill({
+    status: 201,
+    contentType: "application/json",
+    body: JSON.stringify({ id: 1, notificationStatus: "sent", createdAt: new Date().toISOString() }),
+  }));
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/home-valuation", { waitUntil: "networkidle" });
+  await page.getByLabel("Full Name *").fill("Test Visitor");
+  await page.getByLabel("Email Address *").fill("visitor@example.com");
+  await page.getByLabel("Phone Number *").fill("8325550100");
+  await page.getByRole("button", { name: "Request Private Valuation" }).click();
+  const confirmation = page.getByRole("status");
+  await expect(page.getByRole("heading", { name: "Request received." })).toBeVisible();
+  await expect.poll(async () => (await confirmation.boundingBox())?.width ?? 0).toBeGreaterThan(400);
+  await page.screenshot({ path: "output/visual/valuation-confirmed-desktop.png", fullPage: true });
+});

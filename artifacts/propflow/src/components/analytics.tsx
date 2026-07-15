@@ -20,14 +20,44 @@ export function Analytics() {
       const link = (event.target as Element | null)?.closest("a[href]");
       if (!link) return;
       const href = link.getAttribute("href") ?? "";
-      if (href.startsWith("tel:")) trackEvent("click_phone", { path: window.location.pathname });
-      if (href.startsWith("mailto:")) trackEvent("click_email", { path: window.location.pathname });
-      if (link.hasAttribute("data-primary-cta")) trackEvent("click_primary_cta", { path: window.location.pathname, destination: href });
+      const path = window.location.pathname;
+      const placement = getPlacement(link);
+
+      if (href.startsWith("tel:")) {
+        trackEvent("click_phone", { path, placement });
+        return;
+      }
+      if (href.startsWith("mailto:")) {
+        trackEvent("click_email", { path, placement });
+        return;
+      }
+      if (href.startsWith("sms:")) {
+        trackEvent("click_sms", { path, placement });
+        return;
+      }
+
+      const destination = new URL(href, window.location.origin);
+      const label = (link.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 80);
+      const isLocalConversion = destination.origin === window.location.origin
+        && ["/contact", "/home-valuation"].includes(destination.pathname);
+
+      if (link.hasAttribute("data-primary-cta") || isLocalConversion) {
+        trackEvent("click_primary_cta", { path, destination: destination.pathname, label, placement });
+      } else if (["http:", "https:"].includes(destination.protocol) && destination.origin !== window.location.origin) {
+        trackEvent("click_outbound_resource", { path, destination_host: destination.hostname, label, placement });
+      }
     }
 
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, []);
 
   return null;
+}
+
+function getPlacement(link: Element) {
+  if (link.closest("header")) return "header";
+  if (link.closest("footer")) return "footer";
+  if (link.closest("aside")) return "aside";
+  return "main";
 }
