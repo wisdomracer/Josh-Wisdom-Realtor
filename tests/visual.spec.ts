@@ -145,6 +145,24 @@ test("mobile Woodlands community guide keeps village context, diligence, and the
   await page.screenshot({ path: "output/visual/woodlands-community-mobile.png", fullPage: true });
 });
 
+test("mobile Tomball guide keeps property context, land diligence, and the area brief composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/communities/tomball", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "Tomball" })).toBeVisible();
+  await expect(page.locator('img[src="/images/tomball-griffin-house.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A Tomball search can begin in very different places." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Confirm what “Tomball” does not answer." })).toBeVisible();
+  await expect(page.locator("#tomball-consultation form")).toBeVisible();
+  const formBox = await page.locator("#tomball-consultation form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/tomball-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });
@@ -160,7 +178,7 @@ test("mobile seller journey keeps its plan and consultation in one composed flow
 test("mobile Woodlands listing page keeps private representation and consultation in one flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/the-woodlands-listing-agent", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private seller representation in The Woodlands.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation in The Woodlands.");
   await expect(page.getByRole("button", { name: "Request Seller Consultation" })).toBeVisible();
   await expect(page.getByRole("link", { name: "View Seller Strategy" })).toHaveAttribute("href", "/sell");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

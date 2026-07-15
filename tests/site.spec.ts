@@ -146,7 +146,7 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await expect(page.locator("main")).toContainText("The Woodlands");
 
   await page.goto("/the-woodlands-listing-agent");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private seller representation in The Woodlands.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation in The Woodlands.");
   await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
   await expect(page.locator("main")).not.toContainText("The Woodlands Listing Agent");
   await expect(page.getByRole("link", { name: "View Seller Strategy" })).toHaveAttribute("href", "/sell");
@@ -323,6 +323,38 @@ test("Woodlands guide separates village references from real destination guides"
   await expect(page.locator("main")).not.toContainText(/guaranteed commute|perfect village|guaranteed appreciation/i);
 });
 
+test("Tomball guide distinguishes the mailing city from property-level ownership context", async ({ page }) => {
+  await page.goto("/communities/tomball", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/tomball-griffin-house.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "The historic Griffin House beneath mature trees in Tomball, Texas");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "1440");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Griffin_House_-_Flickr_-_pinemikey.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Confirm what “Tomball” does not answer." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "More space changes the inspection brief." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Distance is not the daily experience." })).toBeVisible();
+  for (const href of [
+    "/communities/the-woodlands",
+    "/magnolia-realtor",
+    "/spring-realtor",
+    "/communities/greater-houston",
+    "/home-valuation",
+    "/sell",
+  ]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  await expect(page.locator("#tomball-consultation form")).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Tomball Consultation" })).toBeVisible();
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["WebPage", "FAQPage"]);
+  await expect(page.locator("main")).not.toContainText(/guaranteed commute|best acreage|guaranteed appreciation|perfect property/i);
+});
+
 test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
   await page.goto("/about", { waitUntil: "networkidle" });
   await expect(page.locator("main")).toContainText("VIP Realty");
@@ -412,6 +444,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/home-valuation", 1920],
     ["/communities", 1920],
     ["/communities/the-woodlands", 1920],
+    ["/communities/tomball", 1920],
     ["/magnolia-realtor", 1920],
   ] as const) {
     await page.goto(route, { waitUntil: "networkidle" });
