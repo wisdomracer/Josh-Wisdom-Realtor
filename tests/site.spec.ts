@@ -37,12 +37,13 @@ for (const route of publicRoutes) {
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:description"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", absoluteUrl(route));
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", absoluteUrl("/og-image.png"));
-    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", "1200");
-    await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", "630");
-    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", /Josh Wisdom Realtor/);
+    const hasEventsImage = route === "/the-woodlands-events";
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", absoluteUrl(hasEventsImage ? "/images/the-woodlands-pavilion-night.jpg" : "/og-image.png"));
+    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", hasEventsImage ? "1920" : "1200");
+    await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", hasEventsImage ? "1275" : "630");
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", hasEventsImage ? /Cynthia Woods Mitchell Pavilion/ : /Josh Wisdom Realtor/);
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
-    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", absoluteUrl("/og-image.png"));
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", absoluteUrl(hasEventsImage ? "/images/the-woodlands-pavilion-night.jpg" : "/og-image.png"));
     await expect(page.locator("[data-static-social]")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /page not found/i })).toHaveCount(0);
 
@@ -731,11 +732,13 @@ test("contact page routes private conversations without turning the form into a 
 
 test("mobile pages select responsive WebP photography with intrinsic dimensions", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  const errors = watchPageErrors(page);
 
   for (const [route, expectedWidth] of [
     ["/", 1920],
     ["/about", 1920],
     ["/contact", 1920],
+    ["/the-woodlands-events", 1920],
     ["/buy", 1600],
     ["/sell", 1600],
     ["/luxury-homes", 1600],
@@ -754,9 +757,11 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/communities/east-shore", 1200],
     ["/communities/creekside-park", 1600],
   ] as const) {
+    if (route === "/the-woodlands-events") await provideEventsFixture(page);
     await page.goto(route, { waitUntil: "networkidle" });
+    expect(errors, `${route} should render without browser errors`).toEqual([]);
     const image = page.locator("main picture img").first();
-    await expect(image).toBeVisible();
+    await expect(image, `${route} should expose responsive photography`).toBeVisible();
     await expect(image).toHaveAttribute("width", String(expectedWidth));
     await expect(image).toHaveAttribute("height", /\d+/);
     await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/-\d+\.webp$/);

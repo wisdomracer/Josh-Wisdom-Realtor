@@ -122,6 +122,18 @@ export const locationPhotos = {
     licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
     objectPosition: "center",
   },
+  pavilion: {
+    src: "/images/the-woodlands-pavilion-night.jpg",
+    srcSet: "/images/the-woodlands-pavilion-night-960.webp 960w, /images/the-woodlands-pavilion-night-1920.webp 1920w",
+    width: 1920,
+    height: 1275,
+    alt: "The Cynthia Woods Mitchell Pavilion illuminated blue during the Star-Spangled Salute",
+    credit: "Ted Washington / Woodlands Pavilion — resized",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Pavilion_Blue.jpg",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    objectPosition: "center",
+  },
   tomball: {
     src: "/images/tomball-griffin-house.jpg",
     srcSet: "/images/tomball-griffin-house-960.webp 960w, /images/tomball-griffin-house-1920.webp 1920w",

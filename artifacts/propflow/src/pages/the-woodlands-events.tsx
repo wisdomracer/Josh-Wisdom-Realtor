@@ -4,7 +4,9 @@ import { Link } from "wouter";
 import { getGetEventsQueryKey, useGetEvents, type CalendarEvent } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { ArrowRight, CalendarDays, ExternalLink, Home, MapPin, Music, RefreshCw, Sparkles, TreePine } from "lucide-react";
+import { locationPhotos } from "@/config/location-photos";
 import { absoluteUrl } from "@/config/site";
 
 const sources = [
@@ -96,6 +98,15 @@ export default function TheWoodlandsEvents() {
     name: "The Woodlands Events Brief",
     url: absoluteUrl("/the-woodlands-events"),
     dateModified: query.data.fetchedAt,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      contentUrl: absoluteUrl(locationPhotos.pavilion.src),
+      width: locationPhotos.pavilion.width,
+      height: locationPhotos.pavilion.height,
+      caption: locationPhotos.pavilion.alt,
+      creditText: locationPhotos.pavilion.credit,
+      license: locationPhotos.pavilion.licenseUrl,
+    },
     mainEntity: {
       "@type": "ItemList",
       itemListElement: query.data.events.slice(0, 12).map((event, index) => ({
@@ -115,8 +126,14 @@ export default function TheWoodlandsEvents() {
         {schema ? <script type="application/ld+json">{JSON.stringify(schema)}</script> : null}
       </Helmet>
 
-      <section className="bg-[#050505] py-20 text-white md:py-28">
-        <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+      <section className="relative overflow-hidden bg-[#050505] py-20 text-white md:py-28">
+        <figure className="absolute inset-0">
+          <ResponsiveLocationImage photo={locationPhotos.pavilion} className="absolute inset-0 h-full w-full object-cover" sizes="100vw" loading="eager" fetchPriority="high" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/88 to-black/42" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/30" />
+          <PhotoCredit photo={locationPhotos.pavilion} label="Pavilion context" position="top-right" className="hidden md:block" />
+        </figure>
+        <div className="relative mx-auto grid min-h-[580px] max-w-[1440px] gap-14 px-5 md:px-9 lg:grid-cols-[1fr_0.72fr] lg:items-end">
           <div>
             <Eyebrow light>The Woodlands Events</Eyebrow>
             <h1 className="mt-7 max-w-5xl font-serif text-[clamp(3.5rem,7vw,7.8rem)] font-semibold leading-[0.88] tracking-[-0.04em]">The local brief, automatically refreshed.</h1>
@@ -126,13 +143,18 @@ export default function TheWoodlandsEvents() {
               <Button asChild variant="outline" className="h-14 rounded-none border-white/55 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black"><a href="#sources">Source Calendars</a></Button>
             </div>
           </div>
-          <div className="border border-[#c69a44]/35 bg-[#11100d] p-7" aria-live="polite">
+          <div className="border border-[#c69a44]/40 bg-black/78 p-7 shadow-2xl backdrop-blur-md" aria-live="polite">
             <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-[#d7b56d]"><RefreshCw className={`h-4 w-4 ${query.isFetching ? "animate-spin" : ""}`} /> Live calendar status</p>
             {query.isLoading ? <p className="mt-5 text-lg leading-8 text-white/72">Checking the official calendar...</p> : query.isError ? <p className="mt-5 text-lg leading-8 text-white/72">The live feed is temporarily unavailable. Use the official source links below while it reconnects.</p> : <p className="mt-5 text-lg leading-8 text-white/72">{query.data?.stale ? "Showing the last successful update" : "Connected to Visit The Woodlands"}{updatedAt ? ` - updated ${updatedAt}` : ""}.</p>}
             <button type="button" onClick={() => query.refetch()} disabled={query.isFetching} className="mt-6 inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-[#d7b56d] disabled:cursor-wait disabled:opacity-60">
               <RefreshCw className={`mr-2 h-3.5 w-3.5 ${query.isFetching ? "animate-spin" : ""}`} /> {query.isFetching ? "Refreshing calendar" : "Refresh calendar"}
             </button>
           </div>
+          <p className="text-[9px] font-semibold uppercase leading-4 tracking-[0.15em] text-white/55 md:hidden">
+            Pavilion context: <a href={locationPhotos.pavilion.sourceUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">{locationPhotos.pavilion.credit}</a>
+            <span aria-hidden="true"> · </span>
+            <a href={locationPhotos.pavilion.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">{locationPhotos.pavilion.license}</a>
+          </p>
         </div>
       </section>
 
