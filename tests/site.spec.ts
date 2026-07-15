@@ -348,6 +348,7 @@ test("local landing pages use place-specific, attributed photography", async ({ 
     ["/magnolia-realtor", "/images/magnolia-historic-depot.jpg", "https://commons.wikimedia.org/wiki/File:Magnolia_Historic_Depot.jpg"],
     ["/spring-realtor", "/images/spring-old-town.jpg", "https://commons.wikimedia.org/wiki/File:Old_Town_Spring_Wiki_5.jpg"],
     ["/conroe-realtor", "/images/lake-conroe-sunset.jpg", "https://commons.wikimedia.org/wiki/File:Lake_Conroe_on_July_4th.jpg"],
+    ["/shenandoah-realtor", "/images/shenandoah-portofino.jpg", "https://commons.wikimedia.org/wiki/File:Portofino_Shopping_Center.jpg"],
   ] as const) {
     await page.goto(route);
     await expect(page.locator(`main img[src="${src}"]`)).toBeVisible();
@@ -764,6 +765,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/blog", 1920],
     ["/blog/how-to-price-a-home-in-the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
+    ["/shenandoah-realtor", 1920],
     ["/mortgage-estimate", 1600],
     ["/the-woodlands-listing-agent", 1600],
     ["/communities/carlton-woods", 1600],

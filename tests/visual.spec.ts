@@ -48,6 +48,7 @@ for (const [route, filename] of [
   ["/magnolia-realtor", "magnolia-realtor-desktop.png"],
   ["/spring-realtor", "spring-realtor-desktop.png"],
   ["/conroe-realtor", "conroe-realtor-desktop.png"],
+  ["/shenandoah-realtor", "shenandoah-realtor-desktop.png"],
   ["/mortgage-estimate", "mortgage-estimate-desktop.png"],
   ["/the-woodlands-events", "events-desktop.png"],
 ] as const) {
@@ -278,21 +279,27 @@ test("mobile Woodlands neighborhood guides keep distinct imagery and consultatio
   }
 });
 
-test("mobile local advisory page keeps its decision brief and consultation in one flow", async ({ page }) => {
+test("mobile local advisory pages keep their decision briefs and consultation in one flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/magnolia-realtor", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { level: 1, name: "More land changes more than the view." })).toBeVisible();
-  await expect(page.locator('img[src="/images/magnolia-historic-depot.jpg"]')).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Build the shortlist before scheduling the tour." })).toBeVisible();
-  await expect(page.locator("#private-consultation form")).toBeVisible();
-  const formBox = await page.locator("#private-consultation form").boundingBox();
-  const footerBox = await page.locator("footer").boundingBox();
-  expect(formBox).not.toBeNull();
-  expect(footerBox).not.toBeNull();
-  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  expect(overflow).toBeLessThanOrEqual(1);
-  await page.screenshot({ path: "output/visual/magnolia-realtor-mobile.png", fullPage: true });
+  for (const [route, src, filename] of [
+    ["/magnolia-realtor", "/images/magnolia-historic-depot.jpg", "magnolia-realtor-mobile.png"],
+    ["/spring-realtor", "/images/spring-old-town.jpg", "spring-realtor-mobile.png"],
+    ["/conroe-realtor", "/images/lake-conroe-sunset.jpg", "conroe-realtor-mobile.png"],
+    ["/shenandoah-realtor", "/images/shenandoah-portofino.jpg", "shenandoah-realtor-mobile.png"],
+  ] as const) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(`img[src="${src}"]`)).toBeVisible();
+    await expect(page.locator("#private-consultation form")).toBeVisible();
+    const formBox = await page.locator("#private-consultation form").boundingBox();
+    const footerBox = await page.locator("footer").boundingBox();
+    expect(formBox).not.toBeNull();
+    expect(footerBox).not.toBeNull();
+    expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1);
+    await page.screenshot({ path: `output/visual/${filename}`, fullPage: true });
+  }
 });
 
 test("mobile seller insight keeps article navigation, related decisions, and consultation composed", async ({ page }) => {

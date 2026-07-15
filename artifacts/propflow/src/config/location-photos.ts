@@ -184,6 +184,18 @@ export const locationPhotos = {
     cropScale: 1.18,
     cropOrigin: "center top",
   },
+  shenandoah: {
+    src: "/images/shenandoah-portofino.jpg",
+    srcSet: "/images/shenandoah-portofino-960.webp 960w, /images/shenandoah-portofino-1920.webp 1920w",
+    width: 1920,
+    height: 1080,
+    alt: "The Italianate Portofino shopping center in Shenandoah, Texas",
+    credit: "Stedil — resized",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Portofino_Shopping_Center.jpg",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    objectPosition: "center",
+  },
   houston: {
     src: "/images/houston-skyline.jpg",
     srcSet: "/images/houston-skyline-960.webp 960w, /images/houston-skyline-1920.webp 1920w",
@@ -206,6 +218,7 @@ export function photoForSeoSlug(slug: string): LocationPhoto {
   if (slug === "magnolia-realtor") return locationPhotos.magnolia;
   if (slug === "spring-realtor") return locationPhotos.spring;
   if (slug === "conroe-realtor") return locationPhotos.conroe;
+  if (slug === "shenandoah-realtor") return locationPhotos.shenandoah;
   if (slug.includes("woodlands") || slug.includes("carlton-woods") || slug.includes("east-shore") || slug.includes("creekside-park")) {
     return locationPhotos.woodlands;
   }
