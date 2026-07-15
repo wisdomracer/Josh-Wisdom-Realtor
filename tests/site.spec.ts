@@ -147,7 +147,7 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
 
 test("premium service pages remain composed on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const route of ["/about", "/buy", "/sell", "/luxury-homes", "/relocation", "/communities", "/contact", "/home-valuation"]) {
+  for (const route of ["/about", "/buy", "/sell", "/luxury-homes", "/relocation", "/communities", "/communities/the-woodlands", "/communities/tomball", "/communities/greater-houston", "/contact", "/home-valuation"]) {
     await page.goto(route);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1);
