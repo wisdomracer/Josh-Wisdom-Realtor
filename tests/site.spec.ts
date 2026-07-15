@@ -575,6 +575,12 @@ test("Greater Houston guide turns a broad region into a property and route brief
 
 test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
   await page.goto("/about", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "A great blue heron beside paddleboards on The Woodlands Waterway");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "1280");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg"]')).toContainText("Philcomanforterie");
   await expect(page.locator("main")).toContainText("VIP Realty");
   await expect(page.locator("main")).toContainText("The Woodlands & North Houston");
   await expect(page.locator(`main a[href="${phoneHref}"]`)).toBeVisible();
@@ -695,6 +701,12 @@ test("phone and email actions use real protocols", async ({ page }) => {
 
 test("contact page routes private conversations without turning the form into a seller-only intake", async ({ page }) => {
   await page.goto("/contact", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/houston-skyline.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "The downtown Houston skyline viewed across Buffalo Bayou");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "960");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Downtown_Houston,_TX_Skyline_-_2018.jpg"]')).toContainText("David Daniel Turner");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Begin with the property, the timing, and the decision.");
   await expect(page.locator(`main a[href="${phoneHref}"]`).first()).toBeVisible();
   await expect(page.locator(`main a[href="${emailHref}"]`).first()).toBeVisible();
@@ -711,6 +723,8 @@ test("contact page routes private conversations without turning the form into a 
     (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
   );
   expect(structuredData["@type"]).toBe("ContactPage");
+  expect(structuredData.primaryImageOfPage.contentUrl).toBe(absoluteUrl("/images/houston-skyline.jpg"));
+  expect(structuredData.primaryImageOfPage.license).toBe("https://creativecommons.org/licenses/by/4.0/");
   expect(structuredData.mainEntity["@type"]).toBe("RealEstateAgent");
   expect(structuredData.mainEntity.telephone).toBe("+18329818920");
 });
@@ -720,6 +734,8 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
 
   for (const [route, expectedWidth] of [
     ["/", 1920],
+    ["/about", 1920],
+    ["/contact", 1920],
     ["/buy", 1600],
     ["/sell", 1600],
     ["/luxury-homes", 1600],

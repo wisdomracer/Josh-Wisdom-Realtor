@@ -12,6 +12,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 import { emailHref, phoneHref, siteConfig } from "@/config/site";
 
 type Principle = {
@@ -180,8 +182,13 @@ export default function About() {
             </div>
           </div>
 
-          <aside className="relative min-h-[470px] border border-white/15 bg-white/[0.035] p-7 md:p-10" aria-label="Josh Wisdom professional details">
-            <div className="absolute right-7 top-4 font-serif text-[10rem] leading-none text-white/[0.045] md:text-[14rem]">JW</div>
+          <aside className="relative min-h-[540px] overflow-hidden border border-white/15 bg-white/[0.035] p-7 md:p-10" aria-label="Josh Wisdom professional details">
+            <div className="absolute inset-0">
+              <ResponsiveLocationImage photo={locationPhotos.woodlands} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 38vw, 100vw" loading="eager" fetchPriority="high" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/42 via-black/72 to-black/95" />
+              <PhotoCredit photo={locationPhotos.woodlands} label="Woodlands context" position="top-right" />
+            </div>
+            <div className="absolute right-7 top-16 font-serif text-[10rem] leading-none text-white/[0.06] md:text-[14rem]">JW</div>
             <div className="relative flex min-h-[390px] flex-col justify-between">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#d7b56d]">Josh Wisdom</p>

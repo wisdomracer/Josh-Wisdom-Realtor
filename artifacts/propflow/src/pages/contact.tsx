@@ -13,7 +13,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { Button } from "@/components/ui/button";
+import { locationPhotos } from "@/config/location-photos";
 import { absoluteUrl, emailHref, phoneHref, siteConfig, textHref } from "@/config/site";
 
 type ConversationPath = {
@@ -80,6 +82,15 @@ const contactSchema = {
   url: absoluteUrl("/contact"),
   name: "Contact Josh Wisdom Realtor",
   description: "Request a private real estate conversation with Josh Wisdom for The Woodlands and North Houston.",
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    contentUrl: absoluteUrl("/images/houston-skyline.jpg"),
+    width: 1920,
+    height: 960,
+    caption: "The downtown Houston skyline viewed across Buffalo Bayou",
+    creditText: "David Daniel Turner",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+  },
   mainEntity: {
     "@type": "RealEstateAgent",
     "@id": `${siteConfig.url}/#agent`,
@@ -123,7 +134,12 @@ export default function Contact() {
       </Helmet>
 
       <section className="relative overflow-hidden bg-black text-white">
-        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(198,154,68,0.09)_1px,transparent_1px),linear-gradient(rgba(198,154,68,0.07)_1px,transparent_1px)] bg-[size:96px_96px] opacity-40" />
+        <figure className="absolute inset-0">
+          <ResponsiveLocationImage photo={locationPhotos.houston} className="absolute inset-0 h-full w-full object-cover" sizes="100vw" loading="eager" fetchPriority="high" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/86 to-black/48" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(198,154,68,0.09)_1px,transparent_1px),linear-gradient(rgba(198,154,68,0.07)_1px,transparent_1px)] bg-[size:96px_96px] opacity-40" />
+          <PhotoCredit photo={locationPhotos.houston} label="Houston context" position="top-right" />
+        </figure>
         <div className="container relative mx-auto grid min-h-[640px] gap-12 px-4 py-20 md:px-6 md:py-28 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.32em] text-[#d4a84f]">Private Consultation</p>
