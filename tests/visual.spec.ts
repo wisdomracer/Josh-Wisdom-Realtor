@@ -58,6 +58,18 @@ test("mobile luxury journey keeps its editorial image and consultation in one co
   await page.screenshot({ path: "output/visual/luxury-mobile.png", fullPage: true });
 });
 
+test("mobile buyer journey keeps its decision brief and consultation in one composed flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/buy", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.locator('img[src="/images/buyer-brief-interior.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Begin with the decision the property must solve." })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Buyer Consultation" })).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/buy-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });

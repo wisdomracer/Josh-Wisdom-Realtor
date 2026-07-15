@@ -2,6 +2,7 @@
 
 The numbered `.webp` files are resized and re-encoded derivatives of the corresponding JPEG source and retain the source license shown below.
 
+- `buyer-brief-interior.*` — “Interior of Modern House with Staircase” by Max Vakhtbovych, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial interior imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/)
 - `luxury-architecture-dusk.*` — “Exterior of a Modern Villa” by Gustavo Galeano Maz, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial architectural imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/)
 - `seller-presentation-interior.*` — “Elegant Living Room Interior” by Thiha Soe, via Pexels, under the [Pexels License](https://www.pexels.com/license/). This is editorial interior imagery and is not represented as a listing, sale, or local property. [Source](https://www.pexels.com/photo/elegant-living-room-interior-5883721/)
 

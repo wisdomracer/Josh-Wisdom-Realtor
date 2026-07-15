@@ -226,6 +226,19 @@ test("luxury service page uses licensed editorial architecture without implying 
   await expect(page.locator("main")).not.toContainText(/our listing|recently sold/i);
 });
 
+test("buyer service page presents a complete decision brief without implying a listing", async ({ page }) => {
+  await page.goto("/buy", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/buyer-brief-interior.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "Spacious contemporary interior with a curved staircase");
+  await expect(image).toHaveAttribute("width", "1600");
+  await expect(image).toHaveAttribute("height", "1068");
+  await expect(page.locator('main a[href="https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/"]')).toContainText("Editorial interior");
+  await expect(page.locator("#buyer-consultation form")).toBeVisible();
+  await expect(page.locator('main a[href="/communities/the-woodlands"]')).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/our listing|recently sold|exclusive inventory/i);
+});
+
 test("seller service page presents a complete pre-market plan without fabricated proof", async ({ page }) => {
   await page.goto("/sell", { waitUntil: "networkidle" });
   const image = page.locator('main img[src="/images/seller-presentation-interior.jpg"]');
@@ -250,6 +263,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
 
   for (const [route, expectedWidth] of [
     ["/", 1200],
+    ["/buy", 1600],
     ["/sell", 1600],
     ["/luxury-homes", 1600],
     ["/relocation", 1920],
