@@ -78,6 +78,46 @@ test("raw entrypoint provides a complete social preview to non-JavaScript crawle
   expect((await image.body()).byteLength).toBeGreaterThan(100_000);
 });
 
+test("browser and saved-device surfaces use the JW brand identity", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", "/favicon.svg");
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("type", "image/svg+xml");
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("href", "/apple-touch-icon.png");
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute("sizes", "180x180");
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute("href", "/site.webmanifest");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#050505");
+
+  const manifestResponse = await request.get("/site.webmanifest");
+  expect(manifestResponse.status()).toBe(200);
+  const manifest = await manifestResponse.json();
+  expect(manifest).toMatchObject({
+    id: "/",
+    name: "Josh Wisdom Realtor",
+    short_name: "Josh Wisdom",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#050505",
+    theme_color: "#050505",
+  });
+  expect(manifest.icons).toEqual([
+    { src: "/brand-icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+    { src: "/brand-icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+  ]);
+
+  for (const [path, size] of [
+    ["/apple-touch-icon.png", 180],
+    ["/brand-icon-192.png", 192],
+    ["/brand-icon-512.png", 512],
+  ] as const) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/png");
+    const body = await response.body();
+    expect(body.readUInt32BE(16)).toBe(size);
+    expect(body.readUInt32BE(20)).toBe(size);
+  }
+});
+
 test("every rendered internal link points to a declared public route or a real section", async ({ page }) => {
   await provideEventsFixture(page);
   const discovered = new Map<string, Set<string>>();
