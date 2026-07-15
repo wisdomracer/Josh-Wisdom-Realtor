@@ -7,6 +7,24 @@ test("capture verified desktop homepage for visual QA", async ({ page }) => {
   await page.screenshot({ path: "output/visual/home-desktop.png", fullPage: true });
 });
 
+test("mobile homepage keeps the local hero, seller proof, and private valuation composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "Private real estate advisory." })).toBeVisible();
+  const heroImage = page.locator('img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  await expect(heroImage).toBeVisible();
+  await expect(page.getByText("Seller-first", { exact: true })).toBeVisible();
+  await expect(page.locator("main form")).toBeVisible();
+  const imageBox = await heroImage.boundingBox();
+  const proofBox = await page.locator("main section").nth(1).boundingBox();
+  expect(imageBox).not.toBeNull();
+  expect(proofBox).not.toBeNull();
+  expect(imageBox!.y + imageBox!.height).toBeLessThanOrEqual(proofBox!.y + 1);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/home-mobile.png", fullPage: true });
+});
+
 for (const [route, filename] of [
   ["/about", "about-desktop.png"],
   ["/buy", "buy-desktop.png"],

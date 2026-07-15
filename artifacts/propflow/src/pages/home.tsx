@@ -2,13 +2,9 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
-import { ArrowRight, BadgeCheck, CalendarDays, Home, MapPin, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
-
-const heroImage = {
-  src: "/images/the-woodlands-waterway.jpg",
-  srcSet: "/images/the-woodlands-waterway-600.webp 600w, /images/the-woodlands-waterway-1200.webp 1200w",
-  alt: "The Woodlands Waterway in The Woodlands, Texas",
-};
+import { ArrowRight, CalendarDays, Home, MapPin, ShieldCheck } from "lucide-react";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 
 const communities = [
   ["Carlton Woods", "Private golf estates, gated streets, estate lots, and premium property considerations.", "/communities/carlton-woods"],
@@ -63,50 +59,36 @@ export default function HomePage() {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
-      <section className="luxury-hero relative overflow-hidden bg-[#050505] text-white">
-        <div className="absolute inset-0">
-          <picture className="block h-full w-full">
-            <source type="image/webp" srcSet={heroImage.srcSet} sizes="100vw" />
-            <img src={heroImage.src} alt={heroImage.alt} width="1200" height="1600" className="h-full w-full object-cover opacity-42" loading="eager" fetchPriority="high" />
-          </picture>
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_48%,rgba(0,0,0,0.45)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] to-transparent" />
-          <a href="https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg" target="_blank" rel="noopener noreferrer license" className="absolute bottom-3 right-4 z-10 text-[9px] text-white/55 underline-offset-2 hover:text-white hover:underline">Photo: Social Woodlands · CC BY 2.0</a>
-        </div>
-
-        <div className="relative mx-auto grid min-h-[640px] max-w-[1440px] items-center px-5 py-20 md:px-9 lg:grid-cols-[0.88fr_0.56fr] lg:gap-16">
-          <div className="max-w-4xl luxury-reveal">
-            <div className="mb-7 flex items-center gap-4 text-white/70">
-              <span className="h-px w-14 bg-[#d7b56d]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.28em]">The Woodlands • North Houston</span>
-            </div>
-            <h1 className="max-w-4xl font-serif text-[clamp(3.6rem,7.2vw,7.6rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-white">
-              Private real estate advisory.
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl md:leading-9">
-              Discreet, seller-first representation across The Woodlands and North Houston for homeowners who expect stronger pricing, considered presentation, and disciplined negotiation.
-            </p>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Button asChild className="h-13 rounded-none bg-[#d7b56d] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white">
-                <Link href="/home-valuation" data-primary-cta>Request Private Valuation</Link>
-              </Button>
-              <Button asChild variant="outline" className="h-13 rounded-none border-white/60 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black">
-                <Link href="/contact" data-primary-cta>Schedule Consultation</Link>
-              </Button>
+      <section className="home-hero overflow-hidden bg-[#050505] text-white">
+        <div className="mx-auto grid max-w-[1600px] lg:grid-cols-[0.96fr_1.04fr]">
+          <div className="relative flex items-center px-5 py-20 md:px-9 md:py-24 lg:px-12 lg:py-28">
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:76px_76px]" />
+            <div className="relative max-w-3xl luxury-reveal">
+              <div className="mb-7 flex items-center gap-4 text-white/70">
+                <span className="h-px w-14 bg-[#d7b56d]" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.28em]">The Woodlands · North Houston</span>
+              </div>
+              <h1 className="max-w-3xl font-serif text-[clamp(3.6rem,6.4vw,7rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-white">
+                Private real estate advisory.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl md:leading-9">
+                Discreet, seller-first representation across The Woodlands and North Houston for homeowners who expect stronger pricing, considered presentation, and disciplined negotiation.
+              </p>
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                <Button asChild className="h-13 rounded-none bg-[#d7b56d] px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-black hover:bg-white">
+                  <Link href="/home-valuation" data-primary-cta>Request Private Valuation</Link>
+                </Button>
+                <Button asChild variant="outline" className="h-13 rounded-none border-white/60 bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.22em] text-white hover:bg-white hover:text-black">
+                  <Link href="/contact" data-primary-cta>Schedule Consultation</Link>
+                </Button>
+              </div>
             </div>
           </div>
-
-          <div className="hidden border border-white/15 bg-black/44 p-6 shadow-2xl shadow-black/30 backdrop-blur-md lg:block">
-            <Eyebrow light>Seller Snapshot</Eyebrow>
-            <div className="mt-8 space-y-6">
-              {proofPoints.map(([title, copy]) => (
-                <div key={title} className="border-t border-white/12 pt-5">
-                  <h2 className="font-serif text-3xl text-white">{title}</h2>
-                  <p className="mt-2 leading-7 text-white/68">{copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[680px]">
+            <ResponsiveLocationImage photo={locationPhotos.woodlands} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 52vw, 100vw" loading="eager" fetchPriority="high" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
+            <PhotoCredit photo={locationPhotos.woodlands} />
+          </figure>
         </div>
       </section>
 

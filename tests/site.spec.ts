@@ -144,6 +144,13 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private real estate advisory.");
   await expect(page.locator("main")).toContainText("The Woodlands");
+  const homeHero = page.locator('main img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  await expect(homeHero).toBeVisible();
+  await expect(homeHero).toHaveAttribute("alt", "A great blue heron beside paddleboards on The Woodlands Waterway");
+  await expect(homeHero).toHaveAttribute("width", "1920");
+  await expect(homeHero).toHaveAttribute("height", "1280");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg"]')).toContainText("Philcomanforterie");
+  await expect(page.locator("main")).toHaveText(/Seller-first[\s\S]*Local focus[\s\S]*Private guidance/);
 
   await page.goto("/the-woodlands-listing-agent");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation in The Woodlands.");
@@ -625,7 +632,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
   await page.setViewportSize({ width: 390, height: 844 });
 
   for (const [route, expectedWidth] of [
-    ["/", 1200],
+    ["/", 1920],
     ["/buy", 1600],
     ["/sell", 1600],
     ["/luxury-homes", 1600],
