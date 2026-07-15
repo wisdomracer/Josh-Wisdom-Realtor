@@ -239,6 +239,19 @@ test("buyer service page presents a complete decision brief without implying a l
   await expect(page.locator("main")).not.toContainText(/our listing|recently sold|exclusive inventory/i);
 });
 
+test("relocation service page turns a broad move into a focused private brief", async ({ page }) => {
+  await page.goto("/relocation", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/houston-skyline.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "The downtown Houston skyline viewed across Buffalo Bayou");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "960");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Downtown_Houston,_TX_Skyline_-_2018.jpg"]')).toBeVisible();
+  await expect(page.locator("#relocation-consultation form")).toBeVisible();
+  await expect(page.locator('main a[href="/communities/greater-houston"]')).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/guaranteed commute|best schools|perfect neighborhood/i);
+});
+
 test("seller service page presents a complete pre-market plan without fabricated proof", async ({ page }) => {
   await page.goto("/sell", { waitUntil: "networkidle" });
   const image = page.locator('main img[src="/images/seller-presentation-interior.jpg"]');
