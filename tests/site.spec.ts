@@ -252,6 +252,43 @@ test("relocation service page turns a broad move into a focused private brief", 
   await expect(page.locator("main")).not.toContainText(/guaranteed commute|best schools|perfect neighborhood/i);
 });
 
+test("community hub turns place names into a cautious regional comparison", async ({ page }) => {
+  await page.goto("/communities", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "Begin broad. Compare precisely." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Different markets answer different briefs." })).toBeVisible();
+  await expect(page.getByRole("table")).toBeVisible();
+  for (const href of [
+    "/communities/the-woodlands",
+    "/communities/tomball",
+    "/communities/greater-houston",
+    "/magnolia-realtor",
+    "/spring-realtor",
+    "/conroe-realtor",
+    "/shenandoah-realtor",
+    "/relocation",
+    "/contact",
+  ]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  for (const src of [
+    "/images/the-woodlands-waterway-lifestyle.jpg",
+    "/images/tomball-griffin-house.jpg",
+    "/images/houston-skyline.jpg",
+  ]) {
+    const image = page.locator(`main img[src="${src}"]`);
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute("width", "1920");
+    await expect(image).toHaveAttribute("height", /\d+/);
+  }
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@type"]).toBe("CollectionPage");
+  expect(structuredData.mainEntity["@type"]).toBe("ItemList");
+  expect(structuredData.mainEntity.itemListElement).toHaveLength(3);
+  await expect(page.locator("main")).not.toContainText(/best neighborhood|top schools|guaranteed commute|perfect community/i);
+});
+
 test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
   await page.goto("/about", { waitUntil: "networkidle" });
   await expect(page.locator("main")).toContainText("VIP Realty");
@@ -339,6 +376,7 @@ test("mobile pages select responsive WebP photography with intrinsic dimensions"
     ["/luxury-homes", 1600],
     ["/relocation", 1920],
     ["/home-valuation", 1920],
+    ["/communities", 1920],
     ["/communities/the-woodlands", 1920],
     ["/magnolia-realtor", 1920],
   ] as const) {

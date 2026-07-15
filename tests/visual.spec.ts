@@ -114,6 +114,19 @@ test("mobile contact journey keeps direct access, advisory paths, and the full f
   await page.screenshot({ path: "output/visual/contact-mobile.png", fullPage: true });
 });
 
+test("mobile communities hub keeps market imagery, comparison, and focused guides composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/communities", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.locator('img[src="/images/the-woodlands-waterway-lifestyle.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Different markets answer different briefs." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Continue the regional comparison." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Request an Area Consultation" })).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/communities-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });
