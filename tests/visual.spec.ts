@@ -82,6 +82,18 @@ test("mobile relocation journey keeps its move brief and consultation in one com
   await page.screenshot({ path: "output/visual/relocation-mobile.png", fullPage: true });
 });
 
+test("mobile About journey keeps professional facts and representation paths composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/about", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Private real estate advisory." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Choose the conversation that matches the decision." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Request Consultation" })).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/about-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });

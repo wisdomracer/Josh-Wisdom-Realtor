@@ -252,6 +252,22 @@ test("relocation service page turns a broad move into a focused private brief", 
   await expect(page.locator("main")).not.toContainText(/guaranteed commute|best schools|perfect neighborhood/i);
 });
 
+test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
+  await page.goto("/about", { waitUntil: "networkidle" });
+  await expect(page.locator("main")).toContainText("VIP Realty");
+  await expect(page.locator("main")).toContainText("The Woodlands & North Houston");
+  await expect(page.locator(`main a[href="${phoneHref}"]`)).toBeVisible();
+  for (const href of ["/sell", "/buy", "/luxury-homes", "/relocation"]) {
+    await expect(page.locator(`main a[href="${href}"]`)).toBeVisible();
+  }
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@type"]).toBe("RealEstateAgent");
+  expect(structuredData.memberOf.name).toBe("VIP Realty");
+  await expect(page.locator("main")).not.toContainText(/top producer|award-winning|years of experience|millions sold|number one agent/i);
+});
+
 test("seller service page presents a complete pre-market plan without fabricated proof", async ({ page }) => {
   await page.goto("/sell", { waitUntil: "networkidle" });
   const image = page.locator('main img[src="/images/seller-presentation-interior.jpg"]');
