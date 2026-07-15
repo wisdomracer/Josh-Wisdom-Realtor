@@ -289,6 +289,40 @@ test("community hub turns place names into a cautious regional comparison", asyn
   await expect(page.locator("main")).not.toContainText(/best neighborhood|top schools|guaranteed commute|perfect community/i);
 });
 
+test("Woodlands guide separates village references from real destination guides", async ({ page }) => {
+  await page.goto("/communities/the-woodlands", { waitUntil: "networkidle" });
+  const image = page.locator('main img[src="/images/the-woodlands-waterway-lifestyle.jpg"]');
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute("alt", "A great blue heron beside paddleboards on The Woodlands Waterway");
+  await expect(image).toHaveAttribute("width", "1920");
+  await expect(image).toHaveAttribute("height", "1280");
+  await expect(page.locator('main a[href="https://commons.wikimedia.org/wiki/File:Great_Blue_Heron,_Woodlands_Waterway.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Some briefs sit outside a simple village comparison." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Confirm what the mailing address does not tell you." })).toBeVisible();
+  for (const href of [
+    "/communities/carlton-woods",
+    "/communities/east-shore",
+    "/communities/creekside-park",
+    "/the-woodlands-events",
+    "/relocation",
+    "/buy",
+    "/the-woodlands-listing-agent",
+  ]) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  await expect(page.getByRole("link", { name: "Alden Bridge" })).toHaveCount(0);
+  expect(await page.getByRole("heading", { name: "Town Center", exact: true }).evaluate((element) => element.closest("a"))).toBeNull();
+  await expect(page.locator("#area-consultation form")).toBeVisible();
+  await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Area Consultation" })).toBeVisible();
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["WebPage", "FAQPage"]);
+  await expect(page.locator("main")).not.toContainText(/guaranteed commute|perfect village|guaranteed appreciation/i);
+});
+
 test("about page builds credibility from verifiable professional facts rather than fabricated proof", async ({ page }) => {
   await page.goto("/about", { waitUntil: "networkidle" });
   await expect(page.locator("main")).toContainText("VIP Realty");

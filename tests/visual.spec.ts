@@ -127,6 +127,24 @@ test("mobile communities hub keeps market imagery, comparison, and focused guide
   await page.screenshot({ path: "output/visual/communities-mobile.png", fullPage: true });
 });
 
+test("mobile Woodlands community guide keeps village context, diligence, and the area brief composed", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/communities/the-woodlands", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "The Woodlands" })).toBeVisible();
+  await expect(page.locator('img[src="/images/the-woodlands-waterway-lifestyle.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Begin broad. Compare by section." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Confirm what the mailing address does not tell you." })).toBeVisible();
+  await expect(page.locator("#area-consultation form")).toBeVisible();
+  const formBox = await page.locator("#area-consultation form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/woodlands-community-mobile.png", fullPage: true });
+});
+
 test("mobile seller journey keeps its plan and consultation in one composed flow", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/sell", { waitUntil: "networkidle" });
