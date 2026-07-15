@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { ArrowRight, BadgeCheck, CheckCircle2, Home, Landmark, MapPin, Search, Trees } from "lucide-react";
+import { ArrowRight, BadgeCheck, CheckCircle2, Home, Landmark, MapPin, Search, Trees, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
@@ -243,21 +243,104 @@ export const seoLandingPages: SeoLanding[] = [
   },
 ];
 
+type BriefItem = {
+  title: string;
+  copy: string;
+};
+
+type RelatedPath = {
+  title: string;
+  copy: string;
+  href: string;
+  icon: LucideIcon;
+};
+
+const sellerBrief: BriefItem[] = [
+  {
+    title: "Establish the property position",
+    copy: "Separate the features that shape value from the details that merely add description, then compare the home with the alternatives buyers can actually choose.",
+  },
+  {
+    title: "Define the preparation standard",
+    copy: "Identify the repairs, presentation decisions, records, photography needs, and buyer objections that should be addressed before the market sees the property.",
+  },
+  {
+    title: "Set the decision rules",
+    copy: "Clarify timing, privacy, showing access, offer priorities, contingency risk, and negotiation boundaries before urgency begins shaping the response.",
+  },
+];
+
+const luxuryBrief: BriefItem[] = [
+  {
+    title: "Define what is difficult to reproduce",
+    copy: "Architecture, lot, privacy, setting, construction, finish, provenance, and lifestyle should be translated into a disciplined property position.",
+  },
+  {
+    title: "Control the presentation",
+    copy: "Preparation, imagery, copy, access, qualification, and exposure should support the property's position without turning discretion into an afterthought.",
+  },
+  {
+    title: "Negotiate the complete outcome",
+    copy: "Price belongs beside certainty, timing, contingencies, appraisal exposure, possession, privacy, and the seller's priorities for the full transaction.",
+  },
+];
+
+const advisoryBrief: BriefItem[] = [
+  {
+    title: "Define the non-negotiables",
+    copy: "Start with recurring destinations, property requirements, complete budget, maintenance tolerance, timing, and the ownership experience the household wants.",
+  },
+  {
+    title: "Test the exact property",
+    copy: "Confirm address-level jurisdiction, utilities, restrictions, condition, lot, access, route, costs, and records instead of relying on a broad place name.",
+  },
+  {
+    title: "Record the tradeoffs",
+    copy: "Compare the strongest alternatives in one brief so the final choice is supported by clear reasons rather than momentum from the latest showing.",
+  },
+];
+
+const sellerPaths: RelatedPath[] = [
+  { title: "Private value review", copy: "Establish the likely position before choosing the price.", href: "/home-valuation", icon: BadgeCheck },
+  { title: "Seller representation", copy: "See the preparation, launch, and negotiation framework.", href: "/sell", icon: Home },
+  { title: "Luxury representation", copy: "Review the approach for distinctive property and controlled exposure.", href: "/luxury-homes", icon: Trees },
+];
+
+const advisoryPaths: RelatedPath[] = [
+  { title: "Community comparison", copy: "Compare settings through property, route, and ownership context.", href: "/communities", icon: MapPin },
+  { title: "Buyer representation", copy: "Build the brief before expanding the property list.", href: "/buy", icon: Search },
+  { title: "Relocation advisory", copy: "Organize a move around the week the household will live.", href: "/relocation", icon: Landmark },
+];
+
 export function SeoLandingPage({ page }: { page: SeoLanding }) {
   const heroPhoto = photoForSeoSlug(page.slug);
   const isSeller = page.intent === "seller" || page.intent === "luxury";
   const isLuxury = page.intent === "luxury";
   const isWoodlandsListingPage = page.slug === "the-woodlands-listing-agent";
-  const primaryAction = isWoodlandsListingPage
-    ? { href: "#private-consultation", label: "Request Seller Consultation" }
+  const brief = isLuxury ? luxuryBrief : isSeller ? sellerBrief : advisoryBrief;
+  const relatedPaths = isSeller ? sellerPaths : advisoryPaths;
+  const briefTitle = isLuxury
+    ? "Position the property before controlling the exposure."
     : isSeller
-    ? { href: "/home-valuation", label: isLuxury ? "Request Private Consultation" : "Request Private Valuation" }
-    : { href: "/contact", label: "Request Private Consultation" };
+      ? "Define the position before the market defines it for you."
+      : "Build the shortlist before scheduling the tour.";
+  const primaryAction = {
+    href: "#private-consultation",
+    label: isWoodlandsListingPage
+      ? "Request Seller Consultation"
+      : isLuxury
+        ? "Request Private Consultation"
+        : isSeller
+          ? "Request Private Valuation"
+          : "Request Local Consultation",
+  };
   const secondaryAction = isWoodlandsListingPage
     ? { href: "/sell", label: "View Seller Strategy" }
-    : isSeller
-    ? { href: "/contact", label: "Discuss the Property" }
-    : { href: "/communities", label: "Explore Area Guides" };
+    : isLuxury
+      ? { href: "/luxury-homes", label: "View Luxury Advisory" }
+      : isSeller
+        ? { href: "/sell", label: "View Seller Strategy" }
+        : { href: "/communities", label: "Explore Area Guides" };
   const form = isWoodlandsListingPage
     ? {
         leadType: "selling" as const,
@@ -384,6 +467,51 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
                 <p className="mt-4 text-lg leading-8 text-neutral-700">{section.copy}</p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0b0b0b] py-20 text-white md:py-28" aria-labelledby={`brief-${page.slug.replaceAll("/", "-")}`}>
+        <div className="mx-auto max-w-[1500px] px-5 md:px-9">
+          <div className="grid gap-10 border-b border-white/15 pb-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#d7b56d]">Private Decision Brief</p>
+              <h2 id={`brief-${page.slug.replaceAll("/", "-")}`} className="mt-5 max-w-4xl font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.035em] text-white md:text-7xl">
+                {briefTitle}
+              </h2>
+            </div>
+            <p className="max-w-2xl text-lg leading-8 text-neutral-300 lg:justify-self-end">
+              The first conversation should produce a useful decision structure, not a larger list of possibilities. These are the three outcomes Josh will work to establish with you.
+            </p>
+          </div>
+
+          <ol className="mt-10 grid gap-px border border-white/15 bg-white/15 lg:grid-cols-3">
+            {brief.map(({ title, copy }, index) => (
+              <li key={title} className="bg-[#0b0b0b] p-7 md:p-9">
+                <div className="flex items-start justify-between gap-5">
+                  <CheckCircle2 className="h-6 w-6 text-[#d7b56d]" aria-hidden="true" />
+                  <span className="font-serif text-3xl text-[#d7b56d]">0{index + 1}</span>
+                </div>
+                <h3 className="mt-10 font-serif text-3xl leading-tight text-white">{title}</h3>
+                <p className="mt-4 leading-7 text-neutral-400">{copy}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-14">
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#d7b56d]">Continue the relevant path</p>
+            <div className="mt-5 grid gap-px border border-white/15 bg-white/15 md:grid-cols-3">
+              {relatedPaths.map(({ title, copy, href, icon: Icon }) => (
+                <Link key={href} href={href} className="group bg-[#0b0b0b] p-6 transition hover:bg-[#171717] md:p-7">
+                  <div className="flex items-start justify-between gap-5">
+                    <Icon className="h-5 w-5 text-[#d7b56d]" aria-hidden="true" />
+                    <ArrowRight className="h-4 w-4 text-white transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-7 font-serif text-2xl text-white">{title}</h3>
+                  <p className="mt-3 leading-7 text-neutral-400">{copy}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

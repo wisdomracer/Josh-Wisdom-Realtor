@@ -194,13 +194,36 @@ test("SEO landing pages use intent-aware consultation funnels", async ({ page })
 
   await page.goto("/the-woodlands-realtor");
   await expect(page.getByRole("heading", { name: "Questions to clarify early." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build the shortlist before scheduling the tour." })).toBeVisible();
   await expect(page.getByLabel("Desired Area / Neighborhood")).toBeVisible();
   await expect(page.getByLabel("Property Address")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Request Local Consultation" })).toBeVisible();
+  await expect(page.locator('a[href="#private-consultation"]')).toBeVisible();
 
   await page.goto("/the-woodlands-luxury-homes");
+  await expect(page.getByRole("heading", { name: "Position the property before controlling the exposure." })).toBeVisible();
   await expect(page.getByLabel("Property Address")).toBeVisible();
   await expect(page.getByRole("button", { name: "Request Private Consultation" })).toBeVisible();
+  await expect(page.locator('a[href="#private-consultation"]')).toBeVisible();
+});
+
+test("shared local landing pages keep the private brief and consultation on the page", async ({ page }) => {
+  for (const [route, briefHeading, buttonName] of [
+    ["/magnolia-realtor", "Build the shortlist before scheduling the tour.", "Request Local Consultation"],
+    ["/communities/carlton-woods", "Position the property before controlling the exposure.", "Request Private Consultation"],
+    ["/communities/east-shore", "Define the position before the market defines it for you.", "Request Private Valuation"],
+  ] as const) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { name: briefHeading })).toBeVisible();
+    await expect(page.locator('main a[href="#private-consultation"]')).toBeVisible();
+    await expect(page.locator("#private-consultation form")).toBeVisible();
+    await expect(page.getByRole("button", { name: buttonName })).toBeVisible();
+    for (const href of route === "/magnolia-realtor"
+      ? ["/communities", "/buy", "/relocation"]
+      : ["/home-valuation", "/sell", "/luxury-homes"]) {
+      await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+    }
+  }
 });
 
 test("local landing pages use place-specific, attributed photography", async ({ page }) => {

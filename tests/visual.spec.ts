@@ -22,6 +22,7 @@ for (const [route, filename] of [
   ["/the-woodlands-listing-agent", "listing-agent-desktop.png"],
   ["/the-woodlands-realtor", "woodlands-realtor-desktop.png"],
   ["/the-woodlands-luxury-homes", "woodlands-luxury-desktop.png"],
+  ["/magnolia-realtor", "magnolia-realtor-desktop.png"],
   ["/spring-realtor", "spring-realtor-desktop.png"],
   ["/conroe-realtor", "conroe-realtor-desktop.png"],
   ["/the-woodlands-events", "events-desktop.png"],
@@ -202,6 +203,23 @@ test("mobile Woodlands listing page keeps private representation and consultatio
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.screenshot({ path: "output/visual/listing-agent-mobile.png", fullPage: true });
+});
+
+test("mobile local advisory page keeps its decision brief and consultation in one flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/magnolia-realtor", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1, name: "More land changes more than the view." })).toBeVisible();
+  await expect(page.locator('img[src="/images/magnolia-historic-depot.jpg"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build the shortlist before scheduling the tour." })).toBeVisible();
+  await expect(page.locator("#private-consultation form")).toBeVisible();
+  const formBox = await page.locator("#private-consultation form").boundingBox();
+  const footerBox = await page.locator("footer").boundingBox();
+  expect(formBox).not.toBeNull();
+  expect(footerBox).not.toBeNull();
+  expect(formBox!.y + formBox!.height).toBeLessThanOrEqual(footerBox!.y);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/magnolia-realtor-mobile.png", fullPage: true });
 });
 
 test("confirmed valuation request presents a composed next step", async ({ page }) => {
