@@ -126,6 +126,29 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await page.goto("/the-woodlands-listing-agent");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private listing representation for The Woodlands homeowners.");
   await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
+
+  for (const [route, heading] of [
+    ["/about", "Clear judgment. Considered execution. Direct guidance."],
+    ["/buy", "Buy with a clear brief, not more noise."],
+    ["/luxury-homes", "Exceptional homes require disciplined representation."],
+  ] as const) {
+    await page.goto(route);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
+  }
+
+  await page.goto("/about");
+  await expect(page.locator("main")).not.toContainText("trusted neighbor");
+  await expect(page.locator("main")).not.toContainText("long-time resident");
+});
+
+test("premium service pages remain composed on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  for (const route of ["/about", "/buy", "/sell", "/luxury-homes"]) {
+    await page.goto(route);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  }
 });
 
 test("phone and email actions use real protocols", async ({ page }) => {

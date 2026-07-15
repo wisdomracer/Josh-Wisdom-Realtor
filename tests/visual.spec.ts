@@ -6,6 +6,18 @@ test("capture verified desktop homepage for visual QA", async ({ page }) => {
   await page.screenshot({ path: "output/visual/home-desktop.png", fullPage: true });
 });
 
+for (const [route, filename] of [
+  ["/about", "about-desktop.png"],
+  ["/buy", "buy-desktop.png"],
+  ["/luxury-homes", "luxury-desktop.png"],
+] as const) {
+  test(`capture verified ${route} page for visual QA`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto(route, { waitUntil: "networkidle" });
+    await page.screenshot({ path: `output/visual/${filename}`, fullPage: true });
+  });
+}
+
 test("mobile valuation flow keeps the complete form before the footer", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/home-valuation", { waitUntil: "networkidle" });

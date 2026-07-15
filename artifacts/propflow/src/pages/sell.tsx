@@ -37,7 +37,21 @@ export default function Sell() {
               <Button asChild variant="outline" className="h-12 rounded-none border-white bg-transparent px-7 text-white hover:bg-white hover:text-black"><Link href="/contact">Schedule Consultation</Link></Button>
             </div>
           </div>
-          <div className="flex min-h-64 items-center justify-center bg-black p-8 text-center text-white"><div><p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-300">Josh Wisdom Realtor</p><p className="mt-3 font-serif text-3xl text-white">The Woodlands & Greater Houston</p><p className="mt-4 text-sm uppercase tracking-[0.22em] text-white/50">Listing Strategy</p></div></div>
+          <aside className="border border-white/15 bg-white/[0.04] p-7 md:p-9" aria-label="Private listing priorities">
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-amber-300">Before The Market</p>
+            <div className="mt-7 space-y-6">
+              {[
+                ["Value", "Understand the property, competing inventory, and likely buyer before choosing the price."],
+                ["Presentation", "Direct effort toward the details that strengthen confidence and reduce objections."],
+                ["Leverage", "Define acceptable terms, timing, and negotiation priorities before offers arrive."],
+              ].map(([title, copy]) => (
+                <div key={title} className="border-t border-white/15 pt-5">
+                  <h2 className="font-serif text-3xl text-white">{title}</h2>
+                  <p className="mt-2 leading-7 text-white/65">{copy}</p>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 

@@ -17,16 +17,16 @@ export default function LuxuryHomes() {
           <div className="absolute bottom-[18%] right-[14%] h-72 w-72 border border-white/20" />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-300">Luxury Homes</p>
-          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">Luxury real estate deserves premium presentation and qualified attention.</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">From Carlton Woods estates to East Shore lifestyle properties, Josh helps high-value sellers position the home with clarity, discretion, and detail.</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-300">Private Luxury Representation</p>
+          <h1 className="mt-5 max-w-4xl font-serif text-5xl font-semibold leading-[0.96] tracking-[-0.03em] text-white md:text-7xl">Exceptional homes require disciplined representation.</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">From Carlton Woods estates to East Shore residences, Josh helps high-value sellers align preparation, narrative, exposure, and negotiation with the property.</p>
         </div>
       </section>
 
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[1fr_0.9fr] md:px-6">
           <div className="space-y-8">
-            {["Architecture, privacy, lot, finishes, and lifestyle access all shape luxury value.", "A premium listing should communicate the property story before a buyer requests a showing.", "The right exposure balances visibility with discretion and buyer qualification."].map((copy) => (
+            {["Luxury value is property-specific: architecture, privacy, lot, construction, condition, and setting all shape the comparison.", "The presentation should communicate why the home is exceptional before a qualified buyer requests a private showing.", "The exposure strategy should balance reach with discretion, buyer qualification, and control of the property narrative."].map((copy) => (
               <p key={copy} className="border-l-2 border-amber-500 pl-6 text-xl leading-9 text-neutral-800">{copy}</p>
             ))}
           </div>
