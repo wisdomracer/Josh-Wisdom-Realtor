@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import { PhotoCredit } from "@/components/location-hero";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { locationPhotos, type LocationPhoto } from "@/config/location-photos";
 
 type CommunityCard = {
@@ -54,7 +54,7 @@ export default function Communities() {
           {communities.map((community) => (
             <article key={community.slug} className="group overflow-hidden border border-black/10 bg-white">
               <figure className="relative h-64 overflow-hidden">
-                <img src={community.photo.src} alt={community.photo.alt} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" style={{ objectPosition: community.photo.objectPosition }} loading="lazy" />
+                <ResponsiveLocationImage photo={community.photo} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" sizes="(min-width: 1024px) 33vw, 100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                 <PhotoCredit photo={community.photo} />
               </figure>

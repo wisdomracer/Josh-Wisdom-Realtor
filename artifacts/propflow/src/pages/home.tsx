@@ -6,6 +6,7 @@ import { ArrowRight, BadgeCheck, CalendarDays, Home, MapPin, ShieldCheck, Sparkl
 
 const heroImage = {
   src: "/images/the-woodlands-waterway.jpg",
+  srcSet: "/images/the-woodlands-waterway-600.webp 600w, /images/the-woodlands-waterway-1200.webp 1200w",
   alt: "The Woodlands Waterway in The Woodlands, Texas",
 };
 
@@ -64,7 +65,10 @@ export default function HomePage() {
 
       <section className="luxury-hero relative overflow-hidden bg-[#050505] text-white">
         <div className="absolute inset-0">
-          <img src={heroImage.src} alt={heroImage.alt} width="1200" height="1600" className="h-full w-full object-cover opacity-42" loading="eager" fetchPriority="high" />
+          <picture className="block h-full w-full">
+            <source type="image/webp" srcSet={heroImage.srcSet} sizes="100vw" />
+            <img src={heroImage.src} alt={heroImage.alt} width="1200" height="1600" className="h-full w-full object-cover opacity-42" loading="eager" fetchPriority="high" />
+          </picture>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_48%,rgba(0,0,0,0.45)_100%)]" />
           <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] to-transparent" />
           <a href="https://commons.wikimedia.org/wiki/File:The_Woodlands_Waterway_(5050352741).jpg" target="_blank" rel="noopener noreferrer license" className="absolute bottom-3 right-4 z-10 text-[9px] text-white/55 underline-offset-2 hover:text-white hover:underline">Photo: Social Woodlands · CC BY 2.0</a>

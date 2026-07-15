@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { ArrowRight, BadgeCheck, CheckCircle2, Home, Landmark, MapPin, Search, Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
-import { PhotoCredit } from "@/components/location-hero";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { absoluteUrl } from "@/config/site";
 import { photoForSeoSlug } from "@/config/location-photos";
 
@@ -312,18 +312,15 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
           </div>
           </div>
           <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[720px]">
-            <img
-              src={heroPhoto.src}
-              alt={heroPhoto.alt}
-              className="absolute inset-0 h-full w-full object-cover"
+            <div
+              className="absolute inset-0"
               style={{
-                objectPosition: heroPhoto.objectPosition,
                 transform: heroPhoto.cropScale ? `scale(${heroPhoto.cropScale})` : undefined,
                 transformOrigin: heroPhoto.cropOrigin,
               }}
-              loading="eager"
-              fetchPriority="high"
-            />
+            >
+              <ResponsiveLocationImage photo={heroPhoto} className="h-full w-full object-cover" sizes="(min-width: 1024px) 51vw, 100vw" loading="eager" fetchPriority="high" />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
             <PhotoCredit photo={heroPhoto} />
           </figure>

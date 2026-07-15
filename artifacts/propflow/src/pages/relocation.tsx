@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { CheckCircle2 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
-import { PhotoCredit } from "@/components/location-hero";
+import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { locationPhotos } from "@/config/location-photos";
 
 const relocationBrief = [
@@ -34,7 +34,7 @@ export default function Relocation() {
             </div>
           </div>
           <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[620px]">
-            <img src={photo.src} alt={photo.alt} className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: photo.objectPosition }} loading="eager" fetchPriority="high" />
+            <ResponsiveLocationImage photo={photo} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 55vw, 100vw" loading="eager" fetchPriority="high" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
             <PhotoCredit photo={photo} />
           </figure>

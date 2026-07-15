@@ -1,5 +1,31 @@
 import type { LocationPhoto } from "@/config/location-photos";
 
+type ResponsiveLocationImageProps = {
+  photo: LocationPhoto;
+  className: string;
+  sizes: string;
+  loading?: "eager" | "lazy";
+  fetchPriority?: "high" | "low" | "auto";
+};
+
+export function ResponsiveLocationImage({ photo, className, sizes, loading = "lazy", fetchPriority = "auto" }: ResponsiveLocationImageProps) {
+  return (
+    <picture className="block h-full w-full">
+      <source type="image/webp" srcSet={photo.srcSet} sizes={sizes} />
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        width={photo.width}
+        height={photo.height}
+        className={className}
+        style={{ objectPosition: photo.objectPosition }}
+        loading={loading}
+        fetchPriority={fetchPriority}
+      />
+    </picture>
+  );
+}
+
 export function PhotoCredit({ photo }: { photo: LocationPhoto }) {
   return (
     <p className="absolute bottom-3 right-3 z-10 bg-black/70 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/80 backdrop-blur-sm">
@@ -30,14 +56,7 @@ export function CommunityHero({ eyebrow, title, description, photo }: CommunityH
           </div>
         </div>
         <figure className="relative min-h-[360px] overflow-hidden lg:min-h-[590px]">
-          <img
-            src={photo.src}
-            alt={photo.alt}
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: photo.objectPosition }}
-            loading="eager"
-            fetchPriority="high"
-          />
+          <ResponsiveLocationImage photo={photo} className="absolute inset-0 h-full w-full object-cover" sizes="(min-width: 1024px) 56vw, 100vw" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
           <PhotoCredit photo={photo} />
         </figure>

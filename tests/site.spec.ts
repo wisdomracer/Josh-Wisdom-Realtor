@@ -213,6 +213,24 @@ test("phone and email actions use real protocols", async ({ page }) => {
   await expect(page.locator(`a[href="${emailHref}"]`).first()).toBeVisible();
 });
 
+test("mobile pages select responsive WebP photography with intrinsic dimensions", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  for (const [route, expectedWidth] of [
+    ["/", 1200],
+    ["/relocation", 1920],
+    ["/communities/the-woodlands", 1920],
+    ["/magnolia-realtor", 1920],
+  ] as const) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    const image = page.locator("main picture img").first();
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute("width", String(expectedWidth));
+    await expect(image).toHaveAttribute("height", /\d+/);
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).currentSrc)).toMatch(/-\d+\.webp$/);
+  }
+});
+
 test("retired placeholder routes are not rendered as tools", async ({ page }) => {
   for (const route of retiredPlaceholderRoutes) {
     await page.goto(route);
