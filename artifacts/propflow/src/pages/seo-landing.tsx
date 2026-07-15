@@ -25,13 +25,13 @@ export const seoLandingPages: SeoLanding[] = [
   {
     slug: "the-woodlands-listing-agent",
     intent: "seller",
-    eyebrow: "Private Seller Advisory",
+    eyebrow: "Private Listing Representation",
     title: "Private seller representation in The Woodlands.",
     metaTitle: "The Woodlands Listing Agent | Josh Wisdom Realtor",
-    description: "Work with Josh Wisdom Realtor for help selling, pricing guidance, premium marketing, and seller representation in The Woodlands, Texas.",
-    hero: "A successful sale should feel intentional before the sign goes up. Josh helps Woodlands homeowners prepare the property, position the price, and enter the market with clarity, discretion, and a disciplined launch plan.",
+    description: "The Woodlands listing agent for private seller representation, property-specific pricing, preparation, presentation, launch strategy, and negotiation.",
+    hero: "A successful sale should feel intentional before the sign goes up. Josh helps Woodlands homeowners establish the position, prepare selectively, and enter the market with clarity, discretion, and a disciplined launch plan.",
     area: "The Woodlands, TX",
-    bullets: ["Village-level pricing review", "Launch plan for photography, copy, and marketing", "Negotiation strategy before offers arrive"],
+    bullets: ["Village-level value and competition review", "Controlled preparation and launch plan", "Offer strategy defined before negotiation"],
     sections: [
       { title: "Pricing built around local context", copy: "The Woodlands is not one flat market. Carlton Woods, East Shore, Creekside Park, Sterling Ridge, Alden Bridge, and Panther Creek each attract different buyer priorities and different pricing pressure." },
       { title: "Premium presentation", copy: "The first showing usually happens online. Josh's listing plan focuses on photography readiness, listing description, neighborhood context, and a launch sequence built to create confidence." },
@@ -247,13 +247,27 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
   const heroPhoto = photoForSeoSlug(page.slug);
   const isSeller = page.intent === "seller" || page.intent === "luxury";
   const isLuxury = page.intent === "luxury";
-  const primaryAction = isSeller
+  const isWoodlandsListingPage = page.slug === "the-woodlands-listing-agent";
+  const primaryAction = isWoodlandsListingPage
+    ? { href: "#private-consultation", label: "Request Seller Consultation" }
+    : isSeller
     ? { href: "/home-valuation", label: isLuxury ? "Request Private Consultation" : "Request Private Valuation" }
     : { href: "/contact", label: "Request Private Consultation" };
-  const secondaryAction = isSeller
+  const secondaryAction = isWoodlandsListingPage
+    ? { href: "/sell", label: "View Seller Strategy" }
+    : isSeller
     ? { href: "/contact", label: "Discuss the Property" }
     : { href: "/communities", label: "Explore Area Guides" };
-  const form = isSeller
+  const form = isWoodlandsListingPage
+    ? {
+        leadType: "selling" as const,
+        title: "Request a private seller consultation",
+        subtitle: "Share the property, timing, and decision you are considering in The Woodlands. Josh will review the request personally.",
+        buttonText: "Request Seller Consultation",
+        showAddress: true,
+        showArea: false,
+      }
+    : isSeller
     ? {
         leadType: isLuxury ? "luxury" as const : "valuation" as const,
         title: isLuxury ? "Request a private property consultation" : "Request a private value review",
@@ -272,12 +286,31 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
       };
   const schema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: page.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": absoluteUrl(`/${page.slug}#service`),
+        name: page.title,
+        description: page.description,
+        serviceType: isSeller ? "Residential real estate seller representation" : "Residential real estate advisory",
+        areaServed: { "@type": "AdministrativeArea", name: page.area },
+        provider: {
+          "@type": "RealEstateAgent",
+          "@id": "https://joshwisdomrealtor.com/#agent",
+          name: "Josh Wisdom Realtor",
+          url: "https://joshwisdomrealtor.com/",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": absoluteUrl(`/${page.slug}#questions`),
+        mainEntity: page.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+    ],
   };
 
   return (
@@ -303,7 +336,11 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/76 md:text-xl">{page.hero}</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="h-14 rounded-none bg-[#c69a44] px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-black hover:bg-[#e1c06f]">
-                <Link href={primaryAction.href}>{primaryAction.label}</Link>
+                {primaryAction.href.startsWith("#") ? (
+                  <a href={primaryAction.href}>{primaryAction.label}</a>
+                ) : (
+                  <Link href={primaryAction.href}>{primaryAction.label}</Link>
+                )}
               </Button>
               <Button asChild variant="outline" className="h-14 rounded-none border-white bg-transparent px-8 text-[11px] font-bold uppercase tracking-[0.24em] text-white hover:bg-white hover:text-black">
                 <Link href={secondaryAction.href}>{secondaryAction.label}</Link>
@@ -351,7 +388,7 @@ export function SeoLandingPage({ page }: { page: SeoLanding }) {
         </div>
       </section>
 
-      <section className="bg-white py-16 text-black md:py-24">
+      <section id="private-consultation" className="scroll-mt-24 bg-white py-16 text-black md:py-24">
         <div className="mx-auto grid max-w-[1500px] gap-10 px-5 md:px-9 lg:grid-cols-2">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#6f4b0d]">Questions</p>

@@ -70,6 +70,17 @@ test("mobile seller journey keeps its plan and consultation in one composed flow
   await page.screenshot({ path: "output/visual/sell-mobile.png", fullPage: true });
 });
 
+test("mobile Woodlands listing page keeps private representation and consultation in one flow", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/the-woodlands-listing-agent", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private seller representation in The Woodlands.");
+  await expect(page.getByRole("button", { name: "Request Seller Consultation" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "View Seller Strategy" })).toHaveAttribute("href", "/sell");
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await page.screenshot({ path: "output/visual/listing-agent-mobile.png", fullPage: true });
+});
+
 test("confirmed valuation request presents a composed next step", async ({ page }) => {
   await page.route("**/api/leads", (route) => route.fulfill({
     status: 201,

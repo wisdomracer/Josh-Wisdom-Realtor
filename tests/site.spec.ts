@@ -148,6 +148,13 @@ test("luxury-facing brand language preserves listing-agent SEO", async ({ page }
   await page.goto("/the-woodlands-listing-agent");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private seller representation in The Woodlands.");
   await expect(page).toHaveTitle("The Woodlands Listing Agent | Josh Wisdom Realtor");
+  await expect(page.locator("main")).not.toContainText("The Woodlands Listing Agent");
+  await expect(page.getByRole("link", { name: "View Seller Strategy" })).toHaveAttribute("href", "/sell");
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  );
+  expect(structuredData["@graph"].map((entry: { "@type": string }) => entry["@type"]))
+    .toEqual(["Service", "FAQPage"]);
 
   for (const [route, heading] of [
     ["/about", "Clear judgment. Considered execution. Direct guidance."],
@@ -182,7 +189,8 @@ test("SEO landing pages use intent-aware consultation funnels", async ({ page })
   await expect(page.getByRole("heading", { name: "Questions sellers ask." })).toBeVisible();
   await expect(page.getByLabel("Property Address")).toBeVisible();
   await expect(page.getByLabel("Desired Area / Neighborhood")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Request Private Valuation" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Request Seller Consultation" })).toBeVisible();
+  await expect(page.locator('a[href="#private-consultation"]')).toBeVisible();
 
   await page.goto("/the-woodlands-realtor");
   await expect(page.getByRole("heading", { name: "Questions to clarify early." })).toBeVisible();
