@@ -37,7 +37,13 @@ for (const route of publicRoutes) {
     await expect(page.locator('meta[property="og:title"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:description"]')).toHaveCount(1);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", absoluteUrl(route));
-    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary");
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", absoluteUrl("/og-image.png"));
+    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute("content", "1200");
+    await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute("content", "630");
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", /Josh Wisdom Realtor/);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute("content", "summary_large_image");
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", absoluteUrl("/og-image.png"));
+    await expect(page.locator("[data-static-social]")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /page not found/i })).toHaveCount(0);
 
     const emptySections = await page.locator("main section").evaluateAll((sections) =>
@@ -58,11 +64,27 @@ for (const route of publicRoutes) {
   });
 }
 
+test("raw entrypoint provides a complete social preview to non-JavaScript crawlers", async ({ request }) => {
+  const response = await request.get("/");
+  expect(response.status()).toBe(200);
+  const html = await response.text();
+  expect(html).toContain('<meta data-static-social property="og:image" content="https://joshwisdomrealtor.com/og-image.png"');
+  expect(html).toContain('<meta data-static-social name="twitter:card" content="summary_large_image"');
+  expect(html).toContain("Private Real Estate Advisory");
+
+  const image = await request.get("/og-image.png");
+  expect(image.status()).toBe(200);
+  expect(image.headers()["content-type"]).toContain("image/png");
+  expect((await image.body()).byteLength).toBeGreaterThan(100_000);
+});
+
 test("every rendered internal link points to a declared public route or a real section", async ({ page }) => {
+  await provideEventsFixture(page);
   const discovered = new Map<string, Set<string>>();
 
   for (const route of publicRoutes) {
     await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator("main")).toBeVisible();
     const hrefs = await page.locator("a[href]").evaluateAll((anchors) =>
       anchors.map((anchor) => anchor.getAttribute("href") ?? ""),
     );

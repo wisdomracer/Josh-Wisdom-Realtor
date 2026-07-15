@@ -26,9 +26,15 @@ export function SocialMetadata() {
       <meta property="og:title" content={metadata.title} />
       <meta property="og:description" content={metadata.description} />
       <meta property="og:url" content={absoluteUrl(location.split(/[?#]/)[0] || "/")} />
-      <meta name="twitter:card" content="summary" />
+      <meta property="og:image" content={absoluteUrl(siteConfig.socialImage)} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={siteConfig.socialImageAlt} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={metadata.title} />
       <meta name="twitter:description" content={metadata.description} />
+      <meta name="twitter:image" content={absoluteUrl(siteConfig.socialImage)} />
+      <meta name="twitter:image:alt" content={siteConfig.socialImageAlt} />
     </Helmet>
   );
 }

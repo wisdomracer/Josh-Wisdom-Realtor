@@ -5,6 +5,8 @@ export const siteConfig = {
   phone: "832-981-8920",
   phoneE164: "+18329818920",
   email: "WisdomRacer@gmail.com",
+  socialImage: "/og-image.png",
+  socialImageAlt: "Josh Wisdom Realtor — private real estate advisory for The Woodlands and North Houston",
   brokerage: {
     name: "VIP Realty",
     streetAddress: "5100 Westheimer Ste 200",
