@@ -16,17 +16,12 @@ import {
 import { LeadForm } from "@/components/forms/lead-form";
 import { Button } from "@/components/ui/button";
 import { absoluteUrl, siteConfig } from "@/config/site";
+import { ResponsiveLocationImage } from "@/components/location-hero";
 
 const valuationPhoto = {
-  src: "/images/valuation-property-interior.jpg",
-  srcSet:
-    "/images/valuation-property-interior-960.webp 960w, /images/valuation-property-interior-1600.webp 1600w",
-  width: 1920,
-  height: 1280,
-  alt: "Contemporary open-plan kitchen, dining, and living interior",
-  credit: "Christopher Moon",
-  sourceUrl:
-    "https://www.pexels.com/photo/luxury-modern-kitchen-and-living-room-interior-design-32025967/",
+  src: "", srcSet: "", width: 1, height: 1,
+  alt: "Photography intentionally withheld pending verified Woodlands-area imagery",
+  credit: "", sourceUrl: "",
 };
 
 type ValueFactor = {
@@ -180,18 +175,7 @@ export default function HomeValuation() {
 
       <section className="relative min-h-[700px] overflow-hidden bg-[#050505] text-white">
         <div className="absolute inset-0 lg:left-[46%]">
-          <picture className="block h-full w-full">
-            <source type="image/webp" srcSet={valuationPhoto.srcSet} sizes="(min-width: 1024px) 54vw, 100vw" />
-            <img
-              src={valuationPhoto.src}
-              alt={valuationPhoto.alt}
-              width={valuationPhoto.width}
-              height={valuationPhoto.height}
-              className="h-full w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </picture>
+          <ResponsiveLocationImage photo={{ ...valuationPhoto, license: "", licenseUrl: "" }} className="h-full w-full" sizes="(min-width: 1024px) 54vw, 100vw" loading="eager" fetchPriority="high" />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,3,3,0.99)_0%,rgba(3,3,3,0.94)_48%,rgba(3,3,3,0.58)_75%,rgba(3,3,3,0.2)_100%)] lg:bg-[linear-gradient(90deg,#050505_0%,#050505_41%,rgba(5,5,5,0.88)_54%,rgba(5,5,5,0.12)_84%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] to-transparent" />
@@ -215,14 +199,7 @@ export default function HomeValuation() {
             </div>
           </div>
         </div>
-        <a
-          href={valuationPhoto.sourceUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="absolute bottom-5 right-5 z-10 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/65 underline decoration-white/30 underline-offset-4 hover:text-white"
-        >
-          Editorial interior · {valuationPhoto.credit} / Pexels
-        </a>
+        <p className="absolute bottom-5 right-5 z-10 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/65">Verified local photography pending</p>
       </section>
 
       <section className="bg-[#f5f2ec] py-20 md:py-28" aria-labelledby="value-factors-title">

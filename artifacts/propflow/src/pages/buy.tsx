@@ -16,17 +16,12 @@ import {
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Button } from "@/components/ui/button";
+import { ResponsiveLocationImage } from "@/components/location-hero";
 
 const buyerPhoto = {
-  src: "/images/buyer-brief-interior.jpg",
-  srcSet:
-    "/images/buyer-brief-interior-960.webp 960w, /images/buyer-brief-interior-1600.webp 1600w",
-  width: 1600,
-  height: 1068,
-  alt: "Spacious contemporary interior with a curved staircase",
-  credit: "Max Vakhtbovych",
-  sourceUrl:
-    "https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/",
+  src: "", srcSet: "", width: 1, height: 1,
+  alt: "Photography intentionally withheld pending verified Woodlands-area imagery",
+  credit: "", sourceUrl: "",
 };
 
 type BuyerStep = {
@@ -158,22 +153,7 @@ export default function Buy() {
 
       <section className="relative min-h-[690px] overflow-hidden bg-[#050505] text-white">
         <div className="absolute inset-0 lg:left-[45%]">
-          <picture className="block h-full w-full">
-            <source
-              type="image/webp"
-              srcSet={buyerPhoto.srcSet}
-              sizes="(min-width: 1024px) 55vw, 100vw"
-            />
-            <img
-              src={buyerPhoto.src}
-              alt={buyerPhoto.alt}
-              width={buyerPhoto.width}
-              height={buyerPhoto.height}
-              className="h-full w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </picture>
+          <ResponsiveLocationImage photo={{ ...buyerPhoto, license: "", licenseUrl: "" }} className="h-full w-full" sizes="(min-width: 1024px) 55vw, 100vw" loading="eager" fetchPriority="high" />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,3,3,0.98)_0%,rgba(3,3,3,0.94)_45%,rgba(3,3,3,0.65)_72%,rgba(3,3,3,0.26)_100%)] lg:bg-[linear-gradient(90deg,#050505_0%,#050505_40%,rgba(5,5,5,0.86)_53%,rgba(5,5,5,0.15)_82%)]" />
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] to-transparent" />
@@ -211,14 +191,7 @@ export default function Buy() {
           </div>
         </div>
 
-        <a
-          href={buyerPhoto.sourceUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute bottom-4 right-5 z-10 text-[9px] text-white/65 underline-offset-2 hover:text-white hover:underline md:right-9"
-        >
-          Editorial interior: {buyerPhoto.credit} / Pexels
-        </a>
+        <p className="absolute bottom-4 right-5 z-10 text-[9px] uppercase tracking-[0.16em] text-white/65 md:right-9">Verified local photography pending</p>
       </section>
 
       <section className="bg-[#050505] text-white">
