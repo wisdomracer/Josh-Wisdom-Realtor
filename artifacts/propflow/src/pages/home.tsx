@@ -171,7 +171,7 @@ export default function HomePage() {
                 Luxury marketing is not visual excess. It is a deliberate sequence of architecture, finish, and private living that helps the right buyer understand the property.
               </p>
               <p className="mt-5 border-l border-[#9b6d1d] pl-4 text-sm leading-6 text-neutral-600">
-                Editorial photography shown for visual context. These are not listings represented or sold by Josh Wisdom.
+                Verified Woodlands-area photography shown for local context. These are not listings represented or sold by Josh Wisdom.
               </p>
             </div>
           </div>

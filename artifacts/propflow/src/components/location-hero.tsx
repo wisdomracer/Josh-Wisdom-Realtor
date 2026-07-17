@@ -9,24 +9,20 @@ type ResponsiveLocationImageProps = {
 };
 
 export function ResponsiveLocationImage({ photo, className, sizes, loading = "lazy", fetchPriority = "auto" }: ResponsiveLocationImageProps) {
-  void photo;
-  void sizes;
-  void loading;
-  void fetchPriority;
   return (
-    <div className={`relative overflow-hidden bg-[#111] ${className}`} role="img" aria-label="Photography intentionally withheld pending verified Woodlands-area imagery">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_48%,rgba(215,181,109,0.35)_49%,rgba(215,181,109,0.35)_50%,transparent_51%,transparent_100%)]" />
-      <div className="absolute -right-[15%] top-[10%] aspect-square w-[70%] rounded-full border border-white/10" />
-    </div>
+    <picture className="block h-full w-full">
+      <source type="image/webp" srcSet={photo.srcSet} sizes={sizes} />
+      <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} className={className} style={{ objectPosition: photo.objectPosition }} loading={loading} fetchPriority={fetchPriority} />
+    </picture>
   );
 }
 
 export function PhotoCredit({ photo, label = "Photo", position = "bottom-right", className = "" }: { photo: LocationPhoto; label?: string; position?: "bottom-right" | "top-right"; className?: string }) {
-  void photo;
-  void label;
   return (
     <p className={`absolute right-3 z-10 max-w-[calc(100%-1.5rem)] bg-black/70 px-3 py-1.5 text-right text-[9px] font-semibold uppercase leading-4 tracking-[0.16em] text-white/80 backdrop-blur-sm ${position === "top-right" ? "top-3" : "bottom-3"} ${className}`}>
-      Verified local photography pending
+      {label}: <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">{photo.credit}</a>
+      <span aria-hidden="true"> · </span>
+      <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">{photo.license}</a>
     </p>
   );
 }

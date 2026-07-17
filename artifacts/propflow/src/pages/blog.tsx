@@ -44,44 +44,9 @@ type BlogPostData = {
   paths: ArticlePath[];
 };
 
-const valuationPhoto: LocationPhoto = {
-  src: "/images/valuation-property-interior.jpg",
-  srcSet: "/images/valuation-property-interior-960.webp 960w, /images/valuation-property-interior-1600.webp 1600w",
-  width: 1920,
-  height: 1280,
-  alt: "Contemporary open-plan kitchen, dining, and living interior",
-  credit: "Christopher Moon",
-  sourceUrl: "https://www.pexels.com/photo/luxury-modern-kitchen-and-living-room-interior-design-32025967/",
-  license: "Pexels License",
-  licenseUrl: "https://www.pexels.com/license/",
-  objectPosition: "center",
-};
-
-const architecturePhoto: LocationPhoto = {
-  src: "/images/luxury-architecture-dusk.jpg",
-  srcSet: "/images/luxury-architecture-dusk-960.webp 960w, /images/luxury-architecture-dusk-1600.webp 1600w",
-  width: 1600,
-  height: 1067,
-  alt: "Contemporary residence illuminated at dusk",
-  credit: "Gustavo Galeano Maz",
-  sourceUrl: "https://www.pexels.com/photo/exterior-of-a-modern-villa-13752348/",
-  license: "Pexels License",
-  licenseUrl: "https://www.pexels.com/license/",
-  objectPosition: "center",
-};
-
-const presentationPhoto: LocationPhoto = {
-  src: "/images/seller-presentation-interior.jpg",
-  srcSet: "/images/seller-presentation-interior-960.webp 960w, /images/seller-presentation-interior-1600.webp 1600w",
-  width: 1600,
-  height: 1067,
-  alt: "Prepared contemporary living and dining space",
-  credit: "Thiha Soe",
-  sourceUrl: "https://www.pexels.com/photo/elegant-living-room-interior-5883721/",
-  license: "Pexels License",
-  licenseUrl: "https://www.pexels.com/license/",
-  objectPosition: "center",
-};
+const valuationPhoto: LocationPhoto = locationPhotos.woodlands;
+const architecturePhoto: LocationPhoto = locationPhotos.pavilion;
+const presentationPhoto: LocationPhoto = locationPhotos.homepage;
 
 export const blogPosts: BlogPostData[] = [
   {

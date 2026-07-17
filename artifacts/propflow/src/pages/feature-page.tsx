@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 import { PhotoCredit, ResponsiveLocationImage } from "@/components/location-hero";
 import { absoluteUrl, siteConfig } from "@/config/site";
-import type { LocationPhoto } from "@/config/location-photos";
+import { locationPhotos, type LocationPhoto } from "@/config/location-photos";
 
 type Feature = {
   slug: string;
@@ -41,18 +41,7 @@ export const featurePages: Feature[] = [
   },
 ];
 
-const buyerPhoto: LocationPhoto = {
-  src: "/images/buyer-brief-interior.jpg",
-  srcSet: "/images/buyer-brief-interior-960.webp 960w, /images/buyer-brief-interior-1600.webp 1600w",
-  width: 1600,
-  height: 1068,
-  alt: "Spacious contemporary interior with a curved staircase",
-  credit: "Max Vakhtbovych",
-  sourceUrl: "https://www.pexels.com/photo/interior-of-modern-house-with-staircase-5997959/",
-  license: "Pexels License",
-  licenseUrl: "https://www.pexels.com/license/",
-  objectPosition: "center",
-};
+const buyerPhoto: LocationPhoto = locationPhotos.woodlands;
 
 type EstimateInputs = {
   price: number;

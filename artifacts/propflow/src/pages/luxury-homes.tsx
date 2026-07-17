@@ -4,12 +4,9 @@ import { ArrowRight, CheckCircle2, Eye, Gem, ShieldCheck } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Button } from "@/components/ui/button";
 import { ResponsiveLocationImage } from "@/components/location-hero";
+import { locationPhotos } from "@/config/location-photos";
 
-const architecturePhoto = {
-  src: "", srcSet: "", width: 1, height: 1,
-  alt: "Photography intentionally withheld pending verified Woodlands-area imagery",
-  credit: "", sourceUrl: "",
-};
+const architecturePhoto = locationPhotos.woodlands;
 
 const strategy = [
   {
@@ -108,7 +105,7 @@ export default function LuxuryHomes() {
 
       <section className="relative min-h-[700px] overflow-hidden bg-[#050505] text-white">
         <div className="absolute inset-0 lg:left-[42%]">
-          <ResponsiveLocationImage photo={{ ...architecturePhoto, license: "", licenseUrl: "" }} className="h-full w-full" sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" />
+          <ResponsiveLocationImage photo={architecturePhoto} className="h-full w-full object-cover" sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,3,3,0.98)_0%,rgba(3,3,3,0.94)_38%,rgba(3,3,3,0.68)_65%,rgba(3,3,3,0.28)_100%)] lg:bg-[linear-gradient(90deg,#050505_0%,#050505_36%,rgba(5,5,5,0.88)_48%,rgba(5,5,5,0.2)_78%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] to-transparent" />
@@ -146,7 +143,7 @@ export default function LuxuryHomes() {
           </div>
         </div>
 
-        <p className="absolute bottom-4 right-5 z-10 text-[9px] uppercase tracking-[0.16em] text-white/65 md:right-9">Verified local photography pending</p>
+        <p className="absolute bottom-4 right-5 z-10 text-[9px] uppercase tracking-[0.16em] text-white/65 md:right-9">The Woodlands Waterway context · CC BY-SA 4.0</p>
       </section>
 
       <section className="bg-[#050505] text-white">
